@@ -30,6 +30,7 @@ export default function Header({ waitlistUrl }: HeaderProps) {
           <div className="hidden md:flex items-center space-x-8">
             <a href="#benefits" className="text-gray-600 hover:text-primary font-medium">Benefits</a>
             <a href="#how-it-works" className="text-gray-600 hover:text-primary font-medium">How It Works</a>
+            <a href="#security" className="text-gray-600 hover:text-primary font-medium">Security</a>
             <a href="#testimonials" className="text-gray-600 hover:text-primary font-medium">Testimonials</a>
             <Button 
               className="bg-primary hover:bg-primary/90"
@@ -76,6 +77,13 @@ export default function Header({ waitlistUrl }: HeaderProps) {
               onClick={() => setMobileMenuOpen(false)}
             >
               How It Works
+            </a>
+            <a 
+              href="#security" 
+              className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Security
             </a>
             <a 
               href="#testimonials" 
