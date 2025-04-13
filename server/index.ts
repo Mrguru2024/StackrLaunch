@@ -56,14 +56,28 @@ const apiLimiter = rateLimit({
 // Apply rate limiting to API routes
 app.use("/api/", apiLimiter);
 
-// Add X-Frame-Options and X-Content-Type-Options headers
+// Add security and SEO headers
 app.use((req, res, next) => {
+  // Security Headers
   res.setHeader("X-Frame-Options", "SAMEORIGIN");
   res.setHeader("X-Content-Type-Options", "nosniff");
   res.setHeader("X-XSS-Protection", "1; mode=block");
   res.setHeader("Strict-Transport-Security", "max-age=31536000; includeSubDomains; preload");
   res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
   res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
+  
+  // SEO-specific headers for indexing
+  res.setHeader("X-Robots-Tag", "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1");
+  
+  // Cache control for static assets optimization
+  if (req.url.match(/\.(css|js|jpg|jpeg|png|gif|ico|svg|woff|woff2|ttf|eot)$/)) {
+    res.setHeader("Cache-Control", "public, max-age=31536000"); // 1 year
+  } else if (req.url.match(/\.(html|xml|json)$/)) {
+    res.setHeader("Cache-Control", "public, max-age=3600"); // 1 hour
+  } else {
+    res.setHeader("Cache-Control", "public, max-age=86400"); // 1 day
+  }
+  
   next();
 });
 
