@@ -1,9 +1,9 @@
 /**
- * Empty stub implementation for @vite/client
+ * Empty stub implementation for @fs/@vite/client
  * This completely prevents any HMR functionality and WebSocket connections
  */
 
-console.log('[vite/client stub] Loaded empty implementation - no WebSockets will be created');
+console.log('[vite/client stub @fs path] Loaded empty implementation - no WebSockets will be created');
 
 // Export empty implementations of all the functions and objects that might be imported
 export const webSocketClient = {
@@ -51,4 +51,4 @@ export function setupWebSocket() {
 }
 
 // Log that the stub was loaded successfully
-console.log('[vite/client stub] Successfully prevented WebSocket connections');
+console.log('[vite/client stub @fs path] Successfully prevented WebSocket connections');

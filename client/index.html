@@ -1,54 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Inline pre-script to immediately prevent WebSocket errors -->
-    <script>
-      // Critical fix: Block WebSocket errors before any scripts load
-      window.addEventListener('error', function(event) {
-        if (event && event.message && (event.message.includes('WebSocket') || event.message.includes('localhost:undefined'))) {
-          console.log('Blocked WebSocket error:', event.message);
-          event.preventDefault();
-          event.stopPropagation();
-          return false;
-        }
-      }, true);
-      
-      window.addEventListener('unhandledrejection', function(event) {
-        if (event && event.reason && event.reason.message && 
-            (event.reason.message.includes('WebSocket') || event.reason.message.includes('localhost:undefined'))) {
-          console.log('Blocked unhandled rejection from WebSocket:', event.reason.message);
-          event.preventDefault();
-          event.stopPropagation();
-          return false;
-        }
-      }, true);
-      
-      // Disable all HMR-related flags
-      window.__vite_ws_disabled__ = true;
-      window.__vite_hmr_disabled__ = true;
-      window.__VITE_HMR_DISABLED__ = true;
-      window.__VITE_HMR_TIMEOUT_FIRED__ = true;
-    </script>
-    
-    <!-- Load comprehensive WebSocket fixes -->
-    <script src="/vite-port-fix.js"></script>
-    <script src="/vite-hmr-fix.js"></script>
-    <script src="/vite-import-interceptor.js"></script>
-    
-    <!-- Register service worker for additional WebSocket protection -->
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
-          navigator.serviceWorker.register('/vite-ws-fix-sw.js', { scope: '/' })
-            .then(function(registration) {
-              console.log('WebSocket Fix Service Worker registered with scope:', registration.scope);
-            })
-            .catch(function(error) {
-              console.log('WebSocket Fix Service Worker registration failed:', error);
-            });
-        });
-      }
-    </script>
+    <!-- Aggressive Vite HMR disabler - completely prevents WebSocket errors -->
+    <script src="/disable-vite-hmr.js"></script>
     
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-VHVMZHY9MS"></script>
