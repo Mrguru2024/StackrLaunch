@@ -131,8 +131,8 @@ export default function PrivacyPolicy() {
             <p className="ml-4">
               <strong>Email:</strong> privacy@stackr.tech<br />
               <strong>Postal Address:</strong> Stackr Financial, Inc.<br />
-              123 Finance Street, Suite 500<br />
-              New York, NY 10001
+              1441 Woodmont Ln NW #3442<br />
+              Atlanta, GA 30318
             </p>
           </div>
         </motion.div>
