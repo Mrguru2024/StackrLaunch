@@ -75,8 +75,8 @@ export default function Contact() {
                       <div>
                         <h3 className="font-medium text-gray-900">Our Location</h3>
                         <p className="text-gray-600 mt-1">
-                          123 Finance Street, Suite 500<br />
-                          New York, NY 10001
+                          1441 Woodmont Ln NW #3442<br />
+                          Atlanta, GA 30318
                         </p>
                       </div>
                     </div>
