@@ -36,7 +36,7 @@ export default function Footer({ waitlistUrl }: FooterProps) {
                 <SiThreads className="h-5 w-5" />
               </a>
               <a 
-                href="https://www.facebook.com/profile.php?viewas=100000686899395&id=61575053828418" 
+                href="https://www.facebook.com/profile.php?id=61575053828418" 
                 className="text-gray-400 hover:text-white transition-colors"
                 target="_blank"
                 rel="noopener noreferrer"
