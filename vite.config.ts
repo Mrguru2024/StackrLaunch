@@ -18,6 +18,15 @@ export default defineConfig({
         ]
       : []),
   ],
+  server: {
+    port: 5000,
+    strictPort: true,
+    hmr: {
+      port: 5000,
+      clientPort: 5000,
+      host: '0.0.0.0',
+    },
+  },
   resolve: {
     alias: {
       "@": path.resolve(import.meta.dirname, "client", "src"),
