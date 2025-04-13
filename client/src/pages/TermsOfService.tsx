@@ -108,7 +108,7 @@ export default function TermsOfService() {
             
             <h2>Governing Law</h2>
             <p>
-              These Terms shall be governed by and construed in accordance with the laws of the State of New York, without giving effect to any principles of conflicts of law.
+              These Terms shall be governed by and construed in accordance with the laws of the State of Georgia, without giving effect to any principles of conflicts of law.
             </p>
             
             <h2>Contact Us</h2>

@@ -124,6 +124,11 @@ export default function PrivacyPolicy() {
               We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date.
             </p>
             
+            <h2>Governing Law</h2>
+            <p>
+              This Privacy Policy and your use of our services shall be governed by and construed in accordance with the laws of the State of Georgia, without giving effect to any principles of conflicts of law.
+            </p>
+            
             <h2>Contact Us</h2>
             <p>
               If you have any questions about this Privacy Policy, please contact us at:
