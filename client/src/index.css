@@ -11,3 +11,52 @@
     @apply font-sans antialiased bg-background text-foreground;
   }
 }
+
+/* Custom animation keyframes for toast notifications */
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-2deg); }
+  25% { transform: rotate(3deg); }
+  50% { transform: rotate(-3deg); }
+  75% { transform: rotate(2deg); }
+}
+
+@keyframes tada {
+  0% { transform: scale(1); }
+  10%, 20% { transform: scale(0.9) rotate(-3deg); }
+  30%, 50%, 70%, 90% { transform: scale(1.1) rotate(3deg); }
+  40%, 60%, 80% { transform: scale(1.1) rotate(-3deg); }
+  100% { transform: scale(1) rotate(0); }
+}
+
+@keyframes pop {
+  0% { transform: scale(0.8); opacity: 0; }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes slide {
+  0% { transform: translateY(-10px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+/* Add these classes to match the variant names in toast.tsx */
+.animate-wiggle {
+  animation: wiggle 0.6s ease-in-out;
+}
+
+.animate-tada {
+  animation: tada 0.8s ease-in-out;
+}
+
+.animate-pop {
+  animation: pop 0.3s ease-out;
+}
+
+.animate-slide {
+  animation: slide 0.4s ease-out;
+}
+
+/* Default animations from Tailwind are already available:
+   - animate-bounce
+   - animate-pulse
+*/

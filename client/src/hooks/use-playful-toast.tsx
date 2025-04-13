@@ -1,5 +1,6 @@
 import { toast as baseToast } from "@/hooks/use-toast";
 import React from "react";
+import type { ToastActionElement } from "@/components/ui/toast";
 
 // Animation types available for the toast
 type AnimationType = "default" | "bounce" | "pulse" | "wiggle" | "tada" | "pop" | "slide";
@@ -22,6 +23,7 @@ type PlayfulToastOptions = {
   variant?: ToastVariantType;
   animation?: AnimationType;
   duration?: number;
+  action?: ToastActionElement;
 };
 
 /**
