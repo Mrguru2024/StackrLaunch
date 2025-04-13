@@ -307,7 +307,7 @@ export default function FinancialCalculator() {
                 </CardContent>
                 <CardFooter className="bg-gray-50">
                   <Button 
-                    className="w-full" 
+                    className="w-full shadow-md hover:shadow-lg transform hover:-translate-y-1 hover:scale-105 transition-all duration-200" 
                     data-tally-open="3NO0eG"
                     data-tally-width="500" 
                     data-tally-emoji-text="👋" 

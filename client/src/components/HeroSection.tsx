@@ -33,7 +33,7 @@ export default function HeroSection({ waitlistUrl }: HeroSectionProps) {
             <div className="flex flex-col sm:flex-row sm:items-center space-y-4 sm:space-y-0 sm:space-x-4">
               <Button 
                 size="lg" 
-                className="inline-flex justify-center items-center shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition duration-200"
+                className="inline-flex justify-center items-center shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 hover:scale-105"
                 data-tally-open="3NO0eG"
                 data-tally-width="500" 
                 data-tally-emoji-text="👋" 

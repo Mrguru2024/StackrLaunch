@@ -34,7 +34,7 @@ export default function Header({ waitlistUrl }: HeaderProps) {
             <a href="#security" className="text-gray-600 hover:text-primary font-medium">Security</a>
             <a href="#testimonials" className="text-gray-600 hover:text-primary font-medium">Testimonials</a>
             <Button 
-              className="bg-primary hover:bg-primary/90"
+              className="bg-primary hover:bg-primary/90 shadow-md hover:shadow-lg transform hover:-translate-y-1 hover:scale-105 transition-all duration-200"
               data-tally-open="3NO0eG"
               data-tally-width="500" 
               data-tally-emoji-text="👋" 
@@ -101,7 +101,7 @@ export default function Header({ waitlistUrl }: HeaderProps) {
               Testimonials
             </a>
             <button 
-              className="block w-full px-3 py-2 text-center rounded-md text-base font-medium bg-primary text-white hover:bg-primary/90"
+              className="block w-full px-3 py-2 text-center rounded-md text-base font-medium bg-primary text-white hover:bg-primary/90 shadow-md hover:shadow-lg transform hover:-translate-y-1 hover:scale-105 transition-all duration-200"
               onClick={() => setMobileMenuOpen(false)}
               data-tally-open="3NO0eG"
               data-tally-width="500" 

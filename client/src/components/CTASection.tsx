@@ -141,7 +141,7 @@ export default function CTASection({ waitlistUrl }: CTASectionProps) {
             <div className="pt-4">
               <Button 
                 type="submit" 
-                className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3 px-6 rounded-lg text-lg transition duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3 px-6 rounded-lg text-lg transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105"
               >
                 Join the Waitlist
               </Button>
