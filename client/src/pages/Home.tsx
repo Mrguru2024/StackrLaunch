@@ -8,7 +8,6 @@ import TestimonialsSection from "@/components/TestimonialsSection";
 import FinancialCalculator from "@/components/FinancialCalculator";
 import FAQsSection from "@/components/FAQsSection";
 import CTASection from "@/components/CTASection";
-import ShareLinks from "@/components/ShareLinks";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -97,11 +96,50 @@ export default function Home() {
           <CTASection waitlistUrl={waitlistUrl} />
         </section>
         
-        <section className="bg-gray-900 py-8 px-4">
+        <section className="bg-gray-900 py-12 px-4" id="connect">
           <div className="max-w-7xl mx-auto">
-            <h2 className="text-2xl font-bold text-white mb-4">Connect with Stackr</h2>
-            <p className="text-gray-300 mb-6">Follow us on social media for updates on our launch, financial tips, and more.</p>
-            <ShareLinks />
+            <h2 className="text-3xl font-bold text-white mb-4 text-center">Connect with Stackr</h2>
+            <p className="text-gray-300 mb-8 text-center max-w-2xl mx-auto">Follow us on social media for updates on our launch, financial tips, and more.</p>
+            
+            <div className="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto">
+              <a 
+                href="https://threads.net/@stackr.tech" 
+                className="bg-gray-800 hover:bg-gray-700 text-white px-6 py-3 rounded-md transition-colors text-center min-w-[150px]"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Threads
+              </a>
+              <a 
+                href="https://facebook.com/profile.php?id=61575053828418" 
+                className="bg-gray-800 hover:bg-gray-700 text-white px-6 py-3 rounded-md transition-colors text-center min-w-[150px]"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Facebook
+              </a>
+              <a 
+                href="https://instagram.com/stackr.tech" 
+                className="bg-gray-800 hover:bg-gray-700 text-white px-6 py-3 rounded-md transition-colors text-center min-w-[150px]"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Instagram
+              </a>
+              <a 
+                href="https://linkedin.com/company/stackr-tech" 
+                className="bg-gray-800 hover:bg-gray-700 text-white px-6 py-3 rounded-md transition-colors text-center min-w-[150px]"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                LinkedIn
+              </a>
+            </div>
+            
+            <div className="mt-10 text-center text-gray-400">
+              <p className="mb-2">1441 Woodmont Ln NW #3442, Atlanta, GA 30318</p>
+              <p>support@stackr.tech</p>
+            </div>
           </div>
         </section>
       </main>
