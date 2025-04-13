@@ -1,8 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Fix for Vite WebSocket HMR connection issue -->
-    <script src="/vite-hmr-fix.js"></script>
+    <!-- Complete disabling of Vite HMR to prevent WebSocket errors -->
+    <script>
+      // Immediate error prevention - executed before any scripts load
+      window.__vite_ws_disabled__ = true;
+      window.__vite_hmr_disabled__ = true;
+      window.__VITE_HMR_DISABLED__ = true;
+      window.__VITE_HMR_TIMEOUT_FIRED__ = true;
+      
+      // Completely override the WebSocket constructor to block error-causing connections
+      Object.defineProperty(window, 'WebSocket', {
+        value: function(url) {
+          if (url && typeof url === 'string' && url.includes('localhost:undefined')) {
+            return {
+              addEventListener: function(){}, 
+              removeEventListener: function(){},
+              send: function(){}, 
+              close: function(){},
+              readyState: 3
+            };
+          }
+          
+          // For real WebSocket connections (non-Vite), restore the original WebSocket
+          const frame = document.createElement('iframe');
+          frame.style.display = 'none';
+          document.body.appendChild(frame);
+          const originalWS = frame.contentWindow.WebSocket;
+          document.body.removeChild(frame);
+          return new originalWS(url);
+        },
+        writable: false
+      });
+    </script>
+    <script src="/vite-disable.js"></script>
     
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-VHVMZHY9MS"></script>
