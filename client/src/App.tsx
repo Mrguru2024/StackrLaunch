@@ -7,6 +7,7 @@ import Home from "@/pages/Home";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import TermsOfService from "@/pages/TermsOfService";
 import Contact from "@/pages/Contact";
+import ToastDemo from "@/pages/ToastDemo";
 
 function Router() {
   return (

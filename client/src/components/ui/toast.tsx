@@ -178,7 +178,13 @@ const ToastDescription = React.forwardRef<
 ))
 ToastDescription.displayName = ToastPrimitives.Description.displayName
 
-type ToastProps = React.ComponentPropsWithoutRef<typeof Toast>
+// Define our custom animations type
+type AnimationType = "default" | "bounce" | "pulse" | "wiggle" | "tada" | "pop" | "slide";
+
+type ToastProps = React.ComponentPropsWithoutRef<typeof Toast> & {
+  animation?: AnimationType;
+  duration?: number;
+}
 
 type ToastActionElement = React.ReactElement<typeof ToastAction>
 
