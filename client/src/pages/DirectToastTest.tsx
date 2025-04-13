@@ -1,40 +1,14 @@
 import React, { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { CheckCircle2 } from "lucide-react";
 
-// Simple Toast Component
-const Toast = ({ message, onClose }: { message: string; onClose: () => void }) => {
-  return (
-    <div 
-      className="fixed top-4 right-4 z-50 bg-green-100 border-l-4 border-green-500 text-green-800 p-4 rounded shadow-lg"
-      style={{
-        animation: 'slideIn 0.5s ease-out forwards',
-        minWidth: '250px',
-        maxWidth: '350px'
-      }}
-    >
-      <div className="flex justify-between items-center">
-        <div className="flex items-center">
-          <CheckCircle2 className="text-green-500 mr-2" size={20} />
-          <span>{message}</span>
-        </div>
-        <button 
-          onClick={onClose}
-          className="text-green-500 hover:text-green-700 ml-4"
-        >
-          ✕
-        </button>
-      </div>
-    </div>
-  );
-};
-
-// A completely self-contained toast implementation
-const DirectToast = () => {
+// We're completely simplifying this by putting all logic in the main component
+export default function DirectToastTest() {
+  // Tally.so waitlist form URL
+  const waitlistUrl = "https://tally.so/r/3NO0eG";
   const [showToast, setShowToast] = useState(false);
-
-  const displayToast = () => {
+  
+  const handleShowToast = () => {
     setShowToast(true);
     
     // Auto hide after 5 seconds
@@ -42,34 +16,6 @@ const DirectToast = () => {
       setShowToast(false);
     }, 5000);
   };
-
-  return (
-    <>
-      <div className="flex flex-col items-center mt-8">
-        <button
-          className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-medium"
-          onClick={displayToast}
-        >
-          Show Direct Toast
-        </button>
-      </div>
-
-      {/* Render toast when showToast is true */}
-      {showToast && (
-        <Toast 
-          message="This is a direct test toast!" 
-          onClose={() => setShowToast(false)} 
-        />
-      )}
-      
-      {/* No inline styles needed - using global CSS */}
-    </>
-  );
-};
-
-export default function DirectToastTest() {
-  // Tally.so waitlist form URL
-  const waitlistUrl = "https://tally.so/r/3NO0eG";
   
   return (
     <div className="min-h-screen flex flex-col bg-white">
@@ -84,9 +30,35 @@ export default function DirectToastTest() {
             This is a simple test page with a direct, self-contained toast implementation.
           </p>
           
-          <DirectToast />
+          <div className="flex justify-center mb-8">
+            <button
+              className="bg-purple-600 hover:bg-purple-700 text-white font-medium px-6 py-3 rounded-lg"
+              onClick={handleShowToast}
+            >
+              Show Direct Toast
+            </button>
+          </div>
         </div>
       </main>
+      
+      {/* Simple inline toast with no dependencies */}
+      {showToast && (
+        <div className="fixed top-4 right-4 z-50 bg-purple-100 border-l-4 border-purple-500 text-purple-800 p-4 rounded shadow-lg animate-slideIn">
+          <div className="flex justify-between items-center">
+            <div className="flex items-center">
+              <svg className="text-purple-500 w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              <span>This is a direct test toast!</span>
+            </div>
+            <button 
+              onClick={() => setShowToast(false)} 
+              className="text-purple-500 hover:text-purple-700 ml-4"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+      )}
+      
       <Footer waitlistUrl={waitlistUrl} />
     </div>
   );

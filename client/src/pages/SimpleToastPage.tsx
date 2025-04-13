@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { CheckCircle2 } from "lucide-react";
 
 export default function SimpleToastPage() {
   const waitlistUrl = "https://tally.so/r/3NO0eG";
@@ -40,12 +39,12 @@ export default function SimpleToastPage() {
         </div>
       </main>
       
-      {/* Conditionally render the toast */}
+      {/* Conditionally render the toast with inline SVG instead of Lucide icons */}
       {showToast && (
         <div className="fixed top-4 right-4 z-50 bg-green-100 border-l-4 border-green-500 text-green-800 p-4 rounded shadow-lg animate-slideIn">
           <div className="flex justify-between items-center">
             <div className="flex items-center">
-              <CheckCircle2 className="text-green-500 mr-2" size={20} />
+              <svg className="text-green-500 w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
               <span>This is a simple toast notification!</span>
             </div>
             <button 
