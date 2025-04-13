@@ -10,6 +10,10 @@ import Contact from "@/pages/Contact";
 import ToastDemo from "@/pages/ToastDemo";
 
 function Router() {
+  // Debug: log the current path
+  const [location] = window.location.pathname.split('?');
+  console.log('Current path:', location);
+  
   return (
     <Switch>
       <Route path="/" component={Home} />
