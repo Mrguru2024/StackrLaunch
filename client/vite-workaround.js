@@ -1,30 +1,45 @@
-// This file patches Vite's Hot Module Replacement (HMR) in Replit environment
-// It works around the WebSocket connection errors in the console
+// This file properly fixes Vite's Hot Module Replacement (HMR) WebSocket connection in Replit
+// It corrects the invalid WebSocket URL by providing the correct port (5000)
 
-// Wait for the document to load
-document.addEventListener('DOMContentLoaded', () => {
-  // Check if Vite's HMR system is trying to reconnect with invalid WebSocket URLs
-  const originalWebSocket = window.WebSocket;
+// Execute immediately
+(function() {
+  console.log('[Vite HMR Fix] Initializing WebSocket connection fix');
   
+  // Store original WebSocket constructor to use for valid connections
+  const OriginalWebSocket = window.WebSocket;
+  
+  // Override the WebSocket constructor to fix HMR connections
   window.WebSocket = function(url, protocols) {
-    // Intercept WebSocket connections
-    if (url && url.includes('wss://localhost:undefined')) {
-      // Don't actually create invalid WebSocket connections
-      console.log('[WebSocket Interceptor] Preventing invalid WebSocket connection to:', url);
+    // Only modify Vite HMR WebSocket connections with invalid URLs
+    if (url && typeof url === 'string' && url.includes('localhost:undefined') && url.includes('token=')) {
+      // Extract the HMR token from the URL
+      const tokenMatch = url.match(/token=([^&]+)/);
+      const token = tokenMatch ? tokenMatch[1] : '';
       
-      // Return a mock WebSocket object that does nothing
-      return {
-        send: () => {},
-        close: () => {},
-        addEventListener: () => {},
-        removeEventListener: () => {},
-        readyState: 3, // CLOSED
-      };
+      // Create a corrected WebSocket URL with the proper port
+      let wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+      let wsHost = window.location.hostname;
+      
+      // Use the known Express server port (5000)
+      let correctedUrl = `${wsProtocol}//${wsHost}:5000/?token=${token}`;
+      
+      console.log('[Vite HMR Fix] Fixed WebSocket URL:', correctedUrl);
+      return new OriginalWebSocket(correctedUrl, protocols);
     }
     
-    // Create normal WebSocket connections for valid URLs
-    return new originalWebSocket(url, protocols);
+    // For all other WebSocket connections, proceed normally
+    return new OriginalWebSocket(url, protocols);
   };
   
-  console.log('[WebSocket Interceptor] Patched WebSocket to prevent connection errors');
-});
+  // Preserve all properties and methods from the original WebSocket constructor
+  for (let prop in OriginalWebSocket) {
+    if (OriginalWebSocket.hasOwnProperty(prop)) {
+      window.WebSocket[prop] = OriginalWebSocket[prop];
+    }
+  }
+  
+  // Make sure the prototype chain is maintained
+  window.WebSocket.prototype = OriginalWebSocket.prototype;
+  
+  console.log('[Vite HMR Fix] WebSocket constructor patched successfully');
+})();
