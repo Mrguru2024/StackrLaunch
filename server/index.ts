@@ -18,9 +18,26 @@ app.use(
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
-        scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "tally.so", "*.tally.so"],
-        connectSrc: ["'self'", "tally.so", "*.tally.so"],
-        imgSrc: ["'self'", "data:", "blob:"],
+        scriptSrc: [
+          "'self'", 
+          "'unsafe-inline'", 
+          "'unsafe-eval'", 
+          "tally.so", 
+          "*.tally.so",
+          "www.googletagmanager.com",
+          "*.google-analytics.com",
+          "*.analytics.google.com",
+          "*.googletagmanager.com"
+        ],
+        connectSrc: [
+          "'self'", 
+          "tally.so", 
+          "*.tally.so",
+          "*.google-analytics.com",
+          "*.analytics.google.com",
+          "*.googletagmanager.com"
+        ],
+        imgSrc: ["'self'", "data:", "blob:", "www.googletagmanager.com", "*.google-analytics.com"],
         styleSrc: ["'self'", "'unsafe-inline'", "fonts.googleapis.com"],
         fontSrc: ["'self'", "data:", "fonts.gstatic.com"],
         mediaSrc: ["'self'", "data:"],
