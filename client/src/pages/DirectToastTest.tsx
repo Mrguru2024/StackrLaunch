@@ -1,18 +1,45 @@
 import React, { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { CheckCircle2 } from "lucide-react";
+
+// Simple Toast Component
+const Toast = ({ message, onClose }: { message: string; onClose: () => void }) => {
+  return (
+    <div 
+      className="fixed top-4 right-4 z-50 bg-green-100 border-l-4 border-green-500 text-green-800 p-4 rounded shadow-lg"
+      style={{
+        animation: 'slideIn 0.5s ease-out forwards',
+        minWidth: '250px',
+        maxWidth: '350px'
+      }}
+    >
+      <div className="flex justify-between items-center">
+        <div className="flex items-center">
+          <CheckCircle2 className="text-green-500 mr-2" size={20} />
+          <span>{message}</span>
+        </div>
+        <button 
+          onClick={onClose}
+          className="text-green-500 hover:text-green-700 ml-4"
+        >
+          ✕
+        </button>
+      </div>
+    </div>
+  );
+};
 
 // A completely self-contained toast implementation
 const DirectToast = () => {
-  const [toasts, setToasts] = useState<Array<{id: string, message: string}>>([]);
+  const [showToast, setShowToast] = useState(false);
 
-  const addToast = (message: string) => {
-    const id = Math.random().toString(36).substring(2, 9);
-    setToasts(prev => [...prev, { id, message }]);
+  const displayToast = () => {
+    setShowToast(true);
     
-    // Auto remove after 5 seconds
+    // Auto hide after 5 seconds
     setTimeout(() => {
-      setToasts(prev => prev.filter(toast => toast.id !== id));
+      setShowToast(false);
     }, 5000);
   };
 
@@ -21,32 +48,21 @@ const DirectToast = () => {
       <div className="flex flex-col items-center mt-8">
         <button
           className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-medium"
-          onClick={() => addToast("This is a direct test toast!")}
+          onClick={displayToast}
         >
           Show Direct Toast
         </button>
       </div>
 
-      {/* Toast container */}
-      <div className="fixed top-4 right-4 z-50 flex flex-col gap-2">
-        {toasts.map(toast => (
-          <div 
-            key={toast.id}
-            className="bg-green-100 border-l-4 border-green-500 text-green-800 p-4 rounded shadow-lg animate-slide"
-            style={{animationDuration: '0.3s'}}
-          >
-            <div className="flex items-center">
-              <div className="ml-3">{toast.message}</div>
-              <button 
-                className="ml-4 text-green-500 hover:text-green-700"
-                onClick={() => setToasts(prev => prev.filter(t => t.id !== toast.id))}
-              >
-                ✕
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
+      {/* Render toast when showToast is true */}
+      {showToast && (
+        <Toast 
+          message="This is a direct test toast!" 
+          onClose={() => setShowToast(false)} 
+        />
+      )}
+      
+      {/* No inline styles needed - using global CSS */}
     </>
   );
 };
