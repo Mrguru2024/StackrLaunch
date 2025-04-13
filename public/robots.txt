@@ -2,8 +2,23 @@
 User-agent: *
 Allow: /
 Disallow: /assets/
+Disallow: /api/
+Disallow: /.well-known/
 
-# Sitemap location
+# Block specific bots known for scraping
+User-agent: PetalBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+# Ensure security by explicitly disallowing access to sensitive paths
+Disallow: /*?*
+Disallow: /*=
+Disallow: /*~
+Disallow: /*$
+
+# Sitemap location - uses HTTPS
 Sitemap: https://stackr.tech/sitemap.xml
 
 # Crawl-delay for all bots

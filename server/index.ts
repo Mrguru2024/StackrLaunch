@@ -12,35 +12,58 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Security middleware
-// Apply Helmet for security headers
+// Apply Helmet for security headers with enhanced HTTPS enforcement
 app.use(
   helmet({
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
-        scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "tally.so"],
+        scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "tally.so", "*.tally.so"],
         connectSrc: ["'self'", "tally.so", "*.tally.so"],
         imgSrc: ["'self'", "data:", "blob:"],
-        styleSrc: ["'self'", "'unsafe-inline'"],
-        fontSrc: ["'self'", "data:"],
+        styleSrc: ["'self'", "'unsafe-inline'", "fonts.googleapis.com"],
+        fontSrc: ["'self'", "data:", "fonts.gstatic.com"],
         mediaSrc: ["'self'", "data:"],
         frameSrc: ["'self'", "tally.so"],
+        upgradeInsecureRequests: [],
       },
+    },
+    // Set strict HSTS settings
+    hsts: {
+      maxAge: 63072000, // 2 years in seconds
+      includeSubDomains: true,
+      preload: true
     },
     crossOriginEmbedderPolicy: false,
     crossOriginOpenerPolicy: { policy: "same-origin-allow-popups" },
     crossOriginResourcePolicy: { policy: "cross-origin" },
+    // Disable x-powered-by to hide Express.js information
+    hidePoweredBy: true,
+    // Prevent clickjacking
+    frameguard: { action: 'sameorigin' },
+    // Prevent MIME type sniffing
+    noSniff: true,
+    // Enable XSS Protection
+    xssFilter: true,
+    // Set strict referrer policy
+    referrerPolicy: {
+      policy: 'strict-origin-when-cross-origin',
+    },
   })
 );
 
-// CORS protection
+// CORS protection with enhanced security
 app.use(
   cors({
     origin: process.env.NODE_ENV === "production" 
-      ? ["https://stackr.tech", /\.stackr\.tech$/]
+      ? ["https://stackr.tech", /^https:\/\/.*\.stackr\.tech$/]  // Explicit HTTPS enforcement in regex
       : "*",
     methods: ["GET", "POST"],
     credentials: true,
+    // Additional security for CORS
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    exposedHeaders: ['Content-Range', 'X-Content-Range'],
+    maxAge: 86400, // Cache preflight requests for 24 hours
   })
 );
 
@@ -70,26 +93,16 @@ if (process.env.NODE_ENV === 'production') {
 
 // Add security and SEO headers
 app.use((req, res, next) => {
-  // Security Headers
-  res.setHeader("X-Frame-Options", "SAMEORIGIN");
-  res.setHeader("X-Content-Type-Options", "nosniff");
-  res.setHeader("X-XSS-Protection", "1; mode=block");
-  res.setHeader("Strict-Transport-Security", "max-age=63072000; includeSubDomains; preload"); // 2 years for stronger security
-  res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
-  res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=(), payment=()");
+  // Additional Security Feature Policy (more specific than Permissions-Policy)
+  res.setHeader("Feature-Policy", "camera 'none'; microphone 'none'; geolocation 'none'; payment 'none'; usb 'none'");
   
-  // Set up Content Security Policy (CSP) for enhanced security
-  const cspValue = 
-    "default-src 'self'; " +
-    "script-src 'self' 'unsafe-inline' 'unsafe-eval' tally.so; " +
-    "connect-src 'self' tally.so *.tally.so; " +
-    "img-src 'self' data: blob:; " +
-    "style-src 'self' 'unsafe-inline' fonts.googleapis.com; " +
-    "font-src 'self' data: fonts.gstatic.com; " +
-    "media-src 'self' data:; " +
-    "frame-src 'self' tally.so;";
-    
-  res.setHeader("Content-Security-Policy", cspValue);
+  // Set feature detection to help with client-side errors
+  res.setHeader("Accept-CH", "Sec-CH-UA, Sec-CH-UA-Mobile, Sec-CH-UA-Platform");
+  
+  // Set permissions policy (modern replacement for feature policy)
+  res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=(), payment=(), usb=()");
+  
+  // Note: Other security headers are already set by Helmet
   
   // SEO-specific headers for indexing
   res.setHeader("X-Robots-Tag", "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1");
