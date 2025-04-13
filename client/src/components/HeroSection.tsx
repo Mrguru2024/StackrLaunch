@@ -76,7 +76,7 @@ export default function HeroSection({ waitlistUrl }: HeroSectionProps) {
                 </div>
               </div>
               <div className="text-sm text-gray-600">
-                <span className="font-semibold">432+ people</span> have already joined the waitlist
+                <span className="font-semibold">131+ people</span> have already joined the waitlist
               </div>
             </div>
           </motion.div>
