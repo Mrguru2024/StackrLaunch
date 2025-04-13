@@ -2,18 +2,18 @@ import React from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/hooks/use-toast";
+import { useSimpleToast } from "@/components/ui/simple-toast";
 
 export default function TestPage() {
   // Tally.so waitlist form URL (using the same as Home)
   const waitlistUrl = "https://tally.so/r/3NO0eG";
-  const { toast } = useToast();
+  const { addToast } = useSimpleToast();
   
   const showTestToast = () => {
-    toast({
-      variant: "default",
-      title: "Test Successful!",
-      description: "This is a test toast notification.",
+    addToast({
+      message: "This is a test toast notification.",
+      type: "success",
+      duration: 5000,
     });
   };
 
