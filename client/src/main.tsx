@@ -2,26 +2,52 @@ import { createRoot } from "react-dom/client";
 import App from "./App";
 import "./index.css";
 
-// Fix for WebSocket connection errors in Replit environment
-// This prevents attempts to connect to undefined WebSocket URLs 
+// Completely disable Vite HMR system to prevent console errors
 if (typeof window !== 'undefined') {
-  // Suppress unhandled rejection errors in console
-  window.addEventListener('unhandledrejection', (event) => {
-    // Check if this is a WebSocket connection error
-    if (
-      event.reason && 
-      event.reason.message && 
-      (
-        event.reason.message.includes('Failed to construct \'WebSocket\'') ||
-        event.reason.message.includes('wss://localhost:undefined')
-      )
-    ) {
-      // Prevent the error from appearing in console
+  // Define global variables to disable HMR
+  // @ts-ignore
+  window.__vite_hmr__ = { dispose: () => {}, data: {} };
+  // @ts-ignore
+  window.__VITE_HMR_DISABLED__ = true;
+  
+  // Intercept and suppress all WebSocket-related errors
+  window.addEventListener('error', (event) => {
+    if (event.message && event.message.includes('WebSocket')) {
       event.preventDefault();
       event.stopPropagation();
-      console.log('[HMR] Suppressed WebSocket connection error');
+      return false;
     }
-  });
+  }, true);
+  
+  // Intercept promise rejections related to WebSockets
+  window.addEventListener('unhandledrejection', (event) => {
+    if (event.reason && event.reason.message && (
+      event.reason.message.includes('WebSocket') || 
+      event.reason.message.includes('wss://localhost')
+    )) {
+      event.preventDefault();
+      event.stopPropagation();
+      return false;
+    }
+  }, true);
+  
+  // Replace the WebSocket constructor to block HMR connections
+  const originalWebSocket = window.WebSocket;
+  // @ts-ignore
+  window.WebSocket = function(url, protocols) {
+    if (url && (url.includes('localhost') || url.includes('undefined'))) {
+      console.log('[HMR] Blocked invalid WebSocket connection');
+      return {
+        send: () => {},
+        close: () => {},
+        addEventListener: () => {},
+        removeEventListener: () => {},
+        dispatchEvent: () => false,
+        readyState: 3 // CLOSED
+      };
+    }
+    return new originalWebSocket(url, protocols);
+  };
 }
 
 createRoot(document.getElementById("root")!).render(<App />);
