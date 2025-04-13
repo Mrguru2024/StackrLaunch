@@ -30,8 +30,14 @@ export default function Header({ waitlistUrl }: HeaderProps) {
             <a href="#benefits" className="text-gray-600 hover:text-primary font-medium">Benefits</a>
             <a href="#how-it-works" className="text-gray-600 hover:text-primary font-medium">How It Works</a>
             <a href="#testimonials" className="text-gray-600 hover:text-primary font-medium">Testimonials</a>
-            <Button asChild className="bg-primary hover:bg-primary/90">
-              <a href="#join-waitlist">Join Waitlist</a>
+            <Button 
+              className="bg-primary hover:bg-primary/90"
+              data-tally-open="3NO0eG"
+              data-tally-width="500" 
+              data-tally-emoji-text="👋" 
+              data-tally-emoji-animation="wave"
+            >
+              Join Waitlist
             </Button>
           </div>
           
@@ -77,13 +83,16 @@ export default function Header({ waitlistUrl }: HeaderProps) {
             >
               Testimonials
             </a>
-            <a 
-              href="#join-waitlist" 
-              className="block px-3 py-2 text-center rounded-md text-base font-medium bg-primary text-white hover:bg-primary/90"
+            <button 
+              className="block w-full px-3 py-2 text-center rounded-md text-base font-medium bg-primary text-white hover:bg-primary/90"
               onClick={() => setMobileMenuOpen(false)}
+              data-tally-open="3NO0eG"
+              data-tally-width="500" 
+              data-tally-emoji-text="👋" 
+              data-tally-emoji-animation="wave"
             >
               Join Waitlist
-            </a>
+            </button>
           </div>
         </div>
       )}

@@ -150,13 +150,18 @@ export default function BenefitsSection({ waitlistUrl }: BenefitsSectionProps) {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.6 }}
         >
-          <Button asChild size="lg" className="inline-flex items-center shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition duration-200">
-            <a href="#join-waitlist">
-              Get Early Access
-              <svg className="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
-              </svg>
-            </a>
+          <Button 
+            size="lg" 
+            className="inline-flex items-center shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition duration-200"
+            data-tally-open="3NO0eG"
+            data-tally-width="500" 
+            data-tally-emoji-text="👋" 
+            data-tally-emoji-animation="wave"
+          >
+            Get Early Access
+            <svg className="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
+            </svg>
           </Button>
         </motion.div>
       </div>
