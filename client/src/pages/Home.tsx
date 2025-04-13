@@ -4,6 +4,7 @@ import BenefitsSection from "@/components/BenefitsSection";
 import HowItWorksSection from "@/components/HowItWorksSection";
 import SecuritySection from "@/components/SecuritySection";
 import TestimonialsSection from "@/components/TestimonialsSection";
+import FinancialCalculator from "@/components/FinancialCalculator";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 
@@ -18,6 +19,7 @@ export default function Home() {
         <HeroSection waitlistUrl={waitlistUrl} />
         <BenefitsSection waitlistUrl={waitlistUrl} />
         <HowItWorksSection />
+        <FinancialCalculator />
         <SecuritySection />
         <TestimonialsSection />
         <CTASection waitlistUrl={waitlistUrl} />
