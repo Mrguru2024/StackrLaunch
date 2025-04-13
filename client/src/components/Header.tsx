@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import stackrLogo from "../assets/stackr-logo.png";
 
 interface HeaderProps {
   waitlistUrl: string;
@@ -20,7 +21,7 @@ export default function Header({ waitlistUrl }: HeaderProps) {
           <div className="flex items-center">
             {/* Logo */}
             <a href="#" className="flex items-center space-x-2">
-              <span className="text-primary text-2xl font-bold">stackr</span>
+              <img src={stackrLogo} alt="Stackr Logo" className="h-8" />
               <span className="bg-green-600 text-white text-xs px-2 py-1 rounded-full uppercase font-bold tracking-wider">beta</span>
             </a>
           </div>
