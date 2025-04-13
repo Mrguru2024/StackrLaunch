@@ -2,6 +2,7 @@ import { motion, Variants } from "framer-motion";
 import { useScrollReveal, createStaggeredDelays } from "@/hooks/use-scroll-reveal";
 import { ReactNode } from "react";
 
+// Define the step item props interface
 interface StepItemProps {
   number: string;
   title: string;
