@@ -1,0 +1,86 @@
+This error is being caused by **Vite trying to establish a WebSocket connection**, but the URL it's using is **invalid** because the **port is `undefined`**.
+
+---
+
+### 🔍 Breakdown of the Error:
+- **Error**: `Failed to construct 'WebSocket': The URL 'wss://localhost:undefined/?token=...' is invalid.`
+- **Reason**: The `port` value is not set properly, so the WebSocket URL ends up being invalid: `wss://localhost:undefined`.
+
+---
+
+### 🎯 Why This Happens:
+This usually occurs when:
+1. **Vite is running in a non-standard environment** (like Replit or a remote container).
+2. The **WebSocket server port isn’t properly defined**, either in:
+   - The Vite client script (`@vite/client`)
+   - The environment variables (`VITE_PORT`, `VITE_HOST`, etc.)
+3. You're running in **HTTPS mode (`wss`)** but missing required secure setup.
+
+---
+
+### ✅ How to Fix It:
+
+#### Option 1: Specify the Port Manually
+Make sure you **set the port** explicitly in your Vite config:
+
+```js
+// vite.config.js
+export default {
+  server: {
+    host: 'localhost',
+    port: 5173, // or any port you're using
+    strictPort: true,
+  }
+}
+```
+
+> Also confirm in `.env` file:
+```env
+VITE_PORT=5173
+```
+
+---
+
+#### Option 2: Disable Hot Module Reload (Temporary Workaround)
+If you're on **Replit or a cloud IDE**, you can **disable HMR** to avoid the WebSocket error:
+
+```js
+export default {
+  server: {
+    hmr: false
+  }
+}
+```
+
+> ⚠️ Use this only for temporary debugging or deployment previews. HMR is great for local development.
+
+---
+
+#### Option 3: Fix Replit Configuration
+If you're on **Replit**, the port may be set dynamically. Use this pattern to read it:
+
+```js
+const port = process.env.PORT || 3000;
+```
+
+Then apply it in Vite:
+
+```js
+server: {
+  port: port,
+  host: '0.0.0.0'
+}
+```
+
+Also ensure you're serving over `http` and not `https` unless explicitly needed.
+
+---
+
+### 🧪 Final Check
+- Go to your dev tools > Network > WS tab and check the WebSocket connection URL.
+- Ensure your **vite client scripts** aren’t hardcoding the WebSocket path.
+- Re-run Vite after config changes.
+
+---
+
+If you’re still stuck, share your `vite.config.js` and `.env` files and I’ll review them with you.

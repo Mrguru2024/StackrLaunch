@@ -1,101 +1,65 @@
-// Comprehensive fix for Vite's WebSocket connection issues in Replit
-(() => {
-  console.log('[Vite Fix] Applying comprehensive Vite WebSocket fixes');
+/**
+ * Vite WebSocket Connection Fix
+ * 
+ * This script fixes the "Failed to construct 'WebSocket': The URL 'wss://localhost:undefined/?token=...' is invalid"
+ * error by patching the Vite client's setupWebSocket function.
+ */
 
-  // 1. Set up error catching to prevent unhandled rejections
-  window.addEventListener('unhandledrejection', function(event) {
-    if (event.reason && typeof event.reason.message === 'string' && 
-        (event.reason.message.includes('WebSocket') || 
-         event.reason.message.includes('localhost:undefined'))) {
-      event.preventDefault();
-      console.log('[Vite Fix] Caught and prevented WebSocket error:', event.reason.message);
-    }
-  }, true);
-
-  // 2. Define variables that Vite checks to disable HMR
-  Object.defineProperties(window, {
-    '__vite_plugin_react_timeout__': {
-      value: null,
-      configurable: true, 
-      writable: true
-    },
-    '__vite_plugin_react_preamble_installed__': {
-      value: true,
-      configurable: true, 
-      writable: true
-    }
-  });
-
-  // 3. Create a proxy for Vite's HMR system
-  window.__vite_hmr__ = {
-    on: () => {},
-    off: () => {},
-    send: () => {},
-    dispose: () => {},
-    data: {}
-  };
+(function() {
+  console.log('[vite-hmr-fix] Applying WebSocket connection fix...');
   
-  // 4. Create a fake hot context
-  window.hot = {
-    accept: () => {},
-    dispose: () => {},
-    invalidate: () => {},
-    decline: () => {},
-    on: () => {},
-    prune: () => {}
-  };
-
-  // 5. Safely replace the WebSocket constructor
-  try {
-    const OriginalWebSocket = window.WebSocket;
-    window.WebSocket = function(url, protocols) {
-      try {
-        // Directly prevent invalid WebSocket URLs
-        if (typeof url === 'string' && url.indexOf('localhost:undefined') >= 0) {
-          console.log('[Vite Fix] Blocked invalid WebSocket connection to:', url);
-          return {
-            addEventListener: () => {},
-            removeEventListener: () => {},
-            dispatchEvent: () => {},
-            send: () => {},
-            close: () => {},
-            readyState: 3, // CLOSED state
-            CONNECTING: 0,
-            OPEN: 1,
-            CLOSING: 2,
-            CLOSED: 3
-          };
-        }
-        
-        // For all other WebSocket connections, proceed normally
-        return new OriginalWebSocket(url, protocols);
-      } catch (err) {
-        console.log('[Vite Fix] Error in WebSocket constructor:', err);
-        return {
-          addEventListener: () => {},
-          removeEventListener: () => {},
-          dispatchEvent: () => {},
-          send: () => {},
-          close: () => {},
-          readyState: 3
-        };
-      }
+  // Disable HMR completely
+  window.__vite_hmr_disabled__ = true;
+  window.__VITE_HMR_DISABLED__ = true;
+  window.__VITE_HMR_TIMEOUT_FIRED__ = true;
+  
+  // Keep track of original WebSocket
+  const OriginalWebSocket = window.WebSocket;
+  
+  // Override setupWebSocket function when it's loaded
+  const originalSetupWebSocket = window.setupWebSocket;
+  window.setupWebSocket = function(options) {
+    console.log('[vite-hmr-fix] Intercepted setupWebSocket call');
+    
+    // Do nothing if function is called
+    return {
+      send: () => {},
+      close: () => {}
     };
-    
-    // Copy all properties from original WebSocket
-    Object.getOwnPropertyNames(OriginalWebSocket).forEach(key => {
-      try {
-        window.WebSocket[key] = OriginalWebSocket[key];
-      } catch (e) {}
-    });
-    
-    // Maintain prototype chain
-    window.WebSocket.prototype = OriginalWebSocket.prototype;
-    
-    console.log('[Vite Fix] WebSocket constructor patched successfully');
-  } catch (err) {
-    console.log('[Vite Fix] Error patching WebSocket:', err);
-  }
+  };
   
-  console.log('[Vite Fix] All fixes applied successfully');
+  // Patch WebSocket constructor to handle invalid URLs
+  window.WebSocket = function(url, protocols) {
+    // Check if this is a Vite HMR connection with invalid port
+    if (url && typeof url === 'string' && url.includes('localhost:undefined')) {
+      console.log('[vite-hmr-fix] Blocked invalid WebSocket connection:', url);
+      
+      // Return a mock WebSocket that does nothing
+      return {
+        addEventListener: () => {},
+        removeEventListener: () => {},
+        send: () => {},
+        close: () => {},
+        readyState: 3, // CLOSED
+        CONNECTING: 0,
+        OPEN: 1,
+        CLOSING: 2,
+        CLOSED: 3
+      };
+    }
+    
+    // For all other WebSocket connections, use the original implementation
+    return new OriginalWebSocket(url, protocols);
+  };
+  
+  // Preserve the original WebSocket prototype
+  window.WebSocket.prototype = OriginalWebSocket.prototype;
+  
+  // Preserve original WebSocket static properties
+  window.WebSocket.CONNECTING = 0;
+  window.WebSocket.OPEN = 1;
+  window.WebSocket.CLOSING = 2;
+  window.WebSocket.CLOSED = 3;
+  
+  console.log('[vite-hmr-fix] WebSocket fix applied successfully');
 })();
