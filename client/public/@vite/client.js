@@ -1,22 +1,24 @@
 /**
- * Empty stub implementation for @vite/client
- * This completely prevents any HMR functionality and WebSocket connections
+ * Complete Vite Client Override
+ * 
+ * This file completely replaces Vite's actual client module with a stub implementation
+ * that prevents WebSocket connections and related errors.
  */
 
-console.log('[vite/client stub] Loaded empty implementation - no WebSockets will be created');
+console.log('[@vite/client] Loading stub implementation - WebSocket connections disabled');
 
-// Export empty implementations of all the functions and objects that might be imported
+// Empty implementations of all Vite client exports
 export const webSocketClient = {
+  sendMessage: () => {},
   send: () => {},
   close: () => {},
-  addEventListener: () => {},
-  removeEventListener: () => {}
+  isReady: () => false,
+  initialize: () => {}
 };
 
 export const devtoolsClient = {
-  connected: false,
-  enabled: false,
-  send: () => {}
+  onDevToolsMessage: () => {},
+  connectDevTools: () => {}
 };
 
 export function createHotContext() {
@@ -31,24 +33,15 @@ export function createHotContext() {
 }
 
 export const ErrorOverlay = {
-  createApp: () => {},
-  render: () => {}
+  createBase: () => {},
+  customize: () => {}
 };
 
 export function updateStyle() {}
 export function removeStyle() {}
-export function fetchUpdate() { 
-  return Promise.resolve({ type: 'js-update', timestamp: Date.now() });
-}
-
-// No WebSocket functionality
-export function setupWebSocket() {
-  console.log('[vite/client stub] WebSocket setup prevented');
-  return {
-    send: () => {},
-    close: () => {}
-  };
-}
-
-// Log that the stub was loaded successfully
-console.log('[vite/client stub] Successfully prevented WebSocket connections');
+export function fetchUpdate() { return Promise.resolve(); }
+export function setupWebSocket() {}
+export function enableOverlay() {}
+export function createHotContext() {}
+export function decode() {}
+export function transformCode() {}

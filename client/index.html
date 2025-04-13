@@ -1,6 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Inline script to immediately prevent WebSocket errors -->
+    <script>
+      // Complete WebSocket error prevention
+      (function() {
+        // Completely disable WebSocket construction if the URL contains 'undefined'
+        const OriginalWebSocket = window.WebSocket;
+        window.WebSocket = function(url, protocols) {
+          if (url && url.includes('undefined')) {
+            console.warn('Blocked WebSocket connection to invalid URL:', url);
+            // Return a fake WebSocket object that does nothing
+            return {
+              url: url,
+              readyState: 0,
+              send: function() {},
+              close: function() {},
+              addEventListener: function() {},
+              removeEventListener: function() {},
+              dispatchEvent: function() { return true; }
+            };
+          }
+          return new OriginalWebSocket(url, protocols);
+        };
+        
+        // Make it look like a proper constructor
+        window.WebSocket.prototype = OriginalWebSocket.prototype;
+        window.WebSocket.CONNECTING = OriginalWebSocket.CONNECTING;
+        window.WebSocket.OPEN = OriginalWebSocket.OPEN;
+        window.WebSocket.CLOSING = OriginalWebSocket.CLOSING;
+        window.WebSocket.CLOSED = OriginalWebSocket.CLOSED;
+        
+        // Block Vite's client from loading
+        window.__VITE_HMR_ACTIVE = false;
+        window.__VITE_IS_MODERN_BROWSER = false;
+      })();
+    </script>
+    
     <!-- WebSocket fix script - fixes port issues in Replit environment -->
     <script src="/websocket-port-fix.js"></script>
     
