@@ -65,7 +65,7 @@ export default function Header({ waitlistUrl }: HeaderProps) {
             </div>
             
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-8">
+            <div className="hidden md:flex items-center space-x-8 ml-8">
               <div className="flex items-center space-x-8">
                 <a 
                   href="#benefits" 

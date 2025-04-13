@@ -1,5 +1,6 @@
 import { Link } from "wouter";
 import stackrLogo from "../assets/stackr-logo.png";
+import SocialLinks from "./SocialLinks";
 
 interface FooterProps {
   waitlistUrl: string;
@@ -19,43 +20,7 @@ export default function Footer({ waitlistUrl }: FooterProps) {
               Smart financial automation for tradespeople, side hustlers, and 9-5 rebuilders. Take control of your finances.
             </p>
             
-            <div className="space-y-2 mb-6">
-              <p className="text-lg text-white font-medium mb-2">Follow us:</p>
-              <div className="grid grid-cols-2 gap-2">
-                <a 
-                  href="https://threads.net/@stackr.tech" 
-                  className="text-gray-400 hover:text-white transition-colors inline-block"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Threads
-                </a>
-                <a 
-                  href="https://facebook.com/profile.php?id=61575053828418" 
-                  className="text-gray-400 hover:text-white transition-colors inline-block"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Facebook
-                </a>
-                <a 
-                  href="https://instagram.com/stackr.tech" 
-                  className="text-gray-400 hover:text-white transition-colors inline-block"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Instagram
-                </a>
-                <a 
-                  href="https://linkedin.com/company/stackr-tech" 
-                  className="text-gray-400 hover:text-white transition-colors inline-block"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  LinkedIn
-                </a>
-              </div>
-            </div>
+            <SocialLinks />
           </div>
           
           <div>
