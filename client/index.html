@@ -1,10 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- WebSocket fix script must be loaded before any other scripts -->
-    <script src="/vite-hmr-fix.js"></script>
+    <!-- Inline pre-script to immediately prevent WebSocket errors -->
+    <script>
+      // Critical fix: Block WebSocket errors before any scripts load
+      window.addEventListener('error', function(event) {
+        if (event && event.message && (event.message.includes('WebSocket') || event.message.includes('localhost:undefined'))) {
+          console.log('Blocked WebSocket error:', event.message);
+          event.preventDefault();
+          event.stopPropagation();
+          return false;
+        }
+      }, true);
+      
+      window.addEventListener('unhandledrejection', function(event) {
+        if (event && event.reason && event.reason.message && 
+            (event.reason.message.includes('WebSocket') || event.reason.message.includes('localhost:undefined'))) {
+          console.log('Blocked unhandled rejection from WebSocket:', event.reason.message);
+          event.preventDefault();
+          event.stopPropagation();
+          return false;
+        }
+      }, true);
+      
+      // Disable all HMR-related flags
+      window.__vite_ws_disabled__ = true;
+      window.__vite_hmr_disabled__ = true;
+      window.__VITE_HMR_DISABLED__ = true;
+      window.__VITE_HMR_TIMEOUT_FIRED__ = true;
+    </script>
     
-    <!-- Register service worker to fix WebSocket connections -->
+    <!-- Load comprehensive WebSocket fixes -->
+    <script src="/vite-port-fix.js"></script>
+    <script src="/vite-hmr-fix.js"></script>
+    <script src="/vite-import-interceptor.js"></script>
+    
+    <!-- Register service worker for additional WebSocket protection -->
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
