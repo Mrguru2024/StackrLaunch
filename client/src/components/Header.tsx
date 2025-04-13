@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
-import stackrLogo from "../assets/stackr-logo.png";
+import stackrLogoSvg from "../assets/stackr-logo.svg";
+import stackrLogoPng from "../assets/stackr-logo.png";
 
 interface HeaderProps {
   waitlistUrl: string;
@@ -38,14 +39,27 @@ export default function Header({ waitlistUrl }: HeaderProps) {
                 className="flex items-center space-x-2"
                 aria-label="Stackr Financial - Home"
               >
-                <img 
-                  src={stackrLogo} 
-                  alt="Stackr Logo" 
-                  className="h-8" 
-                  width="32" 
-                  height="32"
-                  loading="eager"
-                />
+                <div className="relative w-auto h-auto">
+                  <picture>
+                    {/* SVG for modern browsers (better quality at all sizes) */}
+                    <source srcSet={stackrLogoSvg} type="image/svg+xml" />
+                    {/* PNG fallback for older browsers */}
+                    <img 
+                      src={stackrLogoPng}
+                      alt="Stackr Logo" 
+                      className="h-auto w-auto max-h-8 sm:max-h-10 md:max-h-12 lg:max-h-14 object-contain" 
+                      width="auto" 
+                      height="auto"
+                      loading="eager"
+                      style={{ 
+                        minWidth: '100px', 
+                        maxWidth: '160px',
+                        objectFit: 'contain',
+                        aspectRatio: '3.5/1'
+                      }}
+                    />
+                  </picture>
+                </div>
                 <span className="bg-green-600 text-white text-xs px-2 py-1 rounded-full uppercase font-bold tracking-wider">beta</span>
               </a>
             </div>
