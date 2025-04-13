@@ -1,0 +1,10 @@
+# robots.txt for Stackr Financial
+User-agent: *
+Allow: /
+Disallow: /assets/
+
+# Sitemap location
+Sitemap: https://stackr.tech/sitemap.xml
+
+# Crawl-delay for all bots
+Crawl-delay: 5
