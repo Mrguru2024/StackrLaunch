@@ -45,7 +45,17 @@ export default function Footer({ waitlistUrl }: FooterProps) {
               <li><a href="#benefits" className="text-gray-400 hover:text-white transition-colors">Benefits</a></li>
               <li><a href="#how-it-works" className="text-gray-400 hover:text-white transition-colors">How It Works</a></li>
               <li><a href="#testimonials" className="text-gray-400 hover:text-white transition-colors">Testimonials</a></li>
-              <li><a href="#join-waitlist" className="text-gray-400 hover:text-white transition-colors">Join Waitlist</a></li>
+              <li>
+                <button 
+                  className="text-gray-400 hover:text-white transition-colors bg-transparent p-0 border-0 cursor-pointer"
+                  data-tally-open="3NO0eG"
+                  data-tally-width="500" 
+                  data-tally-emoji-text="👋" 
+                  data-tally-emoji-animation="wave"
+                >
+                  Join Waitlist
+                </button>
+              </li>
             </ul>
           </div>
           
