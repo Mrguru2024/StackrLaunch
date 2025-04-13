@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { CheckCircle } from "lucide-react";
+import stackrPromo from "../assets/stackr-promo.mp4";
 
 interface HeroSectionProps {
   waitlistUrl: string;
@@ -88,12 +89,18 @@ export default function HeroSection({ waitlistUrl }: HeroSectionProps) {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <div className="rounded-xl shadow-2xl overflow-hidden relative z-10 transform lg:translate-x-6 hover:scale-105 transition-transform duration-500">
-              <div className="w-full h-64 md:h-96 bg-gray-300 flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-24 w-24 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h10a2 2 0 012 2v14a2 2 0 01-2 2z" />
-                </svg>
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-gray-900/30 to-transparent opacity-60"></div>
+              <video 
+                className="w-full h-auto md:h-96 object-cover"
+                autoPlay 
+                loop 
+                muted 
+                playsInline
+                controls
+              >
+                <source src={stackrPromo} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <div className="absolute inset-0 bg-gradient-to-t from-gray-900/10 to-transparent opacity-30 pointer-events-none"></div>
             </div>
             
             {/* Decorative elements */}
