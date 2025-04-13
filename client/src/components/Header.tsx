@@ -109,6 +109,12 @@ export default function Header({ waitlistUrl }: HeaderProps) {
                 >
                   Test Page
                 </a>
+                <a 
+                  href="/direct-toast" 
+                  className="text-gray-600 hover:text-primary font-medium px-1"
+                >
+                  Direct Toast
+                </a>
               </div>
               <Button 
                 className="bg-primary hover:bg-primary/90 shadow-md hover:shadow-lg transform hover:-translate-y-1 hover:scale-105 transition-all duration-200 ml-2"

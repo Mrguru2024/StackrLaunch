@@ -10,6 +10,7 @@ import TermsOfService from "@/pages/TermsOfService";
 import Contact from "@/pages/Contact";
 import ToastDemo from "@/pages/ToastDemo";
 import TestPage from "@/pages/TestPage";
+import DirectToastTest from "@/pages/DirectToastTest";
 
 function Router() {
   // Debug: log the current path
@@ -24,6 +25,7 @@ function Router() {
       <Route path="/contact" component={Contact} />
       <Route path="/toast-demo" component={ToastDemo} />
       <Route path="/test" component={TestPage} />
+      <Route path="/direct-toast" component={DirectToastTest} />
       <Route component={NotFound} />
     </Switch>
   );
