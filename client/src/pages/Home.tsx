@@ -8,6 +8,7 @@ import TestimonialsSection from "@/components/TestimonialsSection";
 import FinancialCalculator from "@/components/FinancialCalculator";
 import FAQsSection from "@/components/FAQsSection";
 import CTASection from "@/components/CTASection";
+import ShareLinks from "@/components/ShareLinks";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -94,6 +95,14 @@ export default function Home() {
         <section aria-labelledby="cta-heading" id="waitlist" itemScope itemType="https://schema.org/Action">
           <meta itemProp="name" content="Join Stackr Financial Waitlist" />
           <CTASection waitlistUrl={waitlistUrl} />
+        </section>
+        
+        <section className="bg-gray-900 py-8 px-4">
+          <div className="max-w-7xl mx-auto">
+            <h2 className="text-2xl font-bold text-white mb-4">Connect with Stackr</h2>
+            <p className="text-gray-300 mb-6">Follow us on social media for updates on our launch, financial tips, and more.</p>
+            <ShareLinks />
+          </div>
         </section>
       </main>
       <Footer waitlistUrl={waitlistUrl} />
