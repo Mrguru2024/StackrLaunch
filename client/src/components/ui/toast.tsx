@@ -1,9 +1,37 @@
 import * as React from "react"
 import * as ToastPrimitives from "@radix-ui/react-toast"
 import { cva, type VariantProps } from "class-variance-authority"
-import { X } from "lucide-react"
+import { X, AlertCircle, CheckCircle, Info, DollarSign, Gift, Award, Lightbulb, Sparkles } from "lucide-react"
 
 import { cn } from "@/lib/utils"
+
+// This component will render a different icon based on the toast variant
+const ToastIcon = ({ variant }: { variant?: string }) => {
+  const iconClasses = "h-5 w-5 mr-2";
+  
+  switch(variant) {
+    case "success":
+      return <CheckCircle className={cn(iconClasses, "text-green-600")} />;
+    case "warning":
+      return <AlertCircle className={cn(iconClasses, "text-yellow-600")} />;
+    case "info":
+      return <Info className={cn(iconClasses, "text-blue-600")} />;
+    case "money":
+      return <DollarSign className={cn(iconClasses, "text-green-600")} />;
+    case "tip":
+      return <Lightbulb className={cn(iconClasses, "text-purple-600")} />;
+    case "celebration":
+      return <Sparkles className={cn(iconClasses, "text-indigo-600")} />;
+    case "ai":
+      return <div className={cn(iconClasses, "rounded-full", "relative")}>
+        <span className="absolute inset-0 flex items-center justify-center text-blue-600 font-semibold">AI</span>
+      </div>;
+    case "destructive":
+      return <AlertCircle className={cn(iconClasses, "text-red-600")} />;
+    default:
+      return <Info className={cn(iconClasses, "text-foreground")} />;
+  }
+}
 
 const ToastProvider = ToastPrimitives.Provider
 
@@ -30,23 +58,50 @@ const toastVariants = cva(
         default: "border bg-background text-foreground",
         destructive:
           "destructive group border-destructive bg-destructive text-destructive-foreground",
+        success:
+          "success group border-green-500 bg-green-50 text-green-900 shadow-lg shadow-green-100",
+        warning:
+          "warning group border-yellow-500 bg-yellow-50 text-yellow-900 shadow-lg shadow-yellow-100",
+        info:
+          "info group border-blue-500 bg-blue-50 text-blue-900 shadow-lg shadow-blue-100",
+        money:
+          "money group border-[#00CC88] bg-gradient-to-br from-green-50 to-green-100 text-green-900 shadow-lg shadow-green-100",
+        tip:
+          "tip group border-[#7445FF] bg-gradient-to-br from-purple-50 to-purple-100 text-purple-900 shadow-lg shadow-purple-100",
+        celebration:
+          "celebration group border-indigo-500 bg-gradient-to-br from-indigo-50 to-indigo-100 text-indigo-900 shadow-lg shadow-indigo-100",
+        ai:
+          "ai group border-blue-500 bg-gradient-to-br from-blue-50 to-blue-100 text-blue-900 shadow-lg shadow-blue-100",
       },
+      animation: {
+        default: "", // No additional animation
+        bounce: "animate-bounce",
+        pulse: "animate-pulse",
+        wiggle: "animate-wiggle",
+        tada: "animate-tada",
+        pop: "animate-pop",
+        slide: "animate-slide",
+      }
     },
     defaultVariants: {
       variant: "default",
+      animation: "default"
     },
   }
 )
+
+// Define these animations in your global CSS
+// We'll add them to index.css later
 
 const Toast = React.forwardRef<
   React.ElementRef<typeof ToastPrimitives.Root>,
   React.ComponentPropsWithoutRef<typeof ToastPrimitives.Root> &
     VariantProps<typeof toastVariants>
->(({ className, variant, ...props }, ref) => {
+>(({ className, variant, animation, ...props }, ref) => {
   return (
     <ToastPrimitives.Root
       ref={ref}
-      className={cn(toastVariants({ variant }), className)}
+      className={cn(toastVariants({ variant, animation }), className)}
       {...props}
     />
   )
@@ -124,4 +179,5 @@ export {
   ToastDescription,
   ToastClose,
   ToastAction,
+  ToastIcon,
 }

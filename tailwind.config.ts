@@ -79,10 +79,34 @@ export default {
             height: "0",
           },
         },
+        "wiggle": {
+          "0%, 100%": { transform: "rotate(-3deg)" },
+          "50%": { transform: "rotate(3deg)" },
+        },
+        "tada": {
+          "0%": { transform: "scale3d(1, 1, 1)" },
+          "10%, 20%": { transform: "scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg)" },
+          "30%, 50%, 70%, 90%": { transform: "scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg)" },
+          "40%, 60%, 80%": { transform: "scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg)" },
+          "100%": { transform: "scale3d(1, 1, 1)" },
+        },
+        "pop": {
+          "0%": { transform: "scale(0.95)", opacity: "0.5" },
+          "70%": { transform: "scale(1.05)" },
+          "100%": { transform: "scale(1)", opacity: "1" },
+        },
+        "slide": {
+          "0%": { transform: "translateX(20px)", opacity: "0" },
+          "100%": { transform: "translateX(0)", opacity: "1" },
+        }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "wiggle": "wiggle 0.8s ease-in-out infinite",
+        "tada": "tada 1s ease-in-out",
+        "pop": "pop 0.3s ease-out",
+        "slide": "slide 0.3s ease-out",
       },
     },
   },
