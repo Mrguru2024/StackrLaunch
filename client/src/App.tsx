@@ -6,10 +6,7 @@ import Home from "@/pages/Home";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import TermsOfService from "@/pages/TermsOfService";
 import Contact from "@/pages/Contact";
-import ToastDemo from "@/pages/ToastDemo";
-import TestPage from "@/pages/TestPage";
-import DirectToastTest from "@/pages/DirectToastTest";
-import SimpleToastPage from "@/pages/SimpleToastPage";
+import WorkingToast from "@/pages/WorkingToast";
 
 function Router() {
   // Debug: log the current path
@@ -22,10 +19,7 @@ function Router() {
       <Route path="/privacy-policy" component={PrivacyPolicy} />
       <Route path="/terms-of-service" component={TermsOfService} />
       <Route path="/contact" component={Contact} />
-      <Route path="/toast-demo" component={ToastDemo} />
-      <Route path="/test" component={TestPage} />
-      <Route path="/direct-toast" component={DirectToastTest} />
-      <Route path="/simple-toast" component={SimpleToastPage} />
+      <Route path="/toast" component={WorkingToast} />
       <Route component={NotFound} />
     </Switch>
   );
