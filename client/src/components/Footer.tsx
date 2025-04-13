@@ -72,8 +72,7 @@ export default function Footer({ waitlistUrl }: FooterProps) {
         </div>
         
         <div className="mt-12 pt-8 border-t border-gray-800 text-center text-gray-500 text-sm">
-          <p>Domain Recommendation: Using <strong>stackr.tech</strong> as the main landing page is recommended for brand consistency. A subdomain like <strong>launch.stackr.tech</strong> could be used for specific campaigns or tracking.</p>
-          <p className="mt-4">&copy; {new Date().getFullYear()} Stackr Financial, Inc. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Stackr Financial, Inc. All rights reserved.</p>
         </div>
       </div>
     </footer>
