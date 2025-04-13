@@ -6,6 +6,7 @@ import HowItWorksSection from "@/components/HowItWorksSection";
 import SecuritySection from "@/components/SecuritySection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import FinancialCalculator from "@/components/FinancialCalculator";
+import FAQsSection from "@/components/FAQsSection";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 
@@ -52,7 +53,7 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col" itemScope itemType="https://schema.org/WebPage">
       <Header waitlistUrl={waitlistUrl} />
-      <main>
+      <main id="main-content">
         {/* Semantic sections with structured markup for SEO */}
         <section aria-labelledby="hero-heading" itemScope itemType="https://schema.org/WPHeader">
           <HeroSection waitlistUrl={waitlistUrl} />
@@ -83,6 +84,11 @@ export default function Home() {
         <section aria-labelledby="testimonials-heading" id="testimonials" itemScope itemType="https://schema.org/Review">
           <meta itemProp="name" content="Stackr User Testimonials" />
           <TestimonialsSection />
+        </section>
+        
+        <section aria-labelledby="faqs-heading" id="faqs" itemScope itemType="https://schema.org/FAQPage">
+          <meta itemProp="name" content="Stackr Financial FAQ for Tradespeople & Side Hustlers" />
+          <FAQsSection />
         </section>
         
         <section aria-labelledby="cta-heading" id="waitlist" itemScope itemType="https://schema.org/Action">
