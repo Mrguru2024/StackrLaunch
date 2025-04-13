@@ -5,8 +5,21 @@ import { X, AlertCircle, CheckCircle, Info, DollarSign, Gift, Award, Lightbulb, 
 
 import { cn } from "@/lib/utils"
 
+// Define the possible toast variant types
+type ToastVariantType = 
+  | "default" 
+  | "destructive" 
+  | "success" 
+  | "warning" 
+  | "info" 
+  | "money" 
+  | "tip" 
+  | "celebration" 
+  | "ai" 
+  | undefined;
+
 // This component will render a different icon based on the toast variant
-const ToastIcon = ({ variant }: { variant?: string }) => {
+const ToastIcon = ({ variant }: { variant?: ToastVariantType }) => {
   const iconClasses = "h-5 w-5 mr-2";
   
   switch(variant) {

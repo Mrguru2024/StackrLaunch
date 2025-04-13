@@ -6,8 +6,21 @@ import {
   ToastProvider,
   ToastTitle,
   ToastViewport,
+  ToastIcon
 } from "@/components/ui/toast"
-import { ToastIcon } from "./toast"
+
+// Import the ToastVariantType from toast.tsx to keep types consistent
+type ToastVariantType = 
+  | "default" 
+  | "destructive" 
+  | "success" 
+  | "warning" 
+  | "info" 
+  | "money" 
+  | "tip" 
+  | "celebration" 
+  | "ai" 
+  | undefined;
 
 export function Toaster() {
   const { toasts } = useToast()
@@ -18,7 +31,7 @@ export function Toaster() {
         return (
           <Toast key={id} variant={variant} {...props}>
             <div className="flex items-start">
-              <ToastIcon variant={variant} />
+              <ToastIcon variant={variant as ToastVariantType} />
               <div className="grid gap-1">
                 {title && <ToastTitle>{title}</ToastTitle>}
                 {description && (
