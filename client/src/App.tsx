@@ -8,6 +8,7 @@ import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import TermsOfService from "@/pages/TermsOfService";
 import Contact from "@/pages/Contact";
 import ToastDemo from "@/pages/ToastDemo";
+import TestPage from "@/pages/TestPage";
 
 function Router() {
   // Debug: log the current path
@@ -21,6 +22,7 @@ function Router() {
       <Route path="/terms-of-service" component={TermsOfService} />
       <Route path="/contact" component={Contact} />
       <Route path="/toast-demo" component={ToastDemo} />
+      <Route path="/test" component={TestPage} />
       <Route component={NotFound} />
     </Switch>
   );
