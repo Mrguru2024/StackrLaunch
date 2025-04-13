@@ -35,7 +35,9 @@ app.use(
           "*.tally.so",
           "*.google-analytics.com",
           "*.analytics.google.com",
-          "*.googletagmanager.com"
+          "*.googletagmanager.com",
+          "ws:",
+          "wss:"
         ],
         imgSrc: ["'self'", "data:", "blob:", "www.googletagmanager.com", "*.google-analytics.com"],
         styleSrc: ["'self'", "'unsafe-inline'", "fonts.googleapis.com"],
