@@ -97,6 +97,12 @@ export default function Header({ waitlistUrl }: HeaderProps) {
                 >
                   FAQs
                 </a>
+                <a 
+                  href="/toast-demo" 
+                  className="text-gray-600 hover:text-primary font-medium px-1"
+                >
+                  Toast Demo
+                </a>
               </div>
               <Button 
                 className="bg-primary hover:bg-primary/90 shadow-md hover:shadow-lg transform hover:-translate-y-1 hover:scale-105 transition-all duration-200 ml-2"
@@ -167,6 +173,13 @@ export default function Header({ waitlistUrl }: HeaderProps) {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 FAQs
+              </a>
+              <a 
+                href="/toast-demo" 
+                className="block px-4 py-3 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Toast Demo
               </a>
               <button 
                 className="block w-full px-4 py-3 mt-2 text-center rounded-md text-base font-medium bg-primary text-white hover:bg-primary/90 shadow-md hover:shadow-lg transform hover:-translate-y-1 hover:scale-105 transition-all duration-200"

@@ -16,6 +16,7 @@ function Router() {
       <Route path="/privacy-policy" component={PrivacyPolicy} />
       <Route path="/terms-of-service" component={TermsOfService} />
       <Route path="/contact" component={Contact} />
+      <Route path="/toast-demo" component={ToastDemo} />
       <Route component={NotFound} />
     </Switch>
   );
