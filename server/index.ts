@@ -56,22 +56,47 @@ const apiLimiter = rateLimit({
 // Apply rate limiting to API routes
 app.use("/api/", apiLimiter);
 
+// Force HTTPS in production
+if (process.env.NODE_ENV === 'production') {
+  app.use((req, res, next) => {
+    // Check if it's a secure connection
+    if (!req.secure && req.get('x-forwarded-proto') !== 'https') {
+      // Redirect to https
+      return res.redirect(`https://${req.get('host')}${req.url}`);
+    }
+    next();
+  });
+}
+
 // Add security and SEO headers
 app.use((req, res, next) => {
   // Security Headers
   res.setHeader("X-Frame-Options", "SAMEORIGIN");
   res.setHeader("X-Content-Type-Options", "nosniff");
   res.setHeader("X-XSS-Protection", "1; mode=block");
-  res.setHeader("Strict-Transport-Security", "max-age=31536000; includeSubDomains; preload");
+  res.setHeader("Strict-Transport-Security", "max-age=63072000; includeSubDomains; preload"); // 2 years for stronger security
   res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
-  res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
+  res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=(), payment=()");
+  
+  // Set up Content Security Policy (CSP) for enhanced security
+  const cspValue = 
+    "default-src 'self'; " +
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval' tally.so; " +
+    "connect-src 'self' tally.so *.tally.so; " +
+    "img-src 'self' data: blob:; " +
+    "style-src 'self' 'unsafe-inline' fonts.googleapis.com; " +
+    "font-src 'self' data: fonts.gstatic.com; " +
+    "media-src 'self' data:; " +
+    "frame-src 'self' tally.so;";
+    
+  res.setHeader("Content-Security-Policy", cspValue);
   
   // SEO-specific headers for indexing
   res.setHeader("X-Robots-Tag", "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1");
   
-  // Cache control for static assets optimization
+  // Cache control for static assets optimization with immutable flag for better caching
   if (req.url.match(/\.(css|js|jpg|jpeg|png|gif|ico|svg|woff|woff2|ttf|eot)$/)) {
-    res.setHeader("Cache-Control", "public, max-age=31536000"); // 1 year
+    res.setHeader("Cache-Control", "public, max-age=31536000, immutable"); // 1 year with immutable flag
   } else if (req.url.match(/\.(html|xml|json)$/)) {
     res.setHeader("Cache-Control", "public, max-age=3600"); // 1 hour
   } else {
