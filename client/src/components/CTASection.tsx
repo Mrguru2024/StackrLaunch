@@ -28,9 +28,27 @@ export default function CTASection({ waitlistUrl }: CTASectionProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real application, this would redirect to the Tally.so form
-    // or submit the data to an API
-    window.location.href = waitlistUrl;
+    
+    // Use Tally.js to open the waitlist form in a modal
+    if (window.Tally) {
+      window.Tally.openPopup('3NO0eG', {
+        layout: 'modal',
+        width: 500,
+        emoji: {
+          text: '👋',
+          animation: 'wave'
+        },
+        hiddenFields: {
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          occupation: formData.occupation
+        }
+      });
+    } else {
+      // Fallback in case the Tally script hasn't loaded
+      window.location.href = waitlistUrl;
+    }
   };
 
   return (

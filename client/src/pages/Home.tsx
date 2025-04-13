@@ -7,9 +7,9 @@ import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 
 export default function Home() {
-  // Waitlist URL - in a real application this would come from an environment variable
-  const waitlistUrl = "https://tally.so/waitlist"; // Replace with actual Tally URL
-
+  // Tally.so waitlist form URL
+  const waitlistUrl = "https://tally.so/r/3NO0eG";
+  
   return (
     <div className="min-h-screen flex flex-col">
       <Header waitlistUrl={waitlistUrl} />

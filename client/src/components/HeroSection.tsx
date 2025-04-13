@@ -30,13 +30,18 @@ export default function HeroSection({ waitlistUrl }: HeroSectionProps) {
             </div>
             
             <div className="flex flex-col sm:flex-row sm:items-center space-y-4 sm:space-y-0 sm:space-x-4">
-              <Button asChild size="lg" className="inline-flex justify-center items-center shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition duration-200">
-                <a href="#join-waitlist">
-                  Join the Waitlist
-                  <svg className="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
-                  </svg>
-                </a>
+              <Button 
+                size="lg" 
+                className="inline-flex justify-center items-center shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition duration-200"
+                data-tally-open="3NO0eG"
+                data-tally-width="500" 
+                data-tally-emoji-text="👋" 
+                data-tally-emoji-animation="wave"
+              >
+                Join the Waitlist
+                <svg className="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
+                </svg>
               </Button>
               
               <div className="text-gray-500 text-sm md:text-base">
