@@ -1,9 +1,9 @@
 import { 
   Facebook, 
-  Twitter, 
   Instagram, 
   Linkedin 
 } from "lucide-react";
+import { SiThreads } from "react-icons/si";
 import { Link } from "wouter";
 import stackrLogo from "../assets/stackr-logo.png";
 
@@ -26,16 +26,40 @@ export default function Footer({ waitlistUrl }: FooterProps) {
             </p>
             
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <Twitter className="h-5 w-5" />
+              <a 
+                href="https://www.threads.net/@stackr.tech" 
+                className="text-gray-400 hover:text-white transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Stackr on Threads"
+              >
+                <SiThreads className="h-5 w-5" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a 
+                href="https://www.facebook.com/profile.php?viewas=100000686899395&id=61575053828418" 
+                className="text-gray-400 hover:text-white transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Stackr on Facebook"
+              >
                 <Facebook className="h-5 w-5" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a 
+                href="https://www.instagram.com/stackr.tech?igsh=MTR5amhxMHA0cWQzYQ==" 
+                className="text-gray-400 hover:text-white transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Stackr on Instagram"
+              >
                 <Instagram className="h-5 w-5" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a 
+                href="https://www.linkedin.com/company/stackr-tech/about/?viewAsMember=true" 
+                className="text-gray-400 hover:text-white transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Stackr on LinkedIn"
+              >
                 <Linkedin className="h-5 w-5" />
               </a>
             </div>
