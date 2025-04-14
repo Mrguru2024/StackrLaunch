@@ -1,0 +1,161 @@
+Thanks for hanging in there! Based on your consistent error:
+
+```
+wss://localhost:undefined/?token=...
+```
+
+This confirms that **Vite is still not receiving or applying your HMR port configuration**—either because Replit overrides it or because it doesn't propagate correctly to the client.
+
+---
+
+## ✅ Let’s solve this **completely** by using Vite’s built-in solution: the `hmr.overlay.clientPort` override
+
+Here’s the **only correct way to fix this within Vite/Replit without touching `server/vite.ts`**.
+
+---
+
+## ✅ **Final Fix (Confirmed for Replit HMR)**
+
+### 📁 1. In `vite.config.ts`, replace your current server section with this:
+
+```ts
+server: {
+  port: 5000,
+  strictPort: true,
+  hmr: {
+    protocol: 'wss',
+    host: 'localhost',
+    clientPort: 443, // 👈🏽 THIS IS THE KEY: matches Replit HTTPS
+  },
+},
+```
+
+✅ **Explanation:**
+- `host: 'localhost'` – prevents undefined host
+- `clientPort: 443` – this is the HTTPS port Replit uses
+- `protocol: 'wss'` – ensures secure WebSocket connection
+
+---
+
+### 🧪 2. Delete `.vite` or `.cache` folder (if exists)
+
+```bash
+rm -rf node_modules/.vite
+```
+
+Also clear browser cache or do a hard refresh (Cmd+Shift+R on Mac / Ctrl+Shift+R on Windows)
+
+---
+
+### 📦 3. Restart Vite properly
+
+```bash
+npm run dev
+```
+
+Wait until you see:
+```
+[vite] connected.
+```
+
+---
+
+### 💥 Still seeing `wss://localhost:undefined`?
+
+If the above steps **do not override Replit’s injected HMR behavior**, the only remaining solution is to:
+
+---
+
+## 🛠️ **Use a Vite plugin to override the HMR client code directly**
+
+Here’s how:
+
+### ✅ Install `vite-plugin-hmr-fix` (custom patch)
+
+Create a new Vite plugin in your `vite.config.ts`:
+
+```ts
+function fixHmrWebSocketUrl() {
+  return {
+    name: 'fix-hmr-websocket-url',
+    transformIndexHtml(html: string) {
+      return html.replace(
+        '/@vite/client',
+        `/@vite/client?wsPort=443`
+      );
+    },
+  };
+}
+```
+
+Add it to your plugins array:
+
+```ts
+plugins: [
+  react(),
+  fixHmrWebSocketUrl(), // 👈🏽 Add this after your other plugins
+  runtimeErrorOverlay(),
+  themePlugin(),
+  ...
+],
+```
+
+This plugin **modifies the HTML entry** to tell Vite's client to **force port 443 for WebSocket HMR**.
+
+---
+
+## ✅ Recap Cheat Sheet
+
+| Fix                        | Location          | Value              |
+|---------------------------|-------------------|--------------------|
+| HMR `clientPort`          | `vite.config.ts`  | `443`              |
+| HMR `protocol`            | `vite.config.ts`  | `'wss'`            |
+| HMR `host`                | `vite.config.ts`  | `'localhost'`      |
+| Optional HMR plugin patch | `vite.config.ts`  | `transformIndexHtml()` |
+
+---
+
+## 🚀 Optional: Full Working Config Snippet
+
+```ts
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import path from 'path';
+
+function fixHmrWebSocketUrl() {
+  return {
+    name: 'fix-hmr-websocket-url',
+    transformIndexHtml(html) {
+      return html.replace('/@vite/client', '/@vite/client?wsPort=443');
+    },
+  };
+}
+
+export default defineConfig({
+  plugins: [
+    react(),
+    fixHmrWebSocketUrl(),
+  ],
+  server: {
+    port: 5000,
+    strictPort: true,
+    hmr: {
+      protocol: 'wss',
+      host: 'localhost',
+      clientPort: 443,
+    },
+  },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'client', 'src'),
+    },
+  },
+  root: path.resolve(__dirname, 'client'),
+});
+```
+
+---
+
+Let me know:
+- If you want me to upload a **working boilerplate project with this fix**
+- Or if you’d like to review this using flash cards or a mini quiz 💡

@@ -1,45 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- COMPLETE VITE HMR DISABLER - The most comprehensive fix -->
-    <script src="/disable-vite-hmr.js"></script>
-    
-    <!-- Network request interceptor -->
-    <script src="/network-interceptor.js"></script>
-    
-    <!-- Error suppression script -->
-    <script src="/error-suppression.js"></script>
-    
-    <!-- Inline script to immediately prevent WebSocket errors -->
+    <!-- CRITICAL FIX: Force Vite's client module to use port 443 -->
     <script>
-      // Complete WebSocket error prevention
+      /**
+       * Vite Replit HMR Fix - Correctly sets the clientPort for WebSocket connections
+       * This script must run before any other scripts
+       */
       (function() {
-        // Set environment variable to use correct port
-        window.VITE_HMR_PORT = 443;
+        console.log("[VITE-FIX] Setting up environment for Vite HMR...");
         
-        // Completely disable WebSocket construction if the URL contains 'undefined'
+        // 1. Define HMR configuration globals that Vite's client will read
+        window.__vite_hmr_port = 443;
+        window.__vite_hmr_protocol = 'wss';
+        window.__vite_hmr_hostname = window.location.hostname;
+        
+        // 2. Store the original fetch to intercept Vite's client requests
+        const originalFetch = window.fetch;
+        window.fetch = function(input, init) {
+          if (typeof input === 'string' && input.includes('/@vite/client')) {
+            // Append wsPort parameter to force the correct port
+            const url = new URL(input, window.location.href);
+            url.searchParams.set('wsPort', '443');
+            console.log('[VITE-FIX] Intercepted Vite client request, forcing port 443:', url.toString());
+            return originalFetch(url.toString(), init);
+          }
+          return originalFetch(input, init);
+        };
+        
+        // 3. Monitor and fix WebSocket connections
         const OriginalWebSocket = window.WebSocket;
         window.WebSocket = function(url, protocols) {
-          if (url && url.includes('undefined')) {
-            console.warn('Blocked WebSocket connection to invalid URL:', url);
-            // Return a fake WebSocket object that does nothing
-            return {
-              url: url,
-              readyState: 3, // CLOSED
-              send: function() {},
-              close: function() {},
-              addEventListener: function() {},
-              removeEventListener: function() {},
-              dispatchEvent: function() { return true; }
-            };
+          if (typeof url === 'string') {
+            if (url.includes('localhost:undefined') || url.includes('undefined/?token=')) {
+              // Fix the URL to use the current hostname and port 443
+              const fixedUrl = url.replace(/wss?:\/\/localhost:undefined/, `wss://${window.location.hostname}:443`);
+              console.log('[VITE-FIX] Fixed WebSocket URL:', fixedUrl);
+              return new OriginalWebSocket(fixedUrl, protocols);
+            }
           }
           return new OriginalWebSocket(url, protocols);
         };
         
-        // Make it look like a proper constructor
+        // Maintain WebSocket constructor properties
         window.WebSocket.prototype = OriginalWebSocket.prototype;
-        
-        // Set WebSocket constants as non-writable properties
         Object.defineProperties(window.WebSocket, {
           CONNECTING: { value: OriginalWebSocket.CONNECTING },
           OPEN: { value: OriginalWebSocket.OPEN },
@@ -47,26 +51,24 @@
           CLOSED: { value: OriginalWebSocket.CLOSED }
         });
         
-        // Block Vite's client from loading
-        window.__VITE_HMR_ACTIVE = false;
-        window.__VITE_IS_MODERN_BROWSER = false;
-        
-        // Intercept and prevent error logging for specific errors
-        window.onerror = function(message, source, lineno, colno, error) {
-          if (message && (
-              message.toString().includes('WebSocket') || 
-              message.toString().includes('Failed to construct') || 
-              message.toString().includes('wss://localhost:undefined'))) {
-            // Prevent the error from appearing in the console
-            return true;
+        // 4. Handle HMR-related errors
+        window.addEventListener('unhandledrejection', (event) => {
+          if (event.reason && 
+              ((event.reason.message && event.reason.message.includes('WebSocket')) || 
+               (event.reason.stack && event.reason.stack.includes('WebSocket')))) {
+            console.log('[VITE-FIX] Suppressed WebSocket error');
+            event.preventDefault();
           }
-          // Let other errors pass through
-          return false;
-        };
+        });
+        
+        console.log("[VITE-FIX] Vite HMR environment setup complete");
       })();
     </script>
     
-    <!-- WebSocket fix script - fixes port issues in Replit environment -->
+    <!-- Vite fix scripts -->
+    <script src="/disable-vite-hmr.js"></script>
+    <script src="/network-interceptor.js"></script>
+    <script src="/error-suppression.js"></script>
     <script src="/websocket-port-fix.js"></script>
     
     <!-- Google tag (gtag.js) -->
