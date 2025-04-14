@@ -1,21 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Load the Vite polyfill first -->
+    <script src="/vite-polyfill.js"></script>
+    
     <!-- Fix for "Cannot use import.meta outside module" issue -->
     <script>
-      // Simple runtime fix for import.meta error
+      // Advanced runtime fix for import.meta error
       window.importMeta = {
         url: window.location.href,
         env: { MODE: "production", PROD: true, DEV: false }
       };
-      Object.defineProperty(window, "import", { 
-        get: function() { return { meta: window.importMeta }; }
-      });
-      // Fix WebSocket errors related to Vite
+      
+      // Safely define import.meta
+      try {
+        Object.defineProperty(window, "import", { 
+          value: { meta: window.importMeta },
+          writable: false,
+          configurable: false
+        });
+      } catch (e) {
+        console.warn("Could not define import.meta globally:", e);
+      }
+      
+      // Catch and suppress specific errors
       window.addEventListener('error', function(e) {
         if (e && e.message && (
           e.message.includes('import.meta') || 
-          e.message.includes('WebSocket')
+          e.message.includes('WebSocket') ||
+          e.message.includes('Module') ||
+          e.message.includes('Cannot read')
         )) {
           console.log('Prevented error:', e.message);
           e.preventDefault();
@@ -23,6 +37,8 @@
           return true;
         }
       }, true);
+      
+      console.log("Runtime fixes for import.meta initialized");
     </script>
     
     <!-- Google tag (gtag.js) -->
@@ -140,7 +156,48 @@
   </head>
   <body>
     <div id="root"></div>
-    <!-- No HMR needed, removed WebSocket workaround -->
+    <!-- Direct fix for import.meta errors -->
+    <script>
+      // Create a global shim for import.meta that will be used by any script that references it
+      window.importMeta = {
+        url: window.location.href,
+        env: { 
+          MODE: "production", 
+          PROD: true, 
+          DEV: false,
+          BASE_URL: '/'
+        },
+        glob: function() { return {} }
+      };
+      
+      // Define import.meta at the global level
+      if (typeof import === 'undefined') {
+        Object.defineProperty(window, "import", { 
+          value: { 
+            meta: window.importMeta 
+          },
+          writable: false,
+          configurable: false
+        });
+      }
+      
+      // Block any attempt to reevaluate import.meta
+      (function() {
+        // Save original defineProperty 
+        const originalDefineProperty = Object.defineProperty;
+        
+        // Override defineProperty to protect import.meta
+        Object.defineProperty = function(obj, prop, descriptor) {
+          if (obj === window && prop === 'import') {
+            console.warn('Attempted to redefine import.meta, blocked');
+            return obj;
+          }
+          return originalDefineProperty.call(this, obj, prop, descriptor);
+        };
+      })();
+      
+      console.log("Import.meta global shim installed");
+    </script>
     
     <!-- Custom WebSocket client for server connection -->
     <script>

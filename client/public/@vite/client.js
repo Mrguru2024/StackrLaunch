@@ -1,24 +1,12 @@
-/**
- * Complete Vite Client Override
- * 
- * This file completely replaces Vite's actual client module with a stub implementation
- * that prevents WebSocket connections and related errors.
- */
+// Mock Vite client for production/non-HMR environments
+// This prevents import.meta errors when loading the Vite client
 
-// Empty implementation of the Vite HMR client API
-export const webSocketClient = {
-  send: () => {},
-  onMessage: () => {},
-  close: () => {},
-  connected: false
-};
+// Access the polyfill if available
+const vitePolyfill = window.__vite_client || {};
 
-export const devtoolsClient = {
-  enabled: false,
-  connected: false
-};
-
+// Export Vite HMR functions
 export function createHotContext() {
+  console.log("[@vite/client] createHotContext called");
   return {
     accept: () => {},
     dispose: () => {},
@@ -29,16 +17,22 @@ export function createHotContext() {
   };
 }
 
-export const ErrorOverlay = {
-  customEmit: () => {},
-  send: () => {}
+// Export WebSocket client
+export const webSocketClient = {
+  send: () => {},
+  onMessage: () => {}
 };
 
+// Export Style functions
 export function updateStyle() {}
 export function removeStyle() {}
 export function fetchUpdate() { return Promise.resolve(); }
-export function setupWebSocket() {}
-export function enableOverlay() {}
-export function createHotContext() {}
-export function decode() {}
-export function transformCode() {}
+
+// Export Error Overlay
+export const ErrorOverlay = {
+  hasErrorOverlay: () => false,
+  clearErrorOverlay: () => {},
+  processError: () => {}
+};
+
+console.log("[@vite/client] Mock client loaded successfully");

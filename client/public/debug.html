@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stackr Debug Page</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .container {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    h1 {
+      color: #333;
+    }
+    .status {
+      font-weight: bold;
+    }
+    .connected {
+      color: green;
+    }
+    .disconnected {
+      color: red;
+    }
+    pre {
+      background: #f5f5f5;
+      padding: 10px;
+      border-radius: 4px;
+      overflow: auto;
+      max-height: 300px;
+    }
+    button {
+      background: #4c63b6;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-right: 8px;
+    }
+    button:hover {
+      background: #3b4f9a;
+    }
+    .input-group {
+      display: flex;
+      margin-bottom: 10px;
+    }
+    input {
+      flex: 1;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      margin-right: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Stackr Debug Page</h1>
+  
+  <div class="container">
+    <h2>WebSocket Connection</h2>
+    <p>Status: <span id="ws-status" class="status disconnected">Disconnected</span></p>
+    <div class="input-group">
+      <input type="text" id="message-input" placeholder="Type a message..." disabled>
+      <button id="send-btn" disabled>Send</button>
+    </div>
+    <button id="connect-btn">Connect</button>
+    <button id="disconnect-btn" disabled>Disconnect</button>
+    
+    <h3>Messages:</h3>
+    <pre id="message-log">No messages yet</pre>
+  </div>
+
+  <div class="container">
+    <h2>Environment Information</h2>
+    <pre id="env-info"></pre>
+    <button id="refresh-env">Refresh Info</button>
+  </div>
+
+  <div class="container">
+    <h2>API Status</h2>
+    <pre id="api-status">Click "Check API" to test connection</pre>
+    <button id="check-api">Check API</button>
+  </div>
+  
+  <script>
+    let socket = null;
+    const messageInput = document.getElementById('message-input');
+    const sendBtn = document.getElementById('send-btn');
+    const connectBtn = document.getElementById('connect-btn');
+    const disconnectBtn = document.getElementById('disconnect-btn');
+    const statusEl = document.getElementById('ws-status');
+    const messageLog = document.getElementById('message-log');
+    const envInfo = document.getElementById('env-info');
+    const apiStatus = document.getElementById('api-status');
+    const checkApiBtn = document.getElementById('check-api');
+    const refreshEnvBtn = document.getElementById('refresh-env');
+    
+    // Connect WebSocket
+    function connectWebSocket() {
+      try {
+        const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+        const wsUrl = `${protocol}//${window.location.host}/ws`;
+        
+        logMessage(`Connecting to ${wsUrl}...`);
+        
+        socket = new WebSocket(wsUrl);
+        
+        socket.onopen = () => {
+          statusEl.textContent = 'Connected';
+          statusEl.className = 'status connected';
+          messageInput.disabled = false;
+          sendBtn.disabled = false;
+          connectBtn.disabled = true;
+          disconnectBtn.disabled = false;
+          logMessage('Connection established');
+        };
+        
+        socket.onmessage = (event) => {
+          try {
+            const data = JSON.parse(event.data);
+            logMessage(`Received: ${JSON.stringify(data, null, 2)}`);
+          } catch (e) {
+            logMessage(`Received: ${event.data}`);
+          }
+        };
+        
+        socket.onerror = (error) => {
+          logMessage(`Error: ${error}`);
+        };
+        
+        socket.onclose = () => {
+          statusEl.textContent = 'Disconnected';
+          statusEl.className = 'status disconnected';
+          messageInput.disabled = true;
+          sendBtn.disabled = true;
+          connectBtn.disabled = false;
+          disconnectBtn.disabled = true;
+          logMessage('Connection closed');
+          socket = null;
+        };
+      } catch (e) {
+        logMessage(`Connection error: ${e.message}`);
+      }
+    }
+    
+    // Disconnect WebSocket
+    function disconnectWebSocket() {
+      if (socket) {
+        socket.close();
+      }
+    }
+    
+    // Send message
+    function sendMessage() {
+      if (socket && socket.readyState === WebSocket.OPEN) {
+        const message = messageInput.value;
+        if (message) {
+          socket.send(message);
+          logMessage(`Sent: ${message}`);
+          messageInput.value = '';
+        }
+      }
+    }
+    
+    // Log message
+    function logMessage(message) {
+      const timestamp = new Date().toLocaleTimeString();
+      messageLog.textContent = `[${timestamp}] ${message}\n${messageLog.textContent}`;
+    }
+    
+    // Show environment info
+    function showEnvironmentInfo() {
+      const info = {
+        userAgent: navigator.userAgent,
+        windowLocation: window.location.toString(),
+        protocol: window.location.protocol,
+        host: window.location.host,
+        href: window.location.href,
+        importMetaAvailable: typeof import !== 'undefined' && import.meta !== undefined,
+        vitePolyfillInstalled: typeof window.__vitePolyfillInstalled !== 'undefined'
+      };
+      
+      envInfo.textContent = JSON.stringify(info, null, 2);
+    }
+    
+    // Check API status
+    async function checkApiStatus() {
+      try {
+        apiStatus.textContent = 'Checking API status...';
+        const response = await fetch('/api/status');
+        const data = await response.json();
+        apiStatus.textContent = JSON.stringify(data, null, 2);
+      } catch (error) {
+        apiStatus.textContent = `Error: ${error.message}`;
+      }
+    }
+    
+    // Event listeners
+    connectBtn.addEventListener('click', connectWebSocket);
+    disconnectBtn.addEventListener('click', disconnectWebSocket);
+    sendBtn.addEventListener('click', sendMessage);
+    messageInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') sendMessage();
+    });
+    refreshEnvBtn.addEventListener('click', showEnvironmentInfo);
+    checkApiBtn.addEventListener('click', checkApiStatus);
+    
+    // Initial environment info
+    showEnvironmentInfo();
+  </script>
+</body>
+</html>
