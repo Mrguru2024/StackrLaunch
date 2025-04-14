@@ -71,9 +71,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
     `);
   });
   
-  // Redirect root traffic to our standalone page as a temporary fix
+  // Serve a static version of the index page as a temporary fix for import.meta issues
   app.get('/', (req: Request, res: Response) => {
-    res.redirect('/standalone.html');
+    // Check if the client accepts HTML
+    const acceptHeader = req.headers.accept || '';
+    if (acceptHeader.includes('text/html')) {
+      res.sendFile(path.resolve(process.cwd(), 'client/public/index-static.html'));
+    } else {
+      // For API requests, return JSON
+      res.json({ status: 'ok', message: 'Server is running properly' });
+    }
   });
 
   // use storage to perform CRUD operations on the storage interface
