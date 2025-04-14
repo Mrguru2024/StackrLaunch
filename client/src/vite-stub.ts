@@ -1,10 +1,11 @@
 /**
- * VITE HMR STUB MODULE
- * This file provides empty implementations of Vite HMR APIs
- * to prevent errors when HMR functionality is imported or used.
+ * Vite Client Stub for Production
+ * 
+ * This serves as a replacement for Vite's HMR client in production
+ * to prevent errors related to missing import.meta
  */
 
-// Empty HMR context functions
+// Empty HMR functions
 export function createHotContext() {
   return {
     accept: () => {},
@@ -16,38 +17,24 @@ export function createHotContext() {
   };
 }
 
-// Empty WebSocket client functions
+// Empty WebSocket client
 export const webSocketClient = {
   send: () => {},
-  onMessage: () => {},
-  close: () => {},
-  connect: () => {},
-  connected: false
+  onMessage: () => {}
 };
 
-// Empty utility functions
+// Empty style functions
 export function updateStyle() {}
 export function removeStyle() {}
 export function fetchUpdate() { return Promise.resolve(); }
 
 // Empty error overlay
 export const ErrorOverlay = {
-  send: () => {},
-  customEmit: () => {}
+  hasErrorOverlay: () => false,
+  clearErrorOverlay: () => {},
+  processError: () => {}
 };
 
-// Mark HMR as disabled
+// Disable flags
 export const hmrEnabled = false;
 export const enabledFlag = false;
-
-// Expose these to mimic Vite's client API
-export default {
-  createHotContext,
-  webSocketClient,
-  updateStyle,
-  removeStyle,
-  fetchUpdate,
-  ErrorOverlay,
-  hmrEnabled,
-  enabledFlag
-};
