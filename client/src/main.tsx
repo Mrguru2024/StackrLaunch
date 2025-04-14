@@ -1,8 +1,17 @@
-// Import vite stub first to prevent any HMR imports
-import "./vite-stub";
+// Simplified main file - no HMR imports
 import { createRoot } from "react-dom/client";
 import App from "./App";
 import "./index.css";
 
-// Render the app - no need for WebSocket error handling as it's in index.html
-createRoot(document.getElementById("root")!).render(<App />);
+// Simple error handling
+try {
+  const rootElement = document.getElementById("root");
+  if (rootElement) {
+    createRoot(rootElement).render(<App />);
+    console.log("App rendered successfully");
+  } else {
+    console.error("Root element not found");
+  }
+} catch (err) {
+  console.error("Error rendering app:", err);
+}
