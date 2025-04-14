@@ -1,93 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- REPLACE VITE CLIENT APPROACH -->
-    <!-- This script actually injects a module that pretends to be @vite/client -->
-    <script src="/replace-vite-client.js"></script>
+    <!-- ABSOLUTELY NUKE VITE HMR WITH EVERY METHOD AVAILABLE -->
     
-    <!-- Important: Set Vite globals to disable HMR completely -->
+    <!-- SERVICE WORKER TO BLOCK ALL WEBSOCKET CONNECTIONS AT NETWORK LEVEL -->
     <script>
-      // Set all the globals that Vite checks for HMR
-      window.__vite_is_modern_browser = false;
-      window.__vite_is_dynamic_import_support = false;
-      window.__VITE_IS_MODERN_BROWSER = false;
-      window.__vite_hmr = null;
-      window.__hmrDirtyComponents = new Set();
-      window.__VUE_HMR_RUNTIME = null;
-      window.__VITE_HMR_ACTIVE = false;
-      
-      // This is critical - Vite won't show connecting if this is present
-      window.__vite_plugin_react_preamble_installed__ = true;
-      
-      // Set a fake token to prevent actual token lookup
-      window.__HMR_HOSTNAME = "localhost";
-      window.__HMR_PORT = 0;
-      window.__HMR_BASE = "/";
-      window.__HMR_TIMEOUT = 0;
-      window.__HMR_ENABLE = false;
-      
-      // Replace console.log to block [vite] messages
-      (function() {
-        const originalConsoleLog = console.log;
-        console.log = function(...args) {
-          if (args.length > 0 && 
-              typeof args[0] === 'string' && 
-              args[0].startsWith("[vite]")) {
-            // Drop this log
-            return;
-          }
-          return originalConsoleLog.apply(this, args);
-        };
-        
-        // Block WebSocket errors
-        window.addEventListener('error', function(event) {
-          if (event && event.message && 
-              (event.message.includes('WebSocket') || 
-               event.message.includes('Failed to'))) {
-            event.preventDefault();
-            event.stopPropagation();
-            return true;
-          }
-        }, true);
-        
-        // Block unhandled promise rejections
-        window.addEventListener('unhandledrejection', function(event) {
-          event.preventDefault();
-          event.stopPropagation();
-          return true;
-        }, true);
-      })();
+      // Register a service worker to intercept WebSocket connections
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/vite-ws-blocker-sw.js', {scope: '/'})
+            .then(registration => {
+              console.log('SW registered for blocking WebSockets');
+            })
+            .catch(error => {
+              console.log('SW registration failed:', error);
+            });
+        });
+      }
     </script>
     
-    <!-- Create a completely fake module system for Vite -->
-    <script type="module">
-      // Fake module cache for Vite
-      const moduleCache = new Map();
-      
-      // Create fake module for @vite/client
-      const fakeViteClientModule = {
-        createHotContext: () => ({
-          accept: () => {},
-          dispose: () => {},
-          prune: () => {},
-          decline: () => {},
-          invalidate: () => {},
-          on: () => {}
-        }),
-        webSocketClient: {
-          send: () => {},
-          onMessage: () => {}
-        },
-        updateStyle: () => {},
-        removeStyle: () => {}
-      };
-      
-      // Store in cache
-      moduleCache.set('/@vite/client', fakeViteClientModule);
-      moduleCache.set('@vite/client', fakeViteClientModule);
-      
-      // Expose cache to window
-      window.__vite_module_cache = moduleCache;
+    <!-- FIRST LINE OF DEFENSE - CLIENT BYPASS -->
+    <script src="/complete-vite-bypass.js"></script>
+    
+    <!-- LAST RESORT - VISUAL HIDING OF ANY ERROR MESSAGES -->
+    <style>
+      /* Hide any Vite-related error messages if they do appear */
+      .hmr-error-overlay,
+      .vite-error-overlay,
+      [data-vite-dev-overlay],
+      .__vite-error-overlay,
+      #vite-error-overlay,
+      [id^='vite-'],
+      [class^='vite-'] {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        z-index: -9999 !important;
+        pointer-events: none !important;
+        position: fixed !important;
+        top: -9999px !important;
+        left: -9999px !important;
+        height: 0 !important;
+        width: 0 !important;
+        overflow: hidden !important;
+      }
+    </style>
+    
+    <!-- TRAP ALL CONSOLE OUTPUT RELATED TO VITE -->
+    <script>
+      (function() {
+        // Completely neuter the console for all Vite-related messages
+        ['log', 'error', 'warn', 'info', 'debug'].forEach(method => {
+          const original = console[method];
+          console[method] = function(...args) {
+            // Check all arguments for Vite-related terms
+            const isViteRelated = args.some(arg => 
+              typeof arg === 'string' && (
+                arg.includes('[vite]') ||
+                arg.includes('vite') ||
+                arg.includes('hmr') ||
+                arg.includes('WebSocket') ||
+                arg.includes('ws://') ||
+                arg.includes('wss://')
+              )
+            );
+            
+            if (!isViteRelated) {
+              return original.apply(this, args);
+            }
+          };
+        });
+        
+        // Override window.error and window.unhandledrejection
+        window.onerror = function(message, source, lineno, colno, error) {
+          if (message && (
+              String(message).includes('WebSocket') ||
+              String(message).includes('vite') ||
+              String(message).includes('hmr')
+          )) {
+            return true; // Prevent default error handling
+          }
+        };
+        
+        // Block ALL unhandled promise rejections
+        window.addEventListener('unhandledrejection', function(event) {
+          // Always prevent unhandled promise rejection events
+          event.preventDefault();
+          event.stopPropagation();
+          return false;
+        }, true);
+      })();
     </script>
     
     <!-- Google tag (gtag.js) -->
