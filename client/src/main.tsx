@@ -1,8 +1,8 @@
-// Import React explicitly to avoid any import issues
+// Explicit imports to avoid any import.meta issues
+import './index.css';
 import * as React from 'react';
-import { createRoot } from "react-dom/client";
-import App from "./App";
-import "./index.css";
+import * as ReactDOM from 'react-dom/client';
+import App from './App';
 
 // Advanced error handling for React rendering
 try {
@@ -14,8 +14,10 @@ try {
       if (rootElement) {
         try {
           // Create root and render app
-          const root = createRoot(rootElement);
-          root.render(React.createElement(App));
+          const root = ReactDOM.createRoot(rootElement);
+          root.render(React.createElement(React.Suspense, { 
+            fallback: React.createElement('div', null, 'Loading...') 
+          }, React.createElement(App)));
           console.log("App rendered successfully");
         } catch (renderError) {
           console.error("Error rendering app:", renderError);

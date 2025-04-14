@@ -1,0 +1,31 @@
+// Patched Vite client with no import.meta
+// This file will be served instead of the real Vite client
+
+// Create necessary stubs
+window.__vite_hmr = {
+  accept: () => {},
+  prune: () => {},
+  dispose: () => {}
+};
+
+// Export required functions
+export function createHotContext() {
+  return window.__vite_hmr;
+}
+
+export const webSocketClient = {
+  send: () => {},
+  onMessage: () => {},
+  close: () => {}
+};
+
+export function updateStyle() {}
+export function removeStyle() {}
+export function fetchUpdate() { return Promise.resolve(); }
+
+export const ErrorOverlay = {
+  clearErrorOverlay: () => {},
+  processError: () => {}
+};
+
+console.log('[Patched Vite Client] Successfully loaded');
