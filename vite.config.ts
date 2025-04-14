@@ -4,6 +4,8 @@ import themePlugin from "@replit/vite-plugin-shadcn-theme-json";
 import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
+const hmrPort = process.env.VITE_HMR_PORT || 443;
+
 export default defineConfig({
   plugins: [
     react(),
@@ -22,10 +24,10 @@ export default defineConfig({
     port: 5000,
     strictPort: true,
     hmr: {
-      protocol: "ws",           // <- Use 'ws' not 'wss' for local dev
-      host: "localhost",        // <- Must match exactly your frontend's origin
-      port: 5000,               // <- Dev server WebSocket port
-      clientPort: 5000,         // <- Ensures the browser connects properly
+      protocol: "wss", // Needed for secure Replit
+      host: "localhost",
+      port: Number(hmrPort),
+      clientPort: Number(hmrPort),
     },
   },
   resolve: {
