@@ -91,17 +91,7 @@
     }
   };
   
-  // Override import.meta for Vite's HMR
-  try {
-    Object.defineProperty(import.meta, 'hot', {
-      get: function() {
-        return null;
-      },
-      configurable: true
-    });
-  } catch (e) {
-    console.log("[VITE-BYPASS] Unable to override import.meta.hot:", e);
-  }
+  // DO NOT try to use import.meta here as it's not a module
   
   // TRAP 3: Hide all console messages from Vite
   const originalConsoleLog = console.log;
@@ -159,6 +149,11 @@
   window.__hmrDirtyComponents = new Set();
   window.__VUE_HMR_RUNTIME = null;
   window.__VITE_HMR_ACTIVE = false;
+  
+  // Specifically address the missing HMR config name error
+  window.__HMR_CONFIG_NAME__ = "null";
+  window.__HMR_RUNTIME_CONFIG = {};
+  window.__HMR_CONFIG = {};
   
   console.log("[VITE-BYPASS] Complete Vite client bypass installed successfully");
 })();
