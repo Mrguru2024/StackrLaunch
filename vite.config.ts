@@ -1,26 +1,21 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import themePlugin from "@replit/vite-plugin-shadcn-theme-json";
-import path, { dirname } from "path";
-import { fileURLToPath } from "url";
+import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
-// Fix for using __dirname in ES modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+// Replit-safe fallback: assume project root is the current directory
+const rootDir = path.resolve(__dirname, ".");
 
 // Replit uses HTTPS, so HMR must use wss and port 443
 const hmrPort = 443;
 
-// Optional fallback fix: inject wsPort=443 into client URL
+// Optional plugin to force client WebSocket to use correct port
 function fixHmrWebSocketUrl() {
   return {
     name: 'fix-hmr-websocket-url',
-    transformIndexHtml(html: string) {
-      return html.replace(
-        '/@vite/client',
-        '/@vite/client?wsPort=443'
-      );
+    transformIndexHtml(html) {
+      return html.replace('/@vite/client', '/@vite/client?wsPort=443');
     },
   };
 }
@@ -44,22 +39,22 @@ export default defineConfig({
     port: 5000,
     strictPort: true,
     hmr: {
-      protocol: "wss",        // Replit requires secure WebSockets
-      host: "localhost",      // Prevents Vite from defaulting to undefined
-      port: hmrPort,          // Server-side HMR port
-      clientPort: hmrPort,    // Browser-side HMR port
+      protocol: "wss",        // Secure WebSocket for Replit
+      host: "localhost",      // Prevents undefined host
+      port: hmrPort,          // Backend HMR port
+      clientPort: hmrPort,    // WebSocket port the browser connects to
     },
   },
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "client", "src"),
-      "@shared": path.resolve(__dirname, "shared"),
-      "@assets": path.resolve(__dirname, "attached_assets"),
+      "@": path.resolve(rootDir, "client", "src"),
+      "@shared": path.resolve(rootDir, "shared"),
+      "@assets": path.resolve(rootDir, "attached_assets"),
     },
   },
-  root: path.resolve(__dirname, "client"),
+  root: path.resolve(rootDir, "client"),
   build: {
-    outDir: path.resolve(__dirname, "dist/public"),
+    outDir: path.resolve(rootDir, "dist/public"),
     emptyOutDir: true,
   },
 });
