@@ -169,7 +169,7 @@ export default function HowItWorksSection() {
           animate={isTitleVisible ? "visible" : "hidden"}
         >
           <motion.h2 
-            className="text-3xl md:text-4xl font-bold text-gray-900"
+            className="text-3xl md:text-4xl font-bold text-gray-900 mx-auto"
             variants={textVariants}
           >
             How Stackr Works

@@ -20,7 +20,6 @@ export default function Footer({ waitlistUrl }: FooterProps) {
             </p>
             
             <div className="space-y-2 mb-6">
-              <p className="text-gray-400">1441 Woodmont Ln NW #3442, Atlanta, GA 30318</p>
               <p className="text-gray-400">support@stackr.tech</p>
             </div>
           </div>
