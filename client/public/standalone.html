@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stackr | AI Financial Automation for Tradespeople, Side Hustlers & 9-5 Rebuilders</title>
+  
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VHVMZHY9MS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-VHVMZHY9MS');
+  </script>
+  
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f9fafb;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 2rem;
+      background-color: white;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #7c3aed;
+    }
+    
+    nav a {
+      margin-left: 1.5rem;
+      text-decoration: none;
+      color: #4b5563;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    
+    nav a:hover {
+      color: #7c3aed;
+    }
+    
+    .hero {
+      background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%);
+      color: white;
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+    
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+    
+    .hero p {
+      font-size: 1.25rem;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+      opacity: 0.9;
+    }
+    
+    .cta-button {
+      display: inline-block;
+      background-color: #10b981;
+      color: white;
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+    
+    .cta-button:hover {
+      background-color: #059669;
+    }
+    
+    .benefits {
+      padding: 5rem 2rem;
+      background-color: white;
+    }
+    
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      color: #1f2937;
+    }
+    
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    
+    .benefit-card {
+      background-color: #f9fafb;
+      padding: 2rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      transition: transform 0.3s;
+    }
+    
+    .benefit-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .benefit-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #111827;
+    }
+    
+    .benefit-card p {
+      color: #4b5563;
+    }
+    
+    .icon-wrapper {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: #ddd6fe;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    .icon-wrapper svg {
+      width: 30px;
+      height: 30px;
+      color: #7c3aed;
+    }
+    
+    .how-it-works {
+      padding: 5rem 2rem;
+      background-color: #f3f4f6;
+    }
+    
+    .steps {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .step {
+      display: flex;
+      margin-bottom: 3rem;
+      align-items: flex-start;
+    }
+    
+    .step-number {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #7c3aed;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      margin-right: 1.5rem;
+      flex-shrink: 0;
+    }
+    
+    .step-content h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: #111827;
+    }
+    
+    .step-content p {
+      color: #4b5563;
+    }
+    
+    .testimonials {
+      padding: 5rem 2rem;
+      background-color: white;
+    }
+    
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    
+    .testimonial-card {
+      background-color: #f9fafb;
+      padding: 2rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+    
+    .testimonial-text {
+      font-style: italic;
+      margin-bottom: 1.5rem;
+      color: #4b5563;
+    }
+    
+    .testimonial-author {
+      font-weight: 600;
+      color: #111827;
+    }
+    
+    .testimonial-role {
+      color: #6b7280;
+      font-size: 0.9rem;
+    }
+    
+    .cta-section {
+      padding: 5rem 2rem;
+      background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%);
+      color: white;
+      text-align: center;
+    }
+    
+    .cta-section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .cta-section p {
+      font-size: 1.25rem;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+      opacity: 0.9;
+    }
+    
+    footer {
+      background-color: #1f2937;
+      color: white;
+      padding: 3rem 2rem;
+    }
+    
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+    
+    .footer-section h3 {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      color: #e5e7eb;
+    }
+    
+    .footer-links a {
+      display: block;
+      color: #9ca3af;
+      text-decoration: none;
+      margin-bottom: 0.5rem;
+      transition: color 0.2s;
+    }
+    
+    .footer-links a:hover {
+      color: white;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .social-links a {
+      color: #9ca3af;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    
+    .social-links a:hover {
+      color: white;
+    }
+    
+    .copyright {
+      text-align: center;
+      margin-top: 3rem;
+      color: #9ca3af;
+      font-size: 0.9rem;
+    }
+    
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+      
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      nav {
+        display: none;
+      }
+    }
+  </style>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tally.so Form Widget -->
+  <script async src="https://tally.so/widgets/embed.js"></script>
+</head>
+<body>
+  <header>
+    <div class="logo">Stackr</div>
+    <nav>
+      <a href="#benefits">Benefits</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#testimonials">Testimonials</a>
+      <a href="#waitlist" class="cta-button">Join Waitlist</a>
+    </nav>
+  </header>
+  
+  <section class="hero">
+    <div class="container">
+      <h1>AI Financial Automation for Tradespeople, Side Hustlers & 9-5 Rebuilders</h1>
+      <p>Save $650/year & 5+ hours monthly with Stackr's AI financial automation built specifically for tradespeople, side hustlers, freelancers, and 9-5 rebuilders. Automate income, eliminate hidden fees, and grow your wealth.</p>
+      <a href="#waitlist" class="cta-button" 
+         onclick="Tally.openPopup('3NO0eG', { layout: 'modal' }); return false;">Join Waitlist</a>
+    </div>
+  </section>
+  
+  <section id="benefits" class="benefits">
+    <div class="container">
+      <h2 class="section-title">Why Choose Stackr?</h2>
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <div class="icon-wrapper">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h3>Save Money</h3>
+          <p>Our AI detects hidden fees and unnecessary subscriptions, saving the average user $650 per year.</p>
+        </div>
+        
+        <div class="benefit-card">
+          <div class="icon-wrapper">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h3>Save Time</h3>
+          <p>Automate your financial management and save over 5 hours monthly with smart automation.</p>
+        </div>
+        
+        <div class="benefit-card">
+          <div class="icon-wrapper">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+            </svg>
+          </div>
+          <h3>Grow Your Wealth</h3>
+          <p>Smart recommendations and automated savings help you build wealth even with variable income.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section id="how-it-works" class="how-it-works">
+    <div class="container">
+      <h2 class="section-title">How It Works</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Connect Your Accounts</h3>
+            <p>Securely link your bank accounts, credit cards, and payment platforms with bank-level encryption.</p>
+          </div>
+        </div>
+        
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>AI Analysis</h3>
+            <p>Our AI examines your financial patterns to find optimization opportunities, hidden fees, and unnecessary expenses.</p>
+          </div>
+        </div>
+        
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Automate & Optimize</h3>
+            <p>Stackr automatically optimizes your finances based on your specific income patterns and financial goals.</p>
+          </div>
+        </div>
+        
+        <div class="step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>Track Your Growth</h3>
+            <p>Monitor your progress with easy-to-understand insights and watch your savings and investments grow.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section id="testimonials" class="testimonials">
+    <div class="container">
+      <h2 class="section-title">What Our Users Say</h2>
+      <div class="testimonial-grid">
+        <div class="testimonial-card">
+          <p class="testimonial-text">"As an electrician with irregular income, Stackr has been a game changer. I've saved over $700 this year on unnecessary fees and subscriptions I didn't even know I was paying for."</p>
+          <p class="testimonial-author">Michael T.</p>
+          <p class="testimonial-role">Electrician, Atlanta</p>
+        </div>
+        
+        <div class="testimonial-card">
+          <p class="testimonial-text">"I run a side hustle on Etsy while working full-time. Stackr makes it easy to manage both income streams and automate my savings. It's like having a financial advisor in my pocket."</p>
+          <p class="testimonial-author">Sarah K.</p>
+          <p class="testimonial-role">Graphic Designer & Etsy Seller</p>
+        </div>
+        
+        <div class="testimonial-card">
+          <p class="testimonial-text">"After quitting my 9-5 to start freelancing, I was worried about managing inconsistent income. Stackr's automation helped me maintain financial stability even during slow months."</p>
+          <p class="testimonial-author">David R.</p>
+          <p class="testimonial-role">Freelance Developer</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section id="waitlist" class="cta-section">
+    <div class="container">
+      <h2>Ready to Take Control of Your Finances?</h2>
+      <p>Join our waitlist today and be among the first to experience financial automation built specifically for your needs.</p>
+      <a href="#" class="cta-button" 
+         onclick="Tally.openPopup('3NO0eG', { layout: 'modal' }); return false;">Join the Waitlist</a>
+    </div>
+  </section>
+  
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-section">
+          <h3>Stackr</h3>
+          <p>AI-powered financial automation for tradespeople, side hustlers, and 9-5 rebuilders.</p>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Links</h3>
+          <div class="footer-links">
+            <a href="#benefits">Benefits</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#testimonials">Testimonials</a>
+            <a href="/privacy-policy">Privacy Policy</a>
+            <a href="/terms-of-service">Terms of Service</a>
+          </div>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Connect</h3>
+          <div class="social-links">
+            <a href="https://facebook.com/stackrfinancial" target="_blank" rel="noopener noreferrer">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
+              </svg>
+            </a>
+            <a href="https://instagram.com/stackrfinancial" target="_blank" rel="noopener noreferrer">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+            </a>
+            <a href="https://www.threads.net/@stackrfinancial" target="_blank" rel="noopener noreferrer">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509-1.811-2.253-2.465-5.252-1.945-8.937.648-4.618 3.901-7.543 8.473-7.552 3.582.009 6.334 1.19 8.185 3.494 1.812 2.252 2.464 5.251 1.944 8.934-.648 4.619-3.9 7.546-8.466 7.57zm-6.461-10.599c.091 1.654.584 3.059 1.476 4.187 1.312 1.66 3.635 2.573 6.983 2.588 3.352-.015 5.671-.93 6.971-2.574.894-1.127 1.383-2.529 1.474-4.184-.093-1.656-.586-3.063-1.477-4.194-1.309-1.656-3.632-2.566-6.96-2.574h-.022c-3.357.016-5.676.931-6.974 2.573-.893 1.129-1.382 2.533-1.471 4.178z"></path><path d="M9.485 13.851a.5.5 0 0 1-.323-.886c1.694-1.438 4.647-1.44 6.344 0a.5.5 0 0 1-.646.765c-1.361-1.152-3.694-1.152-5.053 0a.499.499 0 0 1-.322.121zm4.097 1.6c.267.095.494.296.494.576 0 .333-.269.603-.603.603-.333 0-.602-.27-.602-.603 0-.299.209-.555.494-.576zm2.653-2.021c.262 0 .475.212.475.474s-.213.474-.475.474c-.263 0-.475-.212-.475-.474s.212-.474.475-.474zm-5.566 0c.263 0 .475.212.475.474s-.212.474-.475.474c-.263 0-.475-.212-.475-.474s.212-.474.475-.474z"></path>
+              </svg>
+            </a>
+            <a href="https://linkedin.com/company/stackr-financial" target="_blank" rel="noopener noreferrer">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Contact</h3>
+          <p>Email: support@stackr.tech</p>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        &copy; 2025 Stackr Financial, Inc. All rights reserved.
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
