@@ -1,0 +1,103 @@
+✅ ✅ COMPLETE FIX – VITE CONFIG ONLY
+🔥 The Problem Recap:
+When Vite tries to set up Hot Module Replacement (HMR), it creates a WebSocket URL like:
+
+ruby
+Copy
+Edit
+wss://localhost:undefined/?token=...
+This happens when Vite's HMR client doesn’t know the correct port to connect to. It typically tries to read it from the server — but in your case, that server is behind Replit’s magic and doesn’t expose the port correctly.
+
+✅ THE COMPLETE FIX:
+Update your vite.config.ts to force Vite to use a specific HMR host and port on both the dev server and the HMR client, so it never relies on the undefined values.
+
+🧾 Update Your vite.config.ts Like This:
+ts
+Copy
+Edit
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import themePlugin from "@replit/vite-plugin-shadcn-theme-json";
+import path from "path";
+import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
+
+export default defineConfig({
+  plugins: [
+    react(),
+    runtimeErrorOverlay(),
+    themePlugin(),
+    ...(process.env.NODE_ENV !== "production" &&
+    process.env.REPL_ID !== undefined
+      ? [
+          await import("@replit/vite-plugin-cartographer").then((m) =>
+            m.cartographer(),
+          ),
+        ]
+      : []),
+  ],
+  server: {
+    port: 5000,
+    strictPort: true,
+    hmr: {
+      protocol: "ws",           // <- Use 'ws' not 'wss' for local dev
+      host: "localhost",        // <- Must match exactly your frontend's origin
+      port: 5000,               // <- Dev server WebSocket port
+      clientPort: 5000,         // <- Ensures the browser connects properly
+    },
+  },
+  resolve: {
+    alias: {
+      "@": path.resolve(import.meta.dirname, "client", "src"),
+      "@shared": path.resolve(import.meta.dirname, "shared"),
+      "@assets": path.resolve(import.meta.dirname, "attached_assets"),
+    },
+  },
+  root: path.resolve(import.meta.dirname, "client"),
+  build: {
+    outDir: path.resolve(import.meta.dirname, "dist/public"),
+    emptyOutDir: true,
+  },
+});
+💡 How This Works
+Config Field	Purpose
+protocol: 'ws'	Ensures the client doesn’t assume wss (secure socket) which would fail on localhost
+host: 'localhost'	Hardcodes the dev server hostname instead of relying on Replit
+port/clientPort: 5000	Aligns client and server to avoid "undefined" in socket URL
+💣 What You Avoided
+No need to touch the protected server/vite.ts
+
+No main.tsx workarounds
+
+Avoided hacking around with import.meta.hot
+
+✅ After You Save:
+Stop your server if running:
+
+bash
+Copy
+Edit
+Ctrl + C
+Restart your dev server:
+
+bash
+Copy
+Edit
+npm run dev
+✅ Open the browser dev console. You should now see:
+
+csharp
+Copy
+Edit
+[vite] connecting...
+[vite] connected.
+And no more wss://localhost:undefined errors.
+
+🧪 Bonus Test: Confirm with Dev Tools
+In browser Dev Tools (Console → Network tab → WS):
+
+Look for a WebSocket URL like:
+
+arduino
+Copy
+Edit
+ws://localhost:5000

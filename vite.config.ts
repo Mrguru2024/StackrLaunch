@@ -22,9 +22,10 @@ export default defineConfig({
     port: 5000,
     strictPort: true,
     hmr: {
-      port: 5000,
-      clientPort: 5000,
-      host: '0.0.0.0',
+      protocol: "ws",           // <- Use 'ws' not 'wss' for local dev
+      host: "localhost",        // <- Must match exactly your frontend's origin
+      port: 5000,               // <- Dev server WebSocket port
+      clientPort: 5000,         // <- Ensures the browser connects properly
     },
   },
   resolve: {
