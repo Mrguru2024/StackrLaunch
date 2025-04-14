@@ -1,53 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- RADICAL SOLUTION: COMPLETE VITE CLIENT BYPASS -->
-    <script src="/complete-vite-bypass.js"></script>
+    <!-- NUCLEAR OPTION: PREVENT ALL WEBSOCKET CONNECTIONS COMPLETELY -->
+    <script src="/stop-all-ws.js"></script>
     
-    <!-- As a fallback, also include these fixes -->
+    <!-- Immediately execute code to kill Vite's HMR -->
     <script>
-      /**
-       * DISABLE ERROR DISPLAY - Hide WebSocket errors from the console
-       */
+      // Set this so [vite] connecting... never appears
+      window.__vite_is_modern_browser = false;
+      window.__vite_is_dynamic_import_support = false;
+      
+      // Set this to catch any attempts to reconnect
+      window.__vite_hmr_timeout = null;
+      window.__vite_hmr_error = true;
+      
+      // Replace console.log to filter out Vite messages
       (function() {
-        // Completely disable all console.error for WebSocket issues
-        const originalConsoleError = console.error;
-        console.error = function(...args) {
+        const originalConsoleLog = console.log;
+        console.log = function(...args) {
           if (args.length > 0 && 
               typeof args[0] === 'string' && 
-              (args[0].includes('WebSocket') || args[0].includes('Failed to connect'))) {
-            // Silently ignore WebSocket errors
+              args[0].includes('[vite]')) {
+            // Block all [vite] messages
             return;
           }
-          return originalConsoleError.apply(this, args);
+          return originalConsoleLog.apply(this, args);
         };
         
-        // Replace unhandledrejection handler with a suppressor
-        window.addEventListener('unhandledrejection', function(event) {
-          if (event.reason && (
-              (typeof event.reason.message === 'string' && event.reason.message.includes('WebSocket')) ||
-              (typeof event.reason.stack === 'string' && event.reason.stack.includes('WebSocket'))
-          )) {
-            event.preventDefault();
-            event.stopPropagation();
-          }
-        }, true);
-        
-        // Suppress onerror for WebSocket issues
+        // Replace error handler
         window.onerror = function(message, source, lineno, colno, error) {
           if (message && typeof message === 'string' && 
-              (message.includes('WebSocket') || message.includes('Failed to construct'))) {
+              (message.includes('WebSocket') || 
+               message.includes('Failed to construct') ||
+               message.includes('[vite]'))) {
             return true; // Prevent error from appearing
           }
         };
       })();
     </script>
     
-    <!-- Additional Vite fix scripts -->
-    <script src="/disable-vite-hmr.js"></script>
-    <script src="/network-interceptor.js"></script>
-    <script src="/error-suppression.js"></script>
-    <script src="/websocket-port-fix.js"></script>
+    <!-- Additional fail-safe measures -->
+    <script type="module">
+      // This must run as a module to override module imports
+      window.__VITE_DEFAULT_MODULE = {};
+      const originalImport = window.import;
+      window.import = function(specifier) {
+        if (specifier && specifier.includes('@vite/client')) {
+          return Promise.resolve(window.__VITE_DEFAULT_MODULE);
+        }
+        if (originalImport) {
+          return originalImport.apply(this, arguments);
+        }
+        return Promise.resolve({});
+      };
+    </script>
     
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-VHVMZHY9MS"></script>
