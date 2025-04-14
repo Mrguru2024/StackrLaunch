@@ -25,6 +25,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get('/fallback', (req: Request, res: Response) => {
     res.sendFile(path.join(process.cwd(), 'client', 'public', 'fallback.html'));
   });
+  
+  // Also serve assets for fallback page if needed
+  app.get('/fallback-assets/:asset', (req: Request, res: Response) => {
+    res.sendFile(path.join(process.cwd(), 'client', 'public', 'fallback-assets', req.params.asset));
+  });
 
   // use storage to perform CRUD operations on the storage interface
   // e.g. storage.insertUser(user) or storage.getUserByUsername(username)
