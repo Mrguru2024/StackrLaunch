@@ -5,36 +5,33 @@
  * that prevents WebSocket connections and related errors.
  */
 
-console.log('[@vite/client] Loading stub implementation - WebSocket connections disabled');
-
-// Empty implementations of all Vite client exports
+// Empty implementation of the Vite HMR client API
 export const webSocketClient = {
-  sendMessage: () => {},
   send: () => {},
+  onMessage: () => {},
   close: () => {},
-  isReady: () => false,
-  initialize: () => {}
+  connected: false
 };
 
 export const devtoolsClient = {
-  onDevToolsMessage: () => {},
-  connectDevTools: () => {}
+  enabled: false,
+  connected: false
 };
 
 export function createHotContext() {
   return {
     accept: () => {},
     dispose: () => {},
-    invalidate: () => {},
+    prune: () => {},
     decline: () => {},
-    on: () => {},
-    prune: () => {}
+    invalidate: () => {},
+    on: () => {}
   };
 }
 
 export const ErrorOverlay = {
-  createBase: () => {},
-  customize: () => {}
+  customEmit: () => {},
+  send: () => {}
 };
 
 export function updateStyle() {}

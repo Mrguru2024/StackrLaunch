@@ -3,52 +3,39 @@
  * This completely prevents any HMR functionality and WebSocket connections
  */
 
-console.log('[vite/client stub @fs path] Loaded empty implementation - no WebSockets will be created');
-
-// Export empty implementations of all the functions and objects that might be imported
 export const webSocketClient = {
   send: () => {},
+  onMessage: () => {},
   close: () => {},
-  addEventListener: () => {},
-  removeEventListener: () => {}
+  connected: false
 };
 
 export const devtoolsClient = {
-  connected: false,
   enabled: false,
-  send: () => {}
+  connected: false
 };
 
 export function createHotContext() {
   return {
     accept: () => {},
     dispose: () => {},
-    invalidate: () => {},
+    prune: () => {},
     decline: () => {},
-    on: () => {},
-    prune: () => {}
+    invalidate: () => {},
+    on: () => {}
   };
 }
 
 export const ErrorOverlay = {
-  createApp: () => {},
-  render: () => {}
+  customEmit: () => {},
+  send: () => {}
 };
 
 export function updateStyle() {}
 export function removeStyle() {}
-export function fetchUpdate() { 
-  return Promise.resolve({ type: 'js-update', timestamp: Date.now() });
-}
-
-// No WebSocket functionality
-export function setupWebSocket() {
-  console.log('[vite/client stub] WebSocket setup prevented');
-  return {
-    send: () => {},
-    close: () => {}
-  };
-}
-
-// Log that the stub was loaded successfully
-console.log('[vite/client stub @fs path] Successfully prevented WebSocket connections');
+export function fetchUpdate() { return Promise.resolve(); }
+export function setupWebSocket() {}
+export function enableOverlay() {}
+export function createHotContext() {}
+export function decode() {}
+export function transformCode() {}

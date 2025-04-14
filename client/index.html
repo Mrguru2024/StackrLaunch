@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- COMPLETE VITE HMR DISABLER - The most comprehensive fix -->
+    <script src="/disable-vite-hmr.js"></script>
+    
     <!-- Network request interceptor -->
     <script src="/network-interceptor.js"></script>
     
@@ -11,6 +14,9 @@
     <script>
       // Complete WebSocket error prevention
       (function() {
+        // Set environment variable to use correct port
+        window.VITE_HMR_PORT = 443;
+        
         // Completely disable WebSocket construction if the URL contains 'undefined'
         const OriginalWebSocket = window.WebSocket;
         window.WebSocket = function(url, protocols) {
@@ -19,7 +25,7 @@
             // Return a fake WebSocket object that does nothing
             return {
               url: url,
-              readyState: 0,
+              readyState: 3, // CLOSED
               send: function() {},
               close: function() {},
               addEventListener: function() {},
@@ -32,10 +38,14 @@
         
         // Make it look like a proper constructor
         window.WebSocket.prototype = OriginalWebSocket.prototype;
-        window.WebSocket.CONNECTING = OriginalWebSocket.CONNECTING;
-        window.WebSocket.OPEN = OriginalWebSocket.OPEN;
-        window.WebSocket.CLOSING = OriginalWebSocket.CLOSING;
-        window.WebSocket.CLOSED = OriginalWebSocket.CLOSED;
+        
+        // Set WebSocket constants as non-writable properties
+        Object.defineProperties(window.WebSocket, {
+          CONNECTING: { value: OriginalWebSocket.CONNECTING },
+          OPEN: { value: OriginalWebSocket.OPEN },
+          CLOSING: { value: OriginalWebSocket.CLOSING },
+          CLOSED: { value: OriginalWebSocket.CLOSED }
+        });
         
         // Block Vite's client from loading
         window.__VITE_HMR_ACTIVE = false;
