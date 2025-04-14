@@ -20,15 +20,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
 
 
-  // Fallback route to serve static HTML for Stackr landing page
-  // This helps bypass Vite-related errors
-  app.get('/fallback', (req: Request, res: Response) => {
-    res.sendFile(path.join(process.cwd(), 'client', 'public', 'fallback.html'));
-  });
-  
-  // Also serve assets for fallback page if needed
-  app.get('/fallback-assets/:asset', (req: Request, res: Response) => {
-    res.sendFile(path.join(process.cwd(), 'client', 'public', 'fallback-assets', req.params.asset));
+  // API endpoint for testing server connectivity
+  app.get('/api/status', (req: Request, res: Response) => {
+    res.json({ status: 'ok', message: 'Server is running properly' });
   });
 
   // use storage to perform CRUD operations on the storage interface

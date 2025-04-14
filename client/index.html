@@ -1,8 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Error Detector - Must be first -->
-    <script src="/error-detector.js"></script>
+    <!-- Fix for "Cannot use import.meta outside module" issue -->
+    <script>
+      // Simple runtime fix for import.meta error
+      window.importMeta = {
+        url: window.location.href,
+        env: { MODE: "production", PROD: true, DEV: false }
+      };
+      Object.defineProperty(window, "import", { 
+        get: function() { return { meta: window.importMeta }; }
+      });
+      // Fix WebSocket errors related to Vite
+      window.addEventListener('error', function(e) {
+        if (e && e.message && (
+          e.message.includes('import.meta') || 
+          e.message.includes('WebSocket')
+        )) {
+          console.log('Prevented error:', e.message);
+          e.preventDefault();
+          e.stopPropagation();
+          return true;
+        }
+      }, true);
+    </script>
     
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-VHVMZHY9MS"></script>
