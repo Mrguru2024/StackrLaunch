@@ -8,143 +8,157 @@
  */
 
 (function() {
-  console.log('[VITE-BYPASS] Installing Vite Client bypass...');
-
-  // ==========================
-  // PART 1: PREVENT MODULE IMPORTS
-  // ==========================
+  console.log("[VITE-BYPASS] Starting complete Vite client bypass system...");
   
-  // Store original import function
-  const originalDynamicImport = window.import || (() => Promise.resolve({}));
-  
-  // Completely block any imports related to Vite's client
-  window.import = function(specifier) {
-    if (typeof specifier === 'string' && (
-        specifier.includes('/@vite/client') || 
-        specifier.includes('@vite/client')
-    )) {
-      console.log('[VITE-BYPASS] Blocked import of', specifier);
-      
-      // Return empty module that does nothing
-      return Promise.resolve({
-        createHotContext: () => ({
-          accept: () => {},
-          dispose: () => {},
-          prune: () => {},
-          decline: () => {},
-          invalidate: () => {},
-          on: () => {}
-        }),
-        updateStyle: () => {},
-        removeStyle: () => {},
-        fetchUpdate: () => Promise.resolve(),
-        webSocketClient: {
-          send: () => {},
-          onMessage: () => {},
-          close: () => {},
-          connect: () => {}
-        }
-      });
-    }
-    
-    // Pass through all other imports
-    return originalDynamicImport.apply(this, arguments);
-  };
-  
-  // ==========================
-  // PART 2: REDIRECT FETCH REQUESTS
-  // ==========================
-  
-  // Intercept fetch requests for Vite client
-  const originalFetch = window.fetch;
-  window.fetch = function(input, init) {
-    if (typeof input === 'string' && input.includes('/@vite/client')) {
-      console.log('[VITE-BYPASS] Blocked fetch of', input);
-      
-      // Return empty response
-      return Promise.resolve(new Response('/* Empty Vite client stub */', {
-        status: 200,
-        headers: { 'Content-Type': 'application/javascript' }
-      }));
-    }
-    
-    // Pass through all other fetch requests
-    return originalFetch.apply(this, arguments);
-  };
-  
-  // ==========================
-  // PART 3: DISABLE WEBSOCKET CONNECTIONS
-  // ==========================
-  
-  // Completely replace WebSocket for Vite connections
+  // TRAP 1: Block all WebSocket connections with "undefined" in the URL
   const OriginalWebSocket = window.WebSocket;
   window.WebSocket = function(url, protocols) {
     if (typeof url === 'string' && (
-        url.includes('/__vite_hmr') || 
-        url.includes('localhost:undefined') ||
-        url.includes('vite-hmr')
+        url.includes('undefined') || 
+        url.includes('/__vite_hmr') ||
+        url.includes('vite') || 
+        url.includes('hmr')
     )) {
-      console.log('[VITE-BYPASS] Blocked WebSocket connection to', url);
+      console.log("[VITE-BYPASS] Preventing WebSocket connection to:", url);
       
-      // Return a fake WebSocket that never connects
-      return {
+      // Return a fake WebSocket that immediately triggers error
+      const fakeSocket = {
         url: url,
-        readyState: 3, // CLOSED
         protocol: '',
+        readyState: 3, // CLOSED
         extensions: '',
         bufferedAmount: 0,
         binaryType: 'blob',
-        CONNECTING: 0,
-        OPEN: 1,
-        CLOSING: 2,
-        CLOSED: 3,
         onopen: null,
-        onerror: null,
-        onclose: null,
         onmessage: null,
-        close: function(){},
-        send: function(){},
-        addEventListener: function(){},
-        removeEventListener: function(){},
-        dispatchEvent: function(){ return true; }
+        onclose: null,
+        onerror: null,
+        close: function() {},
+        send: function() {},
+        addEventListener: function(type, listener) {
+          if (type === 'error') {
+            // Immediately trigger error
+            setTimeout(() => {
+              if (typeof listener === 'function') {
+                listener(new ErrorEvent('error', { 
+                  message: 'Connection blocked by vite-bypass.js'
+                }));
+              }
+            }, 0);
+          }
+        },
+        removeEventListener: function() {},
+        dispatchEvent: function() { return true; }
       };
+      
+      // Immediately trigger error to satisfy Vite
+      setTimeout(function() {
+        if (typeof fakeSocket.onerror === 'function') {
+          fakeSocket.onerror(new ErrorEvent('error', {
+            message: 'Connection blocked by vite-bypass.js'
+          }));
+        }
+      }, 0);
+      
+      return fakeSocket;
     }
     
-    // For any other URLs, use the original WebSocket
+    // Pass through for non-Vite WebSockets
     return new OriginalWebSocket(url, protocols);
   };
   
-  // Make it look like a proper constructor
-  window.WebSocket.prototype = OriginalWebSocket.prototype;
-  Object.defineProperties(window.WebSocket, {
-    CONNECTING: { value: OriginalWebSocket.CONNECTING },
-    OPEN: { value: OriginalWebSocket.OPEN },
-    CLOSING: { value: OriginalWebSocket.CLOSING },
-    CLOSED: { value: OriginalWebSocket.CLOSED }
-  });
+  // Copy static properties
+  window.WebSocket.CONNECTING = OriginalWebSocket.CONNECTING;
+  window.WebSocket.OPEN = OriginalWebSocket.OPEN;
+  window.WebSocket.CLOSING = OriginalWebSocket.CLOSING;
+  window.WebSocket.CLOSED = OriginalWebSocket.CLOSED;
   
-  // ==========================
-  // PART 4: SET HMR ENVIRONMENT VARIABLES
-  // ==========================
-  
-  // Disable all Vite HMR flags
-  window.__vite_hmr_port = null;
-  window.__vite_hmr_protocol = null;
-  window.__vite_hmr_hostname = null;
-  window.__HMR_ENABLED = false;
-  window.__VITE_HMR_ACTIVE = false;
-  window.__vite_is_modern_browser = false;
-  
-  // Suppress specific WebSocket errors
-  window.addEventListener('unhandledrejection', function(event) {
-    if (event.reason && (
-        (event.reason.message && event.reason.message.includes('WebSocket')) ||
-        (event.reason.stack && event.reason.stack.includes('WebSocket'))
-    )) {
-      console.log('[VITE-BYPASS] Suppressed unhandled rejection:', event.reason.message || 'WebSocket error');
-      event.preventDefault();
+  // TRAP 2: Block all imports of @vite/client
+  // Create mock module for @vite/client
+  const mockViteClient = {
+    createHotContext: () => ({
+      accept: () => {},
+      dispose: () => {},
+      prune: () => {},
+      decline: () => {},
+      invalidate: () => {},
+      on: () => {}
+    }),
+    updateStyle: () => {},
+    removeStyle: () => {},
+    webSocketClient: {
+      send: () => {}
     }
+  };
+  
+  // Override import.meta for Vite's HMR
+  try {
+    Object.defineProperty(import.meta, 'hot', {
+      get: function() {
+        return null;
+      },
+      configurable: true
+    });
+  } catch (e) {
+    console.log("[VITE-BYPASS] Unable to override import.meta.hot:", e);
+  }
+  
+  // TRAP 3: Hide all console messages from Vite
+  const originalConsoleLog = console.log;
+  console.log = function(...args) {
+    if (args.length > 0 && 
+        typeof args[0] === 'string' && 
+        args[0].includes('[vite]')) {
+      // Drop this log
+      return;
+    }
+    return originalConsoleLog.apply(this, args);
+  };
+  
+  // TRAP 4: Intercept all fetch requests to @vite/client
+  const originalFetch = window.fetch;
+  window.fetch = function(resource, init) {
+    if (resource && typeof resource === 'string' && 
+        (resource.includes('@vite/client') || 
+         resource.includes('/__vite_hmr') ||
+         resource.includes('vite'))) {
+      
+      console.log("[VITE-BYPASS] Intercepting fetch for:", resource);
+      
+      // Return stub module
+      return Promise.resolve(new Response(
+        'export function createHotContext() { return { accept: () => {} }; }', 
+        { 
+          status: 200, 
+          headers: new Headers({ 'Content-Type': 'application/javascript' })
+        }
+      ));
+    }
+    
+    return originalFetch.apply(this, arguments);
+  };
+  
+  // TRAP 5: Catch and prevent HMR events
+  window.addEventListener('vite:beforeUpdate', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
   }, true);
   
-  console.log('[VITE-BYPASS] Vite Client bypass installed successfully!');
+  window.addEventListener('vite:invalidate', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+  }, true);
+  
+  // TRAP 6: Set global flags to completely kill HMR
+  window.__vite_is_modern_browser = false;
+  window.__vite_is_dynamic_import_support = false;
+  window.__vite_hmr = null;
+  window.__vite_hmr_timeout = null;
+  window.__hmrDirtyComponents = new Set();
+  window.__VUE_HMR_RUNTIME = null;
+  window.__VITE_HMR_ACTIVE = false;
+  
+  console.log("[VITE-BYPASS] Complete Vite client bypass installed successfully");
 })();

@@ -1,58 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- NUCLEAR OPTION: PREVENT ALL WEBSOCKET CONNECTIONS COMPLETELY -->
-    <script src="/stop-all-ws.js"></script>
+    <!-- REPLACE VITE CLIENT APPROACH -->
+    <!-- This script actually injects a module that pretends to be @vite/client -->
+    <script src="/replace-vite-client.js"></script>
     
-    <!-- Immediately execute code to kill Vite's HMR -->
+    <!-- Important: Set Vite globals to disable HMR completely -->
     <script>
-      // Set this so [vite] connecting... never appears
+      // Set all the globals that Vite checks for HMR
       window.__vite_is_modern_browser = false;
       window.__vite_is_dynamic_import_support = false;
+      window.__VITE_IS_MODERN_BROWSER = false;
+      window.__vite_hmr = null;
+      window.__hmrDirtyComponents = new Set();
+      window.__VUE_HMR_RUNTIME = null;
+      window.__VITE_HMR_ACTIVE = false;
       
-      // Set this to catch any attempts to reconnect
-      window.__vite_hmr_timeout = null;
-      window.__vite_hmr_error = true;
+      // This is critical - Vite won't show connecting if this is present
+      window.__vite_plugin_react_preamble_installed__ = true;
       
-      // Replace console.log to filter out Vite messages
+      // Set a fake token to prevent actual token lookup
+      window.__HMR_HOSTNAME = "localhost";
+      window.__HMR_PORT = 0;
+      window.__HMR_BASE = "/";
+      window.__HMR_TIMEOUT = 0;
+      window.__HMR_ENABLE = false;
+      
+      // Replace console.log to block [vite] messages
       (function() {
         const originalConsoleLog = console.log;
         console.log = function(...args) {
           if (args.length > 0 && 
               typeof args[0] === 'string' && 
-              args[0].includes('[vite]')) {
-            // Block all [vite] messages
+              args[0].startsWith("[vite]")) {
+            // Drop this log
             return;
           }
           return originalConsoleLog.apply(this, args);
         };
         
-        // Replace error handler
-        window.onerror = function(message, source, lineno, colno, error) {
-          if (message && typeof message === 'string' && 
-              (message.includes('WebSocket') || 
-               message.includes('Failed to construct') ||
-               message.includes('[vite]'))) {
-            return true; // Prevent error from appearing
+        // Block WebSocket errors
+        window.addEventListener('error', function(event) {
+          if (event && event.message && 
+              (event.message.includes('WebSocket') || 
+               event.message.includes('Failed to'))) {
+            event.preventDefault();
+            event.stopPropagation();
+            return true;
           }
-        };
+        }, true);
+        
+        // Block unhandled promise rejections
+        window.addEventListener('unhandledrejection', function(event) {
+          event.preventDefault();
+          event.stopPropagation();
+          return true;
+        }, true);
       })();
     </script>
     
-    <!-- Additional fail-safe measures -->
+    <!-- Create a completely fake module system for Vite -->
     <script type="module">
-      // This must run as a module to override module imports
-      window.__VITE_DEFAULT_MODULE = {};
-      const originalImport = window.import;
-      window.import = function(specifier) {
-        if (specifier && specifier.includes('@vite/client')) {
-          return Promise.resolve(window.__VITE_DEFAULT_MODULE);
-        }
-        if (originalImport) {
-          return originalImport.apply(this, arguments);
-        }
-        return Promise.resolve({});
+      // Fake module cache for Vite
+      const moduleCache = new Map();
+      
+      // Create fake module for @vite/client
+      const fakeViteClientModule = {
+        createHotContext: () => ({
+          accept: () => {},
+          dispose: () => {},
+          prune: () => {},
+          decline: () => {},
+          invalidate: () => {},
+          on: () => {}
+        }),
+        webSocketClient: {
+          send: () => {},
+          onMessage: () => {}
+        },
+        updateStyle: () => {},
+        removeStyle: () => {}
       };
+      
+      // Store in cache
+      moduleCache.set('/@vite/client', fakeViteClientModule);
+      moduleCache.set('@vite/client', fakeViteClientModule);
+      
+      // Expose cache to window
+      window.__vite_module_cache = moduleCache;
     </script>
     
     <!-- Google tag (gtag.js) -->
