@@ -71,16 +71,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
     `);
   });
   
-  // Serve a static version of the index page as a temporary fix for import.meta issues
+  // Default route handler
   app.get('/', (req: Request, res: Response) => {
-    // Check if the client accepts HTML
-    const acceptHeader = req.headers.accept || '';
-    if (acceptHeader.includes('text/html')) {
-      res.sendFile(path.resolve(process.cwd(), 'client/public/index-static.html'));
-    } else {
-      // For API requests, return JSON
-      res.json({ status: 'ok', message: 'Server is running properly' });
+    // For API requests, return JSON
+    if (req.headers.accept && !req.headers.accept.includes('text/html')) {
+      return res.json({ status: 'ok', message: 'Server is running properly' });
     }
+    
+    // Let Vite handle the HTML delivery (this will be properly handled by the Vite middleware)
+    res.redirect('/');
   });
 
   // use storage to perform CRUD operations on the storage interface
