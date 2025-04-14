@@ -3,6 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import path from "path";
 import { WebSocketServer } from "ws";
+import fs from "fs";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // put application routes here
@@ -68,6 +69,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       console.log('[Patched Vite Client] Successfully loaded');
     `);
+  });
+  
+  // Redirect root traffic to our standalone page as a temporary fix
+  app.get('/', (req: Request, res: Response) => {
+    res.redirect('/standalone.html');
   });
 
   // use storage to perform CRUD operations on the storage interface
