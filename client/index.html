@@ -142,6 +142,53 @@
     <div id="root"></div>
     <!-- No HMR needed, removed WebSocket workaround -->
     
+    <!-- Custom WebSocket client for server connection -->
+    <script>
+      // Initialize WebSocket connection to our custom endpoint
+      function initializeWebSocket() {
+        try {
+          // Use the correct protocol based on the page protocol
+          const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+          // Connect to our custom WebSocket endpoint
+          const wsUrl = `${protocol}//${window.location.host}/ws`;
+          console.log('Connecting to WebSocket at:', wsUrl);
+          
+          const socket = new WebSocket(wsUrl);
+          
+          socket.onopen = function() {
+            console.log('WebSocket connection established');
+            socket.send('Hello from Stackr client');
+          };
+          
+          socket.onmessage = function(event) {
+            console.log('Message from server:', event.data);
+          };
+          
+          socket.onerror = function(error) {
+            console.error('WebSocket error:', error);
+          };
+          
+          socket.onclose = function() {
+            console.log('WebSocket connection closed');
+            // Optional: reconnect after a delay
+            setTimeout(initializeWebSocket, 5000);
+          };
+          
+          // Store socket reference globally
+          window.__stackrSocket = socket;
+        } catch (e) {
+          console.error('Error initializing WebSocket:', e);
+        }
+      }
+      
+      // Initialize when page is loaded
+      if (document.readyState === 'complete') {
+        initializeWebSocket();
+      } else {
+        window.addEventListener('load', initializeWebSocket);
+      }
+    </script>
+    
     <script type="module" src="/src/main.tsx"></script>
     <!-- This is a replit script which adds a banner on the top of the page when opened in development mode outside the replit environment -->
     <script type="text/javascript" src="https://replit.com/public/js/replit-dev-banner.js"></script>

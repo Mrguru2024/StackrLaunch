@@ -11,6 +11,7 @@ import ToastDemo from "@/pages/ToastDemo";
 import TestPage from "@/pages/TestPage";
 import DirectToastTest from "@/pages/DirectToastTest";
 import SimpleToastPage from "@/pages/SimpleToastPage";
+import WebSocketTest from "@/pages/WebSocketTest";
 
 function Router() {
   // Debug: log the current path
@@ -27,6 +28,7 @@ function Router() {
       <Route path="/test" component={TestPage} />
       <Route path="/direct-toast" component={DirectToastTest} />
       <Route path="/simple-toast" component={SimpleToastPage} />
+      <Route path="/websocket-test" component={WebSocketTest} />
       <Route component={NotFound} />
     </Switch>
   );

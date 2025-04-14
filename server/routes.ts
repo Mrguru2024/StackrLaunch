@@ -2,6 +2,7 @@ import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import path from "path";
+import { WebSocketServer } from "ws";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // put application routes here
@@ -73,6 +74,41 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // e.g. storage.insertUser(user) or storage.getUserByUsername(username)
 
   const httpServer = createServer(app);
+  
+  // Add a dedicated WebSocket server on a path that won't conflict with Vite
+  const wss = new WebSocketServer({ 
+    server: httpServer, 
+    path: '/ws' 
+  });
+  
+  // Handle WebSocket connections
+  wss.on('connection', (ws) => {
+    console.log('WebSocket client connected');
+    
+    // Handle messages from clients
+    ws.on('message', (message) => {
+      console.log('Received message:', message);
+      
+      // Echo back the message
+      if (ws.readyState === 1) { // WebSocket.OPEN
+        ws.send(JSON.stringify({
+          type: 'response',
+          message: `Server received: ${message}`
+        }));
+      }
+    });
+    
+    // Handle connection close
+    ws.on('close', () => {
+      console.log('WebSocket client disconnected');
+    });
+    
+    // Send welcome message
+    ws.send(JSON.stringify({
+      type: 'connected',
+      message: 'Connected to Stackr WebSocket server'
+    }));
+  });
 
   return httpServer;
 }
