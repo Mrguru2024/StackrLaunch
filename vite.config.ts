@@ -4,13 +4,28 @@ import themePlugin from "@replit/vite-plugin-shadcn-theme-json";
 import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
-const hmrPort = process.env.VITE_HMR_PORT || 443;
+// Replit uses HTTPS, so HMR must use wss and port 443
+const hmrPort = 443;
+
+// Optional fallback fix: inject wsPort=443 into client URL
+function fixHmrWebSocketUrl() {
+  return {
+    name: 'fix-hmr-websocket-url',
+    transformIndexHtml(html) {
+      return html.replace(
+        '/@vite/client',
+        '/@vite/client?wsPort=443'
+      );
+    },
+  };
+}
 
 export default defineConfig({
   plugins: [
     react(),
     runtimeErrorOverlay(),
     themePlugin(),
+    fixHmrWebSocketUrl(),
     ...(process.env.NODE_ENV !== "production" &&
     process.env.REPL_ID !== undefined
       ? [
@@ -24,10 +39,10 @@ export default defineConfig({
     port: 5000,
     strictPort: true,
     hmr: {
-      protocol: "wss", // Needed for secure Replit
-      host: "localhost",
-      port: Number(hmrPort),
-      clientPort: Number(hmrPort),
+      protocol: "wss",        // Replit requires secure websockets
+      host: "localhost",      // Prevents Vite from defaulting to undefined
+      port: hmrPort,          // Server-side HMR port
+      clientPort: hmrPort,    // Browser-side HMR port
     },
   },
   resolve: {
