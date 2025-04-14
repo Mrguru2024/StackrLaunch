@@ -1,4 +1,5 @@
-import "./vite-hmr-fix"; // Import HMR fix first
+// Import vite stub first to prevent any HMR imports
+import "./vite-stub";
 import { createRoot } from "react-dom/client";
 import App from "./App";
 import "./index.css";
