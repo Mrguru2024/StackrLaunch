@@ -13,7 +13,7 @@ export const useScrollReveal = (threshold = 0.1) => {
     }
   }, [isInView, controls]);
 
-  return { ref, controls };
+  return [ref, isInView];
 };
 
 export const createStaggeredDelays = (count: number, delay = 0.1) => {
