@@ -5,11 +5,7 @@ import { Button } from '@/components/ui/button';
 // Use the original StackZen logo
 const logoSrc = '/StackZenOriginalLogo.svg';
 
-interface HeaderProps {
-  waitlistUrl: string;
-}
-
-export default function Header({ waitlistUrl }: HeaderProps) {
+export default function Header() {
   return (
     <div className="w-full">
       <nav
@@ -40,7 +36,7 @@ export default function Header({ waitlistUrl }: HeaderProps) {
                   }}
                 />
               </div>
-              <span className="bg-secondary text-primary text-base px-4 py-2 rounded-full uppercase font-bold tracking-wider shadow-sm hover:shadow-md transition-shadow duration-300">
+              <span className="bg-[#00C6A7] text-[#233D4D] text-base px-4 py-2 rounded-full uppercase font-bold tracking-wider shadow-sm hover:shadow-md transition-shadow duration-300">
                 beta
               </span>
             </a>

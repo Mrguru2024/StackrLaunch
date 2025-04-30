@@ -6,10 +6,34 @@
 
   <!-- Homepage -->
   <url>
-    <loc>https://stackr.tech/</loc>
-    <lastmod>2025-04-13T08:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>https://stackzen.app</loc>
+    <lastmod>2024-03-20</lastmod>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
+  </url>
+
+  <!-- Features Page -->
+  <url>
+    <loc>https://stackzen.app/features</loc>
+    <lastmod>2024-03-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Pricing Page -->
+  <url>
+    <loc>https://stackzen.app/pricing</loc>
+    <lastmod>2024-03-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Blog Page -->
+  <url>
+    <loc>https://stackzen.app/blog</loc>
+    <lastmod>2024-03-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
   </url>
 
   <!-- Terms of Service -->

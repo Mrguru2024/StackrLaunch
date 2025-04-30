@@ -12,7 +12,7 @@ export default function HeroSection({ waitlistUrl }: HeroSectionProps) {
   return (
     <section
       id="hero-section"
-      className="pt-28 pb-16 md:pt-32 md:pb-24 px-4 bg-gradient-to-br from-white via-neutral-light/30 to-secondary/5 overflow-hidden"
+      className="pt-28 pb-16 md:pt-32 md:pb-24 px-4 bg-gradient-to-br from-white via-[#F5F7FA] to-[#00C6A7]/5 overflow-hidden"
       aria-labelledby="hero-heading"
     >
       <div className="max-w-7xl mx-auto">
@@ -27,16 +27,16 @@ export default function HeroSection({ waitlistUrl }: HeroSectionProps) {
             <div className="space-y-6">
               <h1
                 id="hero-heading"
-                className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground"
+                className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#233D4D]"
                 itemProp="headline"
               >
                 <span className="block">AI Financial Automation</span>
-                <span className="block text-primary">For Tradespeople & Side Hustlers</span>
+                <span className="block text-[#00C6A7]">For Tradespeople & Side Hustlers</span>
               </h1>
 
-              <p className="text-xl md:text-2xl text-muted-foreground mt-6" itemProp="description">
-                Stackr helps{' '}
-                <span className="font-semibold text-foreground">
+              <p className="text-xl md:text-2xl text-[#58C1E2] mt-6" itemProp="description">
+                StackZen helps{' '}
+                <span className="font-semibold text-[#233D4D]">
                   tradespeople, side hustlers, and 9-5 rebuilders
                 </span>{' '}
                 automate income, eliminate hidden fees, and grow wealth without spreadsheets or
@@ -46,19 +46,17 @@ export default function HeroSection({ waitlistUrl }: HeroSectionProps) {
               {/* Key benefits highlighted for SEO and conversion */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
                 <div className="flex items-start space-x-3">
-                  <BadgePercent className="h-6 w-6 text-primary flex-shrink-0 mt-0.5" />
+                  <BadgePercent className="h-6 w-6 text-[#00C6A7] flex-shrink-0 mt-0.5" />
                   <div>
-                    <span className="font-bold text-foreground block">Save $650/year</span>
-                    <span className="text-muted-foreground text-sm">
-                      Automatic hidden fee detection
-                    </span>
+                    <span className="font-bold text-[#233D4D] block">Save $650/year</span>
+                    <span className="text-[#58C1E2] text-sm">Automatic hidden fee detection</span>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
-                  <Clock className="h-6 w-6 text-secondary flex-shrink-0 mt-0.5" />
+                  <Clock className="h-6 w-6 text-[#00C6A7] flex-shrink-0 mt-0.5" />
                   <div>
-                    <span className="font-bold text-foreground block">Save 5+ hours monthly</span>
-                    <span className="text-muted-foreground text-sm">No manual tracking needed</span>
+                    <span className="font-bold text-[#233D4D] block">Save 5+ hours monthly</span>
+                    <span className="text-[#58C1E2] text-sm">No manual tracking needed</span>
                   </div>
                 </div>
               </div>
@@ -67,14 +65,14 @@ export default function HeroSection({ waitlistUrl }: HeroSectionProps) {
             <div className="flex flex-col sm:flex-row sm:items-center space-y-4 sm:space-y-0 sm:space-x-4">
               <Button
                 size="lg"
-                className="inline-flex justify-center items-center shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 hover:scale-105"
+                className="inline-flex justify-center items-center shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 hover:scale-105 bg-[#00C6A7] text-white hover:bg-[#233D4D]"
                 data-tally-open={waitlistUrl.split('/').pop()}
                 data-tally-width="700"
                 data-tally-emoji-text="👋"
                 data-tally-emoji-animation="wave"
                 data-tally-auto-close="0"
                 data-tally-layout="modal"
-                aria-label="Join the Stackr waitlist for early access"
+                aria-label="Join the StackZen waitlist for early access"
               >
                 Join the Waitlist
                 <svg
@@ -91,20 +89,20 @@ export default function HeroSection({ waitlistUrl }: HeroSectionProps) {
                 </svg>
               </Button>
 
-              <div className="text-muted-foreground text-sm md:text-base">
+              <div className="text-[#58C1E2] text-sm md:text-base">
                 <div className="flex items-center">
-                  <CheckCircle className="w-5 h-5 text-secondary mr-2" aria-hidden="true" />
+                  <CheckCircle className="w-5 h-5 text-[#00C6A7] mr-2" aria-hidden="true" />
                   <span>Free early access</span>
                 </div>
                 <div className="flex items-center mt-1">
-                  <CheckCircle className="w-5 h-5 text-secondary mr-2" aria-hidden="true" />
+                  <CheckCircle className="w-5 h-5 text-[#00C6A7] mr-2" aria-hidden="true" />
                   <span>No credit card required</span>
                 </div>
               </div>
             </div>
 
             <div
-              className="flex items-center space-x-4 mt-8 pt-4 border-t border-border"
+              className="flex items-center space-x-4 mt-8 pt-4 border-t border-[#E5E9F0]"
               itemScope
               itemType="https://schema.org/AggregateRating"
             >
@@ -114,7 +112,7 @@ export default function HeroSection({ waitlistUrl }: HeroSectionProps) {
               <meta itemProp="reviewCount" content="131" />
 
               <div className="flex -space-x-2">
-                <div className="w-10 h-10 rounded-full border-2 border-background bg-muted flex items-center justify-center text-muted-foreground">
+                <div className="w-10 h-10 rounded-full border-2 border-white bg-[#F5F7FA] flex items-center justify-center text-[#58C1E2]">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-6 w-6"
@@ -131,7 +129,7 @@ export default function HeroSection({ waitlistUrl }: HeroSectionProps) {
                     />
                   </svg>
                 </div>
-                <div className="w-10 h-10 rounded-full border-2 border-background bg-muted flex items-center justify-center text-muted-foreground">
+                <div className="w-10 h-10 rounded-full border-2 border-white bg-[#F5F7FA] flex items-center justify-center text-[#58C1E2]">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-6 w-6"
@@ -148,7 +146,7 @@ export default function HeroSection({ waitlistUrl }: HeroSectionProps) {
                     />
                   </svg>
                 </div>
-                <div className="w-10 h-10 rounded-full border-2 border-background bg-muted flex items-center justify-center text-muted-foreground">
+                <div className="w-10 h-10 rounded-full border-2 border-white bg-[#F5F7FA] flex items-center justify-center text-[#58C1E2]">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-6 w-6"
@@ -166,8 +164,8 @@ export default function HeroSection({ waitlistUrl }: HeroSectionProps) {
                   </svg>
                 </div>
               </div>
-              <div className="text-sm text-muted-foreground">
-                <span className="font-semibold text-foreground">131+ people</span> have already
+              <div className="text-sm text-[#58C1E2]">
+                <span className="font-semibold text-[#233D4D]">131+ people</span> have already
                 joined the waitlist
               </div>
             </div>
@@ -188,26 +186,26 @@ export default function HeroSection({ waitlistUrl }: HeroSectionProps) {
                 muted
                 playsInline
                 controls
-                title="Stackr Financial Automation Demo"
-                aria-label="Video demonstration of the Stackr financial automation platform"
+                title="StackZen Financial Automation Demo"
+                aria-label="Video demonstration of the StackZen financial automation platform"
                 preload="metadata"
               >
                 <source src="/videos/stackr-promo.mp4" type="video/mp4" />
                 <track kind="descriptions" src="" label="English descriptions" />
                 Your browser does not support the video tag. Please upgrade to a modern browser.
               </video>
-              <div className="absolute inset-0 bg-gradient-to-t from-foreground/10 to-transparent opacity-30 pointer-events-none"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#233D4D]/10 to-transparent opacity-30 pointer-events-none"></div>
             </div>
 
             {/* Security badge for trust */}
             <div className="absolute -bottom-4 right-4 z-20 bg-white rounded-lg shadow-lg px-4 py-2 flex items-center space-x-2">
-              <Shield className="h-5 w-5 text-secondary" />
-              <span className="text-xs font-semibold text-foreground">Bank-Level Encryption</span>
+              <Shield className="h-5 w-5 text-[#00C6A7]" />
+              <span className="text-xs font-semibold text-[#233D4D]">Bank-Level Encryption</span>
             </div>
 
             {/* Decorative elements */}
-            <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary rounded-full opacity-10 blur-2xl"></div>
-            <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-secondary rounded-full opacity-10 blur-2xl"></div>
+            <div className="absolute -top-10 -right-10 w-40 h-40 bg-[#233D4D] rounded-full opacity-10 blur-2xl"></div>
+            <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-[#00C6A7] rounded-full opacity-10 blur-2xl"></div>
           </motion.div>
         </div>
       </div>

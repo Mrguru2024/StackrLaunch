@@ -1,9 +1,15 @@
-# robots.txt for Stackr Financial
+# Allow all crawlers
 User-agent: *
 Allow: /
-Disallow: /assets/
-Disallow: /api/
-Disallow: /.well-known/
+
+# Sitemap location
+Sitemap: https://stackzen.app/sitemap.xml
+
+# Disallow admin and api routes
+Disallow: /api/*
+Disallow: /admin/*
+Disallow: /_next/*
+Disallow: /static/*
 
 # Block specific bots known for scraping
 User-agent: PetalBot
@@ -17,9 +23,6 @@ Disallow: /*?*
 Disallow: /*=
 Disallow: /*~
 Disallow: /*$
-
-# Sitemap location - uses HTTPS
-Sitemap: https://stackr.tech/sitemap.xml
 
 # Crawl-delay for all bots
 Crawl-delay: 5

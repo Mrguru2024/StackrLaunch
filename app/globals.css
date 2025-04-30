@@ -77,6 +77,23 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-[#233D4D];
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply text-[#233D4D];
+  }
+  p {
+    @apply text-[#8B95A5];
+  }
+  a {
+    @apply text-[#00C6A7] hover:text-[#233D4D] transition-colors;
+  }
+  button {
+    @apply bg-[#00C6A7] text-white hover:bg-[#233D4D] transition-colors;
   }
 }

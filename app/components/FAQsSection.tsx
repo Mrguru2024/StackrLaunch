@@ -9,6 +9,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import Script from 'next/script';
 
 interface FAQItem {
   question: string;
@@ -68,14 +69,32 @@ export default function FAQsSection() {
     },
   ];
 
+  const faqStructuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
+  };
+
   return (
     <section id="faqs" className="py-16 md:py-24 px-4 bg-white">
+      <Script
+        id="faq-structured-data"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
+      />
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12" itemScope itemType="https://schema.org/FAQPage">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#233D4D] mb-4">
             Frequently Asked Questions
           </h2>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-[#58C1E2]">
             Everything you need to know about Stackr financial automation
           </p>
 
@@ -83,22 +102,22 @@ export default function FAQsSection() {
             {faqs.map((faq, index) => (
               <div
                 key={index}
-                className="border border-gray-200 rounded-lg overflow-hidden"
+                className="border border-[#E5E9F0] rounded-lg overflow-hidden"
                 itemScope
                 itemType="https://schema.org/Question"
                 itemProp="mainEntity"
               >
                 <button
-                  className="flex justify-between items-center w-full p-5 text-left bg-white hover:bg-gray-50 transition-colors"
+                  className="flex justify-between items-center w-full p-5 text-left bg-white hover:bg-[#F5F7FA] transition-colors"
                   onClick={() => toggleFAQ(index)}
                   aria-expanded={openIndex === index}
                   aria-controls={`faq-answer-${index}`}
                 >
-                  <h3 className="text-lg font-semibold text-gray-900" itemProp="name">
+                  <h3 className="text-lg font-semibold text-[#233D4D]" itemProp="name">
                     {faq.question}
                   </h3>
                   <ChevronDown
-                    className={`w-5 h-5 text-gray-500 transition-transform ${
+                    className={`w-5 h-5 text-[#58C1E2] transition-transform ${
                       openIndex === index ? 'rotate-180' : ''
                     }`}
                   />
@@ -113,8 +132,8 @@ export default function FAQsSection() {
                   itemType="https://schema.org/Answer"
                   itemProp="acceptedAnswer"
                 >
-                  <div className="p-5 border-t border-gray-100 bg-gray-50">
-                    <p className="text-gray-600" itemProp="text">
+                  <div className="p-5 border-t border-[#E5E9F0] bg-[#F5F7FA]">
+                    <p className="text-[#233D4D]" itemProp="text">
                       {faq.answer}
                     </p>
 
@@ -129,19 +148,19 @@ export default function FAQsSection() {
 
         {/* CTA Section */}
         <motion.div
-          className="mt-12 text-center p-6 bg-gradient-to-r from-purple-50 to-green-50 rounded-xl shadow-sm"
+          className="mt-12 text-center p-6 bg-gradient-to-r from-[#233D4D]/5 to-[#00C6A7]/5 rounded-xl shadow-sm"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <h3 className="text-xl font-bold text-gray-900 mb-2">Have more questions?</h3>
-          <p className="text-gray-600 mb-4">
+          <h3 className="text-xl font-bold text-[#233D4D] mb-2">Have more questions?</h3>
+          <p className="text-[#58C1E2] mb-4">
             Join our waitlist to get updates and ask specific questions about how Stackr can help
             with your financial needs.
           </p>
           <button
-            className="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-primary rounded-md shadow-sm hover:bg-primary/90 transition-colors"
+            className="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-[#00C6A7] rounded-md shadow-sm hover:bg-[#00C6A7]/90 transition-colors"
             data-tally-open="3NO0eG"
             data-tally-width="500"
             data-tally-emoji-text="💬"

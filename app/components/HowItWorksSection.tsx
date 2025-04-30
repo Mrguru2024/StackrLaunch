@@ -1,96 +1,111 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight, Shield, Zap, Clock, BarChart } from 'lucide-react';
+import { Calculator, CreditCard, TrendingUp, Shield, Zap, BarChart3 } from 'lucide-react';
 
-const steps = [
+const features = [
   {
+    title: 'Smart Credit Card Management',
+    description:
+      'Automatically track and optimize your credit card usage to maximize rewards and minimize interest.',
+    icon: CreditCard,
+    color: 'text-[#233D4D]',
+  },
+  {
+    title: 'Real-time Financial Insights',
+    description:
+      'Get instant visibility into your spending patterns and financial health with our AI-powered analytics.',
+    icon: BarChart3,
+    color: 'text-[#00C6A7]',
+  },
+  {
+    title: 'Automated Bill Payments',
+    description:
+      'Never miss a payment with our intelligent bill tracking and automated payment scheduling system.',
+    icon: Calculator,
+    color: 'text-[#F4A300]',
+  },
+  {
+    title: 'Investment Portfolio Tracking',
+    description:
+      'Monitor your investments and get personalized recommendations to optimize your portfolio.',
+    icon: TrendingUp,
+    color: 'text-[#58C1E2]',
+  },
+  {
+    title: 'Secure Financial Data',
+    description: 'Bank-level security ensures your financial data is always protected and private.',
     icon: Shield,
-    title: 'Secure Connection',
-    description:
-      'Connect your financial accounts with bank-level encryption. Your data is always protected.',
-    color: 'text-primary',
+    color: 'text-[#233D4D]',
   },
   {
+    title: 'Instant Financial Decisions',
+    description:
+      'Make informed financial decisions quickly with our real-time analysis and recommendations.',
     icon: Zap,
-    title: 'AI Analysis',
-    description:
-      'Our AI automatically analyzes your transactions to identify hidden fees and savings opportunities.',
-    color: 'text-secondary',
-  },
-  {
-    icon: Clock,
-    title: 'Time Savings',
-    description:
-      'Automate your financial tracking and save 5+ hours monthly on manual bookkeeping.',
-    color: 'text-highlight',
-  },
-  {
-    icon: BarChart,
-    title: 'Wealth Growth',
-    description:
-      'Get personalized insights to optimize your income and grow your wealth over time.',
-    color: 'text-accent',
+    color: 'text-[#00C6A7]',
   },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.5,
+    },
+  },
+};
+
 export default function HowItWorksSection() {
   return (
-    <section
-      id="how-it-works"
-      className="py-24 bg-gradient-to-br from-white via-neutral-light/30 to-secondary/5"
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="text-3xl md:text-4xl font-bold text-foreground mb-4"
-          >
-            How StackZen Works
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-xl text-muted-foreground max-w-3xl mx-auto"
-          >
-            Four simple steps to automate your finances and grow your wealth
-          </motion.p>
-        </div>
+    <section className="py-24 bg-gradient-to-b from-white via-neutral-50 to-mint-50">
+      <div className="container mx-auto px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">How StackZen Works</h2>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            Our AI-powered platform helps you manage your finances smarter, not harder.
+          </p>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {steps.map((step, index) => (
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
+          {features.map((feature, index) => (
             <motion.div
-              key={step.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="relative"
+              key={index}
+              variants={itemVariants}
+              className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300"
             >
-              <div className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 h-full">
-                <div className={`${step.color} mb-4`}>
-                  <step.icon className="w-12 h-12" />
-                </div>
-                <h3 className="text-xl font-semibold text-foreground mb-2">{step.title}</h3>
-                <p className="text-muted-foreground">{step.description}</p>
+              <div className={`w-12 h-12 ${feature.color} mb-6`}>
+                <feature.icon className="w-full h-full" />
               </div>
-              {index < steps.length - 1 && (
-                <div className="hidden lg:block absolute top-1/2 -right-4 transform -translate-y-1/2">
-                  <ArrowRight className="w-8 h-8 text-muted-foreground" />
-                </div>
-              )}
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">{feature.title}</h3>
+              <p className="text-gray-600">{feature.description}</p>
             </motion.div>
           ))}
-        </div>
-
-        {/* Decorative elements */}
-        <div className="absolute top-0 left-0 w-64 h-64 bg-primary rounded-full opacity-5 blur-3xl -z-10"></div>
-        <div className="absolute bottom-0 right-0 w-64 h-64 bg-secondary rounded-full opacity-5 blur-3xl -z-10"></div>
+        </motion.div>
       </div>
     </section>
   );
