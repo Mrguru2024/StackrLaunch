@@ -12,6 +12,29 @@ interface CTASectionProps {
   waitlistUrl: string;
 }
 
+declare global {
+  interface Window {
+    Tally?: {
+      openPopup: (
+        formId: string,
+        options: {
+          layout: string;
+          width: number;
+          alignLeft?: boolean;
+          hideTitle?: boolean;
+          emoji?: {
+            text: string;
+            animation: string;
+          };
+          hiddenFields?: {
+            [key: string]: string;
+          };
+        }
+      ) => void;
+    };
+  }
+}
+
 export default function CTASection({ waitlistUrl }: CTASectionProps) {
   const [formData, setFormData] = useState({
     firstName: '',

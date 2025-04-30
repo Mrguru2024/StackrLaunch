@@ -3,7 +3,7 @@ import { useInView } from 'framer-motion';
 import { useAnimation } from 'framer-motion';
 
 export const useScrollReveal = (threshold = 0.1) => {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { threshold });
   const controls = useAnimation();
 
@@ -13,7 +13,7 @@ export const useScrollReveal = (threshold = 0.1) => {
     }
   }, [isInView, controls]);
 
-  return [ref, isInView];
+  return { ref, controls, isInView };
 };
 
 export const createStaggeredDelays = (count: number, delay = 0.1) => {
