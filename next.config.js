@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   experimental: {
     serverActions: {
-      allowedOrigins: ['localhost:3000'],
+      allowedOrigins: ['localhost:3000', 'stackzen.tech'],
     },
   },
   webpack: (config) => {
@@ -12,6 +12,15 @@ const nextConfig = {
       bufferutil: 'commonjs bufferutil',
     });
     return config;
+  },
+  // Ensure API routes are properly handled
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: '/api/:path*',
+      },
+    ];
   },
 };
 
