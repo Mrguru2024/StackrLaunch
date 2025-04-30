@@ -49,7 +49,7 @@ export default function FinancialCalculator() {
 
     // Calculate projected savings with Stackr's smart investments (with compounding)
     let compoundSavings = 0;
-    let yearlyContribution = yearlySavings;
+    const yearlyContribution = savings * 12;
     for (let i = 0; i < years; i++) {
       compoundSavings = (compoundSavings + yearlyContribution) * (1 + investmentReturn / 100);
     }

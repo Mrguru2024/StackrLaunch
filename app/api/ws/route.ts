@@ -10,12 +10,12 @@ export async function GET(req: Request) {
     wss.on('connection', (ws) => {
       console.log('Client connected');
 
-      ws.on('message', (message) => {
+      ws.on('message', (message: Buffer) => {
         console.log('Received:', message.toString());
         ws.send(
           JSON.stringify({
-            type: 'response',
-            message: `Server received: ${message}`,
+            type: 'message',
+            data: message.toString(),
           })
         );
       });
@@ -33,11 +33,27 @@ export async function GET(req: Request) {
     });
   }
 
-  return new NextResponse('WebSocket server is running', {
-    status: 200,
-    headers: {
-      Upgrade: 'websocket',
-      Connection: 'Upgrade',
-    },
+  const { socket: ws, response } = await new Promise<{
+    socket: any;
+    response: Response;
+  }>((resolve) => {
+    const res = new NextResponse(null, {
+      status: 101,
+      headers: {
+        Upgrade: 'websocket',
+        Connection: 'Upgrade',
+      },
+    });
+
+    resolve({
+      socket: (res as any).socket,
+      response: res,
+    });
   });
+
+  wss.handleUpgrade(req, ws, Buffer.from([]), (ws) => {
+    wss?.emit('connection', ws);
+  });
+
+  return response;
 }
