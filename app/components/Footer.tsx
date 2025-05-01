@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import stackrLogo from '../assets/stackr-logo.png';
+import Image from 'next/image';
 
 interface FooterProps {
   waitlistUrl: string;
@@ -11,7 +11,13 @@ export default function Footer({ waitlistUrl }: FooterProps) {
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="mb-8 md:mb-0">
-            <img src={stackrLogo} alt="Stackr Logo" className="h-8" />
+            <Image
+              src="/StackZenOriginalLogo.svg"
+              alt="Stackr Logo"
+              width={32}
+              height={32}
+              className="h-8 w-auto"
+            />
             <p className="text-gray-600 mt-2">Building the future of personal finance</p>
           </div>
           <div className="flex flex-col md:flex-row gap-8">
