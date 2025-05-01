@@ -21,31 +21,49 @@ const config: Config = {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
-        background: {
-          DEFAULT: 'hsl(var(--background))',
-          light: '#F6F7F9',
-          dark: '#1C1C22',
-        },
+        background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         primary: {
-          DEFAULT: '#7537F9',
-          foreground: '#FFFFFF',
+          DEFAULT: 'hsl(var(--primary))',
+          foreground: 'hsl(var(--primary-foreground))',
         },
         secondary: {
-          DEFAULT: '#8D62D4',
+          DEFAULT: 'hsl(var(--secondary))',
+          foreground: 'hsl(var(--secondary-foreground))',
+        },
+        success: {
+          DEFAULT: '#00B23B',
           foreground: '#FFFFFF',
         },
-        accent: {
+        info: {
+          DEFAULT: '#5D8BF4',
+          foreground: '#FFFFFF',
+        },
+        warning: {
           DEFAULT: '#F4B8C2',
           foreground: '#1C1C22',
         },
-        destructive: {
-          DEFAULT: 'hsl(var(--destructive))',
-          foreground: 'hsl(var(--destructive-foreground))',
+        error: {
+          DEFAULT: '#FF4C61',
+          foreground: '#FFFFFF',
+        },
+        surface: {
+          light: '#FFFFFF',
+          dark: '#2B2C34',
+        },
+        text: {
+          primary: '#1C1C22',
+          secondary: '#5A5A67',
+          inverse: '#FFFFFF',
+          muted: '#8D62D4',
         },
         muted: {
           DEFAULT: 'hsl(var(--muted))',
           foreground: 'hsl(var(--muted-foreground))',
+        },
+        accent: {
+          DEFAULT: 'hsl(var(--accent))',
+          foreground: 'hsl(var(--accent-foreground))',
         },
         popover: {
           DEFAULT: 'hsl(var(--popover))',
@@ -55,9 +73,9 @@ const config: Config = {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
-        success: {
-          DEFAULT: '#00B23B',
-          foreground: '#FFFFFF',
+        destructive: {
+          DEFAULT: 'hsl(var(--destructive))',
+          foreground: 'hsl(var(--destructive-foreground))',
         },
       },
       borderRadius: {

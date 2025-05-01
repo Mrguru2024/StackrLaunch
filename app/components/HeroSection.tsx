@@ -178,24 +178,7 @@ export default function HeroSection({ waitlistUrl }: HeroSectionProps) {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <div className="rounded-xl shadow-2xl overflow-hidden relative z-10 transform lg:translate-x-6 hover:scale-105 transition-transform duration-500">
-              <video
-                className="w-full h-auto md:h-96 object-cover"
-                autoPlay
-                loop
-                muted
-                playsInline
-                controls
-                title="StackZen Financial Automation Demo"
-                aria-label="Video demonstration of the StackZen financial automation platform"
-                preload="metadata"
-              >
-                <source src="/videos/stackr-promo.mp4" type="video/mp4" />
-                <track kind="descriptions" src="" label="English descriptions" />
-                Your browser does not support the video tag. Please upgrade to a modern browser.
-              </video>
-              <div className="absolute inset-0 bg-gradient-to-t from-[#233D4D]/10 to-transparent opacity-30 pointer-events-none"></div>
-            </div>
+            <div className="relative w-full max-w-4xl mx-auto">{/* Remove video element */}</div>
 
             {/* Security badge for trust */}
             <div className="absolute -bottom-4 right-4 z-20 bg-white rounded-lg shadow-lg px-4 py-2 flex items-center space-x-2">

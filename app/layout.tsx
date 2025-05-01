@@ -1,9 +1,9 @@
 import { Inter } from 'next/font/google';
-import { ThemeProvider } from 'next-themes';
+import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
 import { QueryClientProvider } from '@/components/providers/query-client-provider';
 import { ThemeToggle } from '@/components/theme-toggle';
-import '@/styles/globals.css';
+import './globals.css';
 import Script from 'next/script';
 import { Metadata } from 'next';
 

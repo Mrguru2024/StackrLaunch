@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import Header from './components/Header';
-import HeroSection from '@/components/HeroSection';
+import HeroSection from './components/HeroSection';
 import FeaturesSection from '@/components/FeaturesSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import CTASection from '@/components/CTASection';
@@ -85,7 +85,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-white via-[#F5F7FA] to-[#00C6A7]/5">
-      <Header waitlistUrl={waitlistUrl} />
+      <Header />
       <main className="flex min-h-screen flex-col items-center justify-between">
         <HeroSection waitlistUrl={waitlistUrl} />
         <HowItWorksSection />

@@ -1,21 +1,23 @@
-import { useEffect, useRef } from 'react';
-import { useInView } from 'framer-motion';
+import { useRef, useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
 import { useAnimation } from 'framer-motion';
 
 export const useScrollReveal = (threshold = 0.1) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { threshold });
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    amount: threshold,
+  });
   const controls = useAnimation();
 
   useEffect(() => {
-    if (isInView) {
+    if (inView) {
       controls.start('visible');
     }
-  }, [isInView, controls]);
+  }, [controls, inView]);
 
-  return { ref, controls, isInView };
+  return { ref, controls };
 };
 
-export const createStaggeredDelays = (count: number, delay = 0.1) => {
-  return Array.from({ length: count }, (_, i) => i * delay);
+export const createStaggeredDelays = (count: number, baseDelay = 0.1) => {
+  return Array.from({ length: count }, (_, i) => i * baseDelay);
 };

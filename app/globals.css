@@ -54,7 +54,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-background-light dark:bg-background-dark text-foreground;
+    @apply bg-background text-foreground;
   }
   h1,
   h2,
@@ -62,16 +62,16 @@
   h4,
   h5,
   h6 {
-    @apply text-[#233D4D];
+    @apply text-foreground;
   }
   p {
-    @apply text-[#8B95A5];
+    @apply text-muted-foreground;
   }
   a {
-    @apply text-[#00C6A7] hover:text-[#233D4D] transition-colors;
+    @apply text-primary hover:text-primary/90 transition-colors;
   }
   button {
-    @apply bg-[#00C6A7] text-white hover:bg-[#233D4D] transition-colors;
+    @apply bg-primary text-primary-foreground hover:bg-primary/90 transition-colors;
   }
 }
 
@@ -97,6 +97,6 @@
   }
 
   .input {
-    @apply flex h-10 w-full rounded-md border border-input bg-background-light dark:bg-background-dark px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+    @apply flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
   }
 }
