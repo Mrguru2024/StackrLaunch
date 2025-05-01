@@ -2,6 +2,7 @@ import { Inter } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 import { Toaster } from '@/components/ui/toaster';
 import { QueryClientProvider } from '@/components/providers/query-client-provider';
+import { ThemeToggle } from '@/components/theme-toggle';
 import '@/styles/globals.css';
 import Script from 'next/script';
 import { Metadata } from 'next';
@@ -167,6 +168,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             enableSystem
             disableTransitionOnChange
           >
+            <div className="fixed top-4 right-4 z-50">
+              <ThemeToggle />
+            </div>
             {children}
             <Toaster />
           </ThemeProvider>
