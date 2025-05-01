@@ -21,28 +21,23 @@ const config: Config = {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
-        background: 'hsl(var(--background))',
+        background: {
+          DEFAULT: 'hsl(var(--background))',
+          light: '#F6F7F9',
+          dark: '#1C1C22',
+        },
         foreground: 'hsl(var(--foreground))',
         primary: {
-          DEFAULT: '#233D4D', // Deep Sapphire Blue
+          DEFAULT: '#7537F9',
           foreground: '#FFFFFF',
         },
         secondary: {
-          DEFAULT: '#00C6A7', // Mint Green
-          foreground: '#FFFFFF',
-        },
-        neutral: {
-          DEFAULT: '#C6CED8', // Soft Zen Gray
-          light: '#E5E9F0',
-          dark: '#8B95A5',
-        },
-        highlight: {
-          DEFAULT: '#F4A300', // Sunstone Gold
+          DEFAULT: '#8D62D4',
           foreground: '#FFFFFF',
         },
         accent: {
-          DEFAULT: '#58C1E2', // Electric Sky Blue
-          foreground: '#FFFFFF',
+          DEFAULT: '#F4B8C2',
+          foreground: '#1C1C22',
         },
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
@@ -59,6 +54,10 @@ const config: Config = {
         card: {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
+        },
+        success: {
+          DEFAULT: '#00B23B',
+          foreground: '#FFFFFF',
         },
       },
       borderRadius: {
