@@ -10,7 +10,9 @@ const nextConfig = {
     ],
   },
   experimental: {
-    serverActions: true,
+    serverActions: {
+      allowedOrigins: ['localhost:3000', 'stackzen.app', 'stackzen.vercel.app'],
+    },
   },
   // Environment variables that should be exposed to the browser
   env: {

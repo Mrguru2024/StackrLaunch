@@ -1,10 +1,9 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Select } from '@/components/ui/select';
+import { Button } from '../../components/ui/button';
+import { Input } from '../../components/ui/input';
+import { Label } from '../../components/ui/label';
 import { useState } from 'react';
 import { Lock, ShieldCheck } from 'lucide-react';
 
@@ -173,7 +172,7 @@ export default function CTASection({ waitlistUrl }: CTASectionProps) {
               <select
                 id="occupation"
                 name="occupation"
-                className="w-full px-4 py-3 border border-[#E5E9F0] rounded-lg focus:ring-2 focus:ring-[#00C6A7] focus:border-[#00C6A7]"
+                className="w-full px-4 py-3 border border-[#E5E9F0] rounded-lg focus:ring-2 focus:ring-[#00C6A7] focus:border-[#00C6A7] bg-white"
                 value={formData.occupation}
                 onChange={handleInputChange}
                 required
