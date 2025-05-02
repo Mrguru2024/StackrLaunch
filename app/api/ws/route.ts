@@ -33,27 +33,32 @@ export async function GET(req: Request) {
     });
   }
 
-  const { socket: ws, response } = await new Promise<{
-    socket: WebSocket;
-    response: Response;
-  }>((resolve) => {
-    const res = new NextResponse(null, {
-      status: 101,
-      headers: {
-        Upgrade: 'websocket',
-        Connection: 'Upgrade',
-      },
+  const upgradeHeader = req.headers.get('upgrade');
+  if (!upgradeHeader || upgradeHeader.toLowerCase() !== 'websocket') {
+    return new NextResponse('Expected Upgrade: WebSocket', { status: 426 });
+  }
+
+  try {
+    const res = new NextResponse();
+    const socket = await new Promise<WebSocket>((resolve, reject) => {
+      const upgradeRes = {
+        statusCode: 101,
+        headers: {
+          Upgrade: 'websocket',
+          Connection: 'Upgrade',
+          'Sec-WebSocket-Accept': req.headers.get('sec-websocket-key') || '',
+        },
+      };
+
+      wss?.handleUpgrade(req as any, upgradeRes as any, Buffer.from([]), (ws: WebSocket) => {
+        resolve(ws);
+      });
     });
 
-    resolve({
-      socket: (res as { socket: WebSocket }).socket,
-      response: res,
-    });
-  });
-
-  wss.handleUpgrade(req, ws, Buffer.from([]), (ws: WebSocket) => {
-    wss?.emit('connection', ws);
-  });
-
-  return response;
+    wss?.emit('connection', socket);
+    return res;
+  } catch (err) {
+    console.error('WebSocket upgrade failed:', err);
+    return new NextResponse('WebSocket upgrade failed', { status: 500 });
+  }
 }

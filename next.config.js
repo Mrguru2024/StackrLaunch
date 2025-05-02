@@ -19,6 +19,8 @@ const nextConfig = {
   },
   // Optimizing for production
   poweredByHeader: false,
+  // Optimize static file serving
+  output: 'standalone',
 };
 
 module.exports = nextConfig;
