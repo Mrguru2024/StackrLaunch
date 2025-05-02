@@ -1,14 +1,53 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { Button } from '../../components/ui/button';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Button } from '@/components/ui/button';
 import { CheckCircle, BadgePercent, Clock, Shield, ArrowRight } from 'lucide-react';
 
 interface HeroSectionProps {
   waitlistUrl?: string;
 }
 
+declare global {
+  interface Window {
+    Tally?: {
+      openPopup: (
+        formId: string,
+        options: {
+          layout: string;
+          width: number;
+          alignLeft?: boolean;
+          hideTitle?: boolean;
+          emoji?: {
+            text: string;
+            animation: string;
+          };
+          hiddenFields?: {
+            [key: string]: string;
+          };
+        }
+      ) => void;
+    };
+  }
+}
+
 export default function HeroSection({ waitlistUrl }: HeroSectionProps) {
+  const handleWaitlistClick = () => {
+    if (window.Tally) {
+      window.Tally.openPopup('3NO0eG', {
+        layout: 'modal',
+        width: 500,
+        emoji: {
+          text: '👋',
+          animation: 'wave',
+        },
+      });
+    } else {
+      // Fallback in case the Tally script hasn't loaded
+      window.location.href = waitlistUrl || 'https://tally.so/r/3NO0eG';
+    }
+  };
+
   return (
     <section
       id="hero-section"
@@ -66,12 +105,7 @@ export default function HeroSection({ waitlistUrl }: HeroSectionProps) {
               <Button
                 size="lg"
                 className="inline-flex justify-center items-center shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 hover:scale-105 bg-[#00C6A7] text-white hover:bg-[#233D4D]"
-                data-tally-open={waitlistUrl?.split('/').pop()}
-                data-tally-width="700"
-                data-tally-emoji-text="👋"
-                data-tally-emoji-animation="wave"
-                data-tally-auto-close="0"
-                data-tally-layout="modal"
+                onClick={handleWaitlistClick}
                 aria-label="Join the StackZen waitlist for early access"
               >
                 Join the Waitlist

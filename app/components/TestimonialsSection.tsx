@@ -1,4 +1,6 @@
-import { motion } from 'framer-motion';
+'use client';
+
+import { motion, AnimatePresence } from 'framer-motion';
 import { Star } from 'lucide-react';
 
 export default function TestimonialsSection() {

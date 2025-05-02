@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Brain, PiggyBank, Shield, Zap, TrendingUp, Clock, BarChart3, Wallet } from 'lucide-react';
 
 const features = [

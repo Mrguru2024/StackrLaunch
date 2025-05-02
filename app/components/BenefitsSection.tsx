@@ -9,7 +9,7 @@ import {
   CircleDollarSign,
   PiggyBank,
 } from 'lucide-react';
-import { motion, useAnimation, Variants } from 'framer-motion';
+import { motion, useAnimation, Variants, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useScrollReveal, createStaggeredDelays } from '@/hooks/use-scroll-reveal';
 
