@@ -1,11 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['stackzen.app'],
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'stackzen.app',
+        hostname: '**',
       },
     ],
   },
