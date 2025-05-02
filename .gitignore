@@ -9,3 +9,4 @@ vite.config.ts.*
 *.pem
 .vercel
 coverage
+*storybook.log
