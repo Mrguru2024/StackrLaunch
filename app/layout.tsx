@@ -1,11 +1,11 @@
 import { Inter } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
-import { QueryClientProvider } from '@/components/providers/query-client-provider';
-import { ThemeToggle } from '@/components/theme-toggle';
+import { QueryProvider } from '@/components/providers/query-client-provider';
 import './globals.css';
 import Script from 'next/script';
 import type { Metadata } from 'next';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -161,20 +161,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className={`${inter.className} flex h-full flex-col bg-background antialiased`}>
-        <QueryClientProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <QueryProvider>
             <div className="fixed top-4 right-4 z-50">
               <ThemeToggle />
             </div>
             <main className="flex-1 w-full">{children}</main>
             <Toaster />
-          </ThemeProvider>
-        </QueryClientProvider>
+          </QueryProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
