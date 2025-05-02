@@ -1,49 +1,35 @@
 'use client';
 
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 
 // Use the original StackZen logo
 const logoSrc = '/StackZenOriginalLogo.svg';
 
-export default function Header() {
+interface HeaderProps {
+  waitlistUrl?: string;
+}
+
+export default function Header({ waitlistUrl }: HeaderProps) {
   return (
-    <div className="w-full">
-      <nav
-        className="fixed top-0 left-0 right-0 z-50"
-        role="navigation"
-        aria-label="Main navigation"
-      >
-        <div className="w-full max-w-7xl mx-auto px-4">
-          <div className="flex justify-center items-center h-32">
-            {/* Logo */}
-            <a
-              href="/"
-              className="flex items-center justify-center space-x-4 group"
-              aria-label="StackZen Financial - Home"
-            >
-              <div className="relative w-[500px] h-[500px] flex items-center justify-center">
-                <img
-                  src={logoSrc}
-                  alt="StackZen Logo"
-                  className="w-full h-full object-contain select-none transition-transform duration-300 group-hover:scale-105"
-                  width="500"
-                  height="500"
-                  loading="eager"
-                  style={{
-                    imageRendering: 'crisp-edges',
-                    WebkitFontSmoothing: 'antialiased',
-                    MozOsxFontSmoothing: 'grayscale',
-                  }}
-                />
-              </div>
-              <span className="bg-[#00C6A7] text-[#233D4D] text-base px-4 py-2 rounded-full uppercase font-bold tracking-wider shadow-sm hover:shadow-md transition-shadow duration-300">
-                beta
-              </span>
-            </a>
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center py-4">
+          <div className="flex items-center">
+            <Link href="/" className="flex items-center space-x-2">
+              <Image
+                src="/logo.png"
+                alt="StackZen Logo"
+                width={32}
+                height={32}
+                className="w-8 h-8"
+              />
+              <span className="text-xl font-bold text-[#233D4D]">StackZen</span>
+            </Link>
           </div>
         </div>
-      </nav>
-    </div>
+      </div>
+    </header>
   );
 }
