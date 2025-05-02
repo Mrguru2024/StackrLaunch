@@ -1,11 +1,11 @@
 import { Metadata } from 'next';
 import Header from './components/Header';
 import HeroSection from './components/HeroSection';
-import FeaturesSection from '@/components/FeaturesSection';
-import TestimonialsSection from '@/components/TestimonialsSection';
-import CTASection from '@/components/CTASection';
-import FAQsSection from '@/components/FAQsSection';
-import FinancialCalculator from '@/components/FinancialCalculator';
+import FeaturesSection from './components/FeaturesSection';
+import TestimonialsSection from './components/TestimonialsSection';
+import CTASection from './components/CTASection';
+import FAQsSection from './components/FAQsSection';
+import FinancialCalculator from './components/FinancialCalculator';
 import HowItWorksSection from './components/HowItWorksSection';
 
 export const metadata: Metadata = {
