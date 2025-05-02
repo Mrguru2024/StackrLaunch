@@ -1,11 +1,11 @@
 import { Inter } from 'next/font/google';
-import { ThemeProvider } from '@/components/theme-provider';
-import { Toaster } from '@/components/ui/toaster';
-import { QueryProvider } from '@/components/providers/query-client-provider';
+import { ThemeProvider } from '../components/theme-provider';
+import { Toaster } from '../components/ui/toaster';
+import { QueryProvider } from '../components/providers/query-client-provider';
 import './globals.css';
 import Script from 'next/script';
 import type { Metadata } from 'next';
-import { ThemeToggle } from '@/components/theme-toggle';
+import { ThemeToggle } from '../components/theme-toggle';
 
 const inter = Inter({ subsets: ['latin'] });
 

@@ -1,17 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-  experimental: {
-    serverActions: {
-      allowedOrigins: ['localhost:3000', 'stackzen.app', 'stackzen.vercel.app'],
-    },
-  },
-  compiler: {
-    removeConsole: process.env.NODE_ENV === 'production',
-  },
   images: {
-    domains: ['stackzen.app', 'stackzen.vercel.app'],
-    unoptimized: true,
+    domains: ['stackzen.app'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'stackzen.app',
+      },
+    ],
+  },
+  experimental: {
+    serverActions: true,
   },
   // Environment variables that should be exposed to the browser
   env: {

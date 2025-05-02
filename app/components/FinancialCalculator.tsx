@@ -2,11 +2,11 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Slider } from '@/components/ui/slider';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
+import { Slider } from '../../components/ui/slider';
+import { Label } from '../../components/ui/label';
+import { Input } from '../../components/ui/input';
 import { Calculator } from 'lucide-react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/tabs';
 
 export default function FinancialCalculator() {
   const [monthlyIncome, setMonthlyIncome] = useState(5000);
