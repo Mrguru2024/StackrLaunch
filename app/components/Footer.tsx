@@ -13,10 +13,10 @@ export default function Footer({ waitlistUrl }: FooterProps) {
           <div className="mb-8 md:mb-0">
             <Image
               src="/StackZenOriginalLogo.svg"
-              alt="Stackr Logo"
-              width={32}
-              height={32}
-              className="h-8 w-auto"
+              alt="StackZen Logo"
+              width={768}
+              height={768}
+              className="w-[768px] h-[768px]"
             />
             <p className="text-gray-600 mt-2">Building the future of personal finance</p>
           </div>
@@ -80,7 +80,7 @@ export default function Footer({ waitlistUrl }: FooterProps) {
         </div>
         <div className="mt-12 pt-8 border-t border-gray-200">
           <p className="text-center text-gray-600">
-            © {new Date().getFullYear()} Stackr. All rights reserved.
+            © {new Date().getFullYear()} StackZen. All rights reserved.
           </p>
         </div>
       </div>
