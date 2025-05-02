@@ -78,8 +78,10 @@ export default function FinancialCalculator() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">See How Much You Could Save</h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#233D4D]">
+            See How Much You Could Save
+          </h2>
+          <p className="text-xl text-[#58C1E2] max-w-3xl mx-auto">
             Use our calculator to see how Stackr can help automate your finances and build wealth
             over time.
           </p>
@@ -109,8 +111,12 @@ export default function FinancialCalculator() {
                     <div className="space-y-4">
                       <div>
                         <div className="flex justify-between mb-2">
-                          <Label htmlFor="monthly-income">Monthly Income</Label>
-                          <span className="text-sm text-gray-500">{formatCurrency(income)}</span>
+                          <Label htmlFor="monthly-income" className="text-[#233D4D] font-medium">
+                            Monthly Income
+                          </Label>
+                          <span className="text-sm text-[#58C1E2] font-medium">
+                            {formatCurrency(income)}
+                          </span>
                         </div>
                         <div className="flex gap-4 items-center">
                           <Input
@@ -135,8 +141,12 @@ export default function FinancialCalculator() {
 
                       <div>
                         <div className="flex justify-between mb-2">
-                          <Label htmlFor="monthly-expenses">Monthly Expenses</Label>
-                          <span className="text-sm text-gray-500">{formatCurrency(expenses)}</span>
+                          <Label htmlFor="monthly-expenses" className="text-[#233D4D] font-medium">
+                            Monthly Expenses
+                          </Label>
+                          <span className="text-sm text-[#58C1E2] font-medium">
+                            {formatCurrency(expenses)}
+                          </span>
                         </div>
                         <div className="flex gap-4 items-center">
                           <Input
@@ -161,8 +171,10 @@ export default function FinancialCalculator() {
 
                       <div>
                         <div className="flex justify-between mb-2">
-                          <Label htmlFor="savings-rate">Target Savings Rate</Label>
-                          <span className="text-sm text-gray-500">{savingsRate}%</span>
+                          <Label htmlFor="savings-rate" className="text-[#233D4D] font-medium">
+                            Target Savings Rate
+                          </Label>
+                          <span className="text-sm text-[#58C1E2] font-medium">{savingsRate}%</span>
                         </div>
                         <div className="flex gap-4 items-center">
                           <Input
@@ -191,8 +203,12 @@ export default function FinancialCalculator() {
                     <div className="space-y-4">
                       <div>
                         <div className="flex justify-between mb-2">
-                          <Label htmlFor="investment-return">Expected Annual Return</Label>
-                          <span className="text-sm text-gray-500">{investmentReturn}%</span>
+                          <Label htmlFor="investment-return" className="text-[#233D4D] font-medium">
+                            Expected Annual Return
+                          </Label>
+                          <span className="text-sm text-[#58C1E2] font-medium">
+                            {investmentReturn}%
+                          </span>
                         </div>
                         <div className="flex gap-4 items-center">
                           <Input
@@ -217,8 +233,10 @@ export default function FinancialCalculator() {
 
                       <div>
                         <div className="flex justify-between mb-2">
-                          <Label htmlFor="time-horizon">Time Horizon (Years)</Label>
-                          <span className="text-sm text-gray-500">{years} years</span>
+                          <Label htmlFor="time-horizon" className="text-[#233D4D] font-medium">
+                            Time Horizon (Years)
+                          </Label>
+                          <span className="text-sm text-[#58C1E2] font-medium">{years} years</span>
                         </div>
                         <div className="flex gap-4 items-center">
                           <Input
@@ -256,8 +274,10 @@ export default function FinancialCalculator() {
                       </CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-2xl font-bold">{formatCurrency(income - expenses)}</p>
-                      <p className="text-sm text-gray-500">per month</p>
+                      <p className="text-2xl font-bold text-[#233D4D]">
+                        {formatCurrency(income - expenses)}
+                      </p>
+                      <p className="text-sm text-[#58C1E2]">per month</p>
                     </CardContent>
                   </Card>
 
@@ -269,8 +289,10 @@ export default function FinancialCalculator() {
                       </CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-2xl font-bold">{formatCurrency(monthlySavings)}</p>
-                      <p className="text-sm text-gray-500">per month</p>
+                      <p className="text-2xl font-bold text-[#233D4D]">
+                        {formatCurrency(monthlySavings)}
+                      </p>
+                      <p className="text-sm text-[#58C1E2]">per month</p>
                     </CardContent>
                   </Card>
                 </div>
@@ -291,18 +313,22 @@ export default function FinancialCalculator() {
                 <CardContent className="pt-6">
                   <div className="space-y-8">
                     <div>
-                      <h5 className="text-sm font-medium text-gray-500 mb-1">
+                      <h5 className="text-sm font-medium text-[#58C1E2] mb-1">
                         Yearly Automated Savings
                       </h5>
-                      <p className="text-2xl font-bold">{formatCurrency(yearlyAutomatedSavings)}</p>
+                      <p className="text-2xl font-bold text-[#233D4D]">
+                        {formatCurrency(yearlyAutomatedSavings)}
+                      </p>
                     </div>
 
                     <div className="pt-4 border-t">
-                      <h5 className="text-sm font-medium text-gray-500 mb-1">
+                      <h5 className="text-sm font-medium text-[#58C1E2] mb-1">
                         After {years} Years Without Stackr
                       </h5>
-                      <p className="text-2xl font-bold">{formatCurrency(projectedSavings)}</p>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-2xl font-bold text-[#233D4D]">
+                        {formatCurrency(projectedSavings)}
+                      </p>
+                      <p className="text-sm text-[#58C1E2]">
                         Simple savings without investment growth
                       </p>
                     </div>
@@ -322,6 +348,17 @@ export default function FinancialCalculator() {
                         <p className="text-sm font-medium flex items-center text-green-700">
                           <TrendingUp className="h-4 w-4 mr-1" />
                           Extra {formatCurrency(additionalSavings)} with Stackr
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="pt-6 border-t">
+                      <div className="text-center">
+                        <h3 className="text-xl font-bold text-white mb-2">
+                          Estimated Monthly Savings
+                        </h3>
+                        <p className="text-5xl font-extrabold text-white">
+                          {formatCurrency(calculateSavings() / 12)}
                         </p>
                       </div>
                     </div>

@@ -25,27 +25,24 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: '/',
-    title: 'StackZen - AI Financial Automation for Variable Income',
+    url: 'https://stackzen.tech',
+    siteName: 'StackZen',
+    title: 'StackZen - AI Financial Automation for Tradespeople & Side Hustlers',
     description:
       'StackZen helps tradespeople, side hustlers, and 9-5 rebuilders automate income, eliminate hidden fees, and grow wealth without spreadsheets or bookkeeping.',
-    siteName: 'StackZen',
     images: [
       {
-        url: '/og-image.png',
+        url: 'https://stackzen.tech/StackZenOriginalLogo.svg',
         width: 1200,
         height: 630,
-        alt: 'StackZen - AI Financial Automation',
+        alt: 'StackZen',
       },
     ],
   },
   twitter: {
-    card: 'summary_large_image',
-    title: 'StackZen - AI Financial Automation for Variable Income',
-    description:
-      'StackZen helps tradespeople, side hustlers, and 9-5 rebuilders automate income, eliminate hidden fees, and grow wealth without spreadsheets or bookkeeping.',
-    images: ['/og-image.png'],
-    creator: '@stackzen',
+    handle: '@stackzen',
+    site: '@stackzen',
+    cardType: 'summary_large_image',
   },
   robots: {
     index: true,

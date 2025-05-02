@@ -97,8 +97,8 @@ export default function HeroSection({ waitlistUrl }: HeroSectionProps) {
             >
               <meta itemProp="ratingValue" content="4.9" />
               <meta itemProp="bestRating" content="5" />
-              <meta itemProp="ratingCount" content="131" />
-              <meta itemProp="reviewCount" content="131" />
+              <meta itemProp="ratingCount" content="17" />
+              <meta itemProp="reviewCount" content="17" />
 
               <div className="flex -space-x-2">
                 <div className="w-10 h-10 rounded-full border-2 border-white bg-[#F5F7FA] flex items-center justify-center text-[#58C1E2]">
@@ -154,8 +154,8 @@ export default function HeroSection({ waitlistUrl }: HeroSectionProps) {
                 </div>
               </div>
               <div className="text-sm text-[#58C1E2]">
-                <span className="font-semibold text-[#233D4D]">131+ people</span> have already
-                joined the waitlist
+                <span className="font-semibold text-[#233D4D]">17+ people</span> have already joined
+                the waitlist
               </div>
             </div>
           </motion.div>

@@ -211,6 +211,11 @@ export default function CTASection({ waitlistUrl }: CTASectionProps) {
               <span>Privacy Protected</span>
             </div>
           </div>
+
+          <div className="text-sm text-[#58C1E2] mt-4">
+            <span className="font-semibold text-[#233D4D]">17+ people</span> have already joined the
+            waitlist
+          </div>
         </motion.div>
       </div>
     </section>
