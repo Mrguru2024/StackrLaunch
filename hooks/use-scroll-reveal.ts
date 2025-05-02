@@ -5,7 +5,7 @@ import { useAnimation } from 'framer-motion';
 export const useScrollReveal = (threshold = 0.1) => {
   const { ref, inView } = useInView({
     triggerOnce: true,
-    amount: threshold,
+    threshold: threshold,
   });
   const controls = useAnimation();
 
@@ -15,7 +15,7 @@ export const useScrollReveal = (threshold = 0.1) => {
     }
   }, [controls, inView]);
 
-  return { ref, controls };
+  return { ref, controls, isInView: inView };
 };
 
 export const createStaggeredDelays = (count: number, baseDelay = 0.1) => {

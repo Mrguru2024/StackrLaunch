@@ -87,7 +87,7 @@ export default function Home() {
     <div className="min-h-screen bg-gradient-to-br from-white via-[#F5F7FA] to-[#00C6A7]/5">
       <Header />
       <main className="flex min-h-screen flex-col items-center justify-between">
-        <HeroSection waitlistUrl={waitlistUrl} />
+        <HeroSection />
         <HowItWorksSection />
         <FeaturesSection />
         <TestimonialsSection />

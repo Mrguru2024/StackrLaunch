@@ -5,58 +5,58 @@ import { QueryClientProvider } from '@/components/providers/query-client-provide
 import { ThemeToggle } from '@/components/theme-toggle';
 import './globals.css';
 import Script from 'next/script';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'StackZen | AI Financial Automation for Tradespeople & Side Hustlers',
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://stackzen.app'),
+  title: 'StackZen - AI Financial Automation for Variable Income',
   description:
-    "Save $650/year & 5+ hours monthly with StackZen's AI financial automation built specifically for tradespeople, side hustlers, freelancers, and 9-5 rebuilders. Automate income, eliminate hidden fees, and grow your wealth.",
-  keywords:
-    'financial automation, money management app, side hustle finance, tradesperson budgeting, income automation, AI financial assistant, variable income management, freelancer finances, contractor money management, hidden fee detection, subscription tracker, financial growth, wealth building, budget automation, self-employed finances, financial planning, Atlanta fintech',
-  authors: [{ name: 'StackZen Financial, Inc.' }],
-  creator: 'StackZen Team',
-  publisher: 'StackZen Financial, Inc.',
-  robots: 'index, follow',
-  alternates: {
-    canonical: 'https://stackzen.tech',
-  },
+    'StackZen helps tradespeople, side hustlers, and 9-5 rebuilders automate income, eliminate hidden fees, and grow wealth without spreadsheets or bookkeeping.',
+  keywords: [
+    'financial automation',
+    'AI finance',
+    'variable income',
+    'personal finance',
+    'money management',
+  ],
+  authors: [{ name: 'StackZen Team' }],
   openGraph: {
     type: 'website',
-    url: 'https://stackzen.tech',
-    title: 'StackZen | Smart Money Management for Tradespeople & Side Hustlers',
+    locale: 'en_US',
+    url: '/',
+    title: 'StackZen - AI Financial Automation for Variable Income',
     description:
-      'AI-powered financial automation that saves you $650/year & 5+ hours monthly. Built for variable incomes, freelancers, and contractors. Join 131+ early adopters!',
+      'StackZen helps tradespeople, side hustlers, and 9-5 rebuilders automate income, eliminate hidden fees, and grow wealth without spreadsheets or bookkeeping.',
+    siteName: 'StackZen',
     images: [
       {
-        url: 'https://stackzen.tech/og-image.jpg',
+        url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'StackZen Financial Automation Platform',
+        alt: 'StackZen - AI Financial Automation',
       },
     ],
-    locale: 'en_US',
-    siteName: 'StackZen Financial',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'StackZen | Financial Automation for Variable Incomes',
+    title: 'StackZen - AI Financial Automation for Variable Income',
     description:
-      'Smart money management that actually works for tradespeople, side hustlers, and people with variable income. Save time & money automatically.',
-    images: ['https://stackzen.tech/twitter-image.jpg'],
-    creator: '@stackzenfinancial',
-    site: '@stackzenfinancial',
+      'StackZen helps tradespeople, side hustlers, and 9-5 rebuilders automate income, eliminate hidden fees, and grow wealth without spreadsheets or bookkeeping.',
+    images: ['/og-image.png'],
+    creator: '@stackzen',
   },
-  other: {
-    subject: 'Financial Automation Platform',
-    classification: 'Business, Finance, Technology',
-    language: 'EN',
-    coverage: 'Worldwide',
-    distribution: 'Global',
-    category: 'Technology',
-    rating: 'General',
-    'revisit-after': '7 days',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 };
 

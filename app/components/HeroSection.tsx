@@ -2,10 +2,10 @@
 
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
-import { CheckCircle, BadgePercent, Clock, Shield } from 'lucide-react';
+import { CheckCircle, BadgePercent, Clock, Shield, ArrowRight } from 'lucide-react';
 
 interface HeroSectionProps {
-  waitlistUrl: string;
+  waitlistUrl?: string;
 }
 
 export default function HeroSection({ waitlistUrl }: HeroSectionProps) {
@@ -66,7 +66,7 @@ export default function HeroSection({ waitlistUrl }: HeroSectionProps) {
               <Button
                 size="lg"
                 className="inline-flex justify-center items-center shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 hover:scale-105 bg-[#00C6A7] text-white hover:bg-[#233D4D]"
-                data-tally-open={waitlistUrl.split('/').pop()}
+                data-tally-open={waitlistUrl?.split('/').pop()}
                 data-tally-width="700"
                 data-tally-emoji-text="👋"
                 data-tally-emoji-animation="wave"
@@ -75,18 +75,7 @@ export default function HeroSection({ waitlistUrl }: HeroSectionProps) {
                 aria-label="Join the StackZen waitlist for early access"
               >
                 Join the Waitlist
-                <svg
-                  className="ml-2 -mr-1 w-5 h-5"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  aria-hidden="true"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                    clipRule="evenodd"
-                  ></path>
-                </svg>
+                <ArrowRight className="ml-2 -mr-1 h-5 w-5" />
               </Button>
 
               <div className="text-[#58C1E2] text-sm md:text-base">
