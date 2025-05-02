@@ -111,10 +111,10 @@ export default function FinancialCalculator() {
                     <div className="space-y-4">
                       <div>
                         <div className="flex justify-between mb-2">
-                          <Label htmlFor="monthly-income" className="text-[#233D4D] font-medium">
+                          <Label htmlFor="monthly-income" className="text-white font-medium">
                             Monthly Income
                           </Label>
-                          <span className="text-sm text-[#58C1E2] font-medium">
+                          <span className="text-sm text-white font-medium">
                             {formatCurrency(income)}
                           </span>
                         </div>
@@ -126,7 +126,7 @@ export default function FinancialCalculator() {
                             onChange={(e) => setIncome(Number(e.target.value))}
                             min={0}
                             max={50000}
-                            className="w-24"
+                            className="w-24 text-white bg-transparent"
                           />
                           <Slider
                             value={[income]}
@@ -141,10 +141,10 @@ export default function FinancialCalculator() {
 
                       <div>
                         <div className="flex justify-between mb-2">
-                          <Label htmlFor="monthly-expenses" className="text-[#233D4D] font-medium">
+                          <Label htmlFor="monthly-expenses" className="text-white font-medium">
                             Monthly Expenses
                           </Label>
-                          <span className="text-sm text-[#58C1E2] font-medium">
+                          <span className="text-sm text-white font-medium">
                             {formatCurrency(expenses)}
                           </span>
                         </div>
@@ -156,7 +156,7 @@ export default function FinancialCalculator() {
                             onChange={(e) => setExpenses(Number(e.target.value))}
                             min={0}
                             max={income}
-                            className="w-24"
+                            className="w-24 text-white bg-transparent"
                           />
                           <Slider
                             value={[expenses]}
@@ -171,10 +171,10 @@ export default function FinancialCalculator() {
 
                       <div>
                         <div className="flex justify-between mb-2">
-                          <Label htmlFor="savings-rate" className="text-[#233D4D] font-medium">
+                          <Label htmlFor="savings-rate" className="text-white font-medium">
                             Target Savings Rate
                           </Label>
-                          <span className="text-sm text-[#58C1E2] font-medium">{savingsRate}%</span>
+                          <span className="text-sm text-white font-medium">{savingsRate}%</span>
                         </div>
                         <div className="flex gap-4 items-center">
                           <Input
@@ -184,7 +184,7 @@ export default function FinancialCalculator() {
                             onChange={(e) => setSavingsRate(Number(e.target.value))}
                             min={1}
                             max={100}
-                            className="w-24"
+                            className="w-24 text-white bg-transparent"
                           />
                           <Slider
                             value={[savingsRate]}
@@ -195,6 +195,17 @@ export default function FinancialCalculator() {
                             className="flex-1"
                           />
                         </div>
+                      </div>
+                    </div>
+
+                    <div className="pt-6 border-t border-white/20">
+                      <div className="text-center">
+                        <h3 className="text-xl font-bold text-white mb-2">
+                          Estimated Monthly Savings
+                        </h3>
+                        <p className="text-5xl font-extrabold text-white">
+                          {formatCurrency(calculateSavings() / 12)}
+                        </p>
                       </div>
                     </div>
                   </TabsContent>
