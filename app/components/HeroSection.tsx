@@ -167,37 +167,12 @@ export default function HeroSection({ waitlistUrl }: HeroSectionProps) {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <div className="relative w-full rounded-2xl overflow-hidden shadow-2xl bg-[#233D4D]/5">
-              <div className="aspect-[9/16] relative">
-                <video
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  controls={false}
-                  className="absolute inset-0 w-full h-full object-cover"
-                >
-                  <source
-                    src="/Blue Gradient Modern Payment Mobile App Video.mp4"
-                    type="video/mp4"
-                  />
-                  Your browser does not support the video tag.
-                </video>
-
-                {/* Subtle overlay for better text contrast */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-[#233D4D]/10 via-transparent to-[#00C6A7]/5 pointer-events-none"></div>
-              </div>
+            <div className="relative w-full rounded-xl overflow-hidden shadow-2xl">
+              <video controls autoPlay loop playsInline className="w-full h-full object-cover">
+                <source src="/Blue Gradient Modern Payment Mobile App Video.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
             </div>
-
-            {/* Security badge */}
-            <div className="absolute -bottom-4 right-4 z-20 bg-white/90 backdrop-blur-sm rounded-lg shadow-lg px-4 py-2 flex items-center space-x-2">
-              <Shield className="h-5 w-5 text-[#00C6A7]" />
-              <span className="text-xs font-semibold text-[#233D4D]">Bank-Level Encryption</span>
-            </div>
-
-            {/* Decorative elements */}
-            <div className="absolute -top-10 -right-10 w-40 h-40 bg-[#233D4D] rounded-full opacity-10 blur-2xl"></div>
-            <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-[#00C6A7] rounded-full opacity-10 blur-2xl"></div>
           </motion.div>
         </div>
       </div>
