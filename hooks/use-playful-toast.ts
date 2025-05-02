@@ -1,4 +1,4 @@
-import { useToast } from '@/components/ui/use-toast';
+import { useToast } from '../components/ui/use-toast';
 
 type ToastOptions = {
   title: string;

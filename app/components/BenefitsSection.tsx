@@ -1,7 +1,7 @@
-import { Button } from '@/components/ui/button';
+import { Button } from '../../components/ui/button';
 import { CircleDollarSign, TrendingUp, CheckCircle, PiggyBank } from 'lucide-react';
 import { motion, Variants } from 'framer-motion';
-import { useScrollReveal, createStaggeredDelays } from '@/hooks/use-scroll-reveal';
+import { useScrollReveal, createStaggeredDelays } from '../../hooks/use-scroll-reveal';
 
 interface BenefitsSectionProps {
   waitlistUrl: string;
