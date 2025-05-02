@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Star } from 'lucide-react';
 
 export default function TestimonialsSection() {
@@ -15,11 +15,11 @@ export default function TestimonialsSection() {
           transition={{ duration: 0.5 }}
         >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
-            Why Early Users Love Stackr
+            Why Early Users Love StackZen
           </h2>
           <p className="mt-4 text-xl text-gray-600 max-w-3xl mx-auto">
-            Here's what our beta testers are saying about how Stackr has transformed their financial
-            lives.
+            Here's what our beta testers are saying about how StackZen has transformed their
+            financial lives.
           </p>
         </motion.div>
 
@@ -41,7 +41,7 @@ export default function TestimonialsSection() {
             </div>
 
             <blockquote className="text-gray-700 mb-6">
-              "As an electrician with irregular income, Stackr has been a game-changer. I've saved
+              "As an electrician with irregular income, StackZen has been a game-changer. I've saved
               over $4,200 in six months without even thinking about it."
             </blockquote>
 
@@ -80,8 +80,8 @@ export default function TestimonialsSection() {
             </div>
 
             <blockquote className="text-gray-700 mb-6">
-              "Stackr found $175 in monthly subscriptions I'd forgotten about and helped me set up a
-              tax savings plan that's already saved me thousands."
+              "StackZen found $175 in monthly subscriptions I'd forgotten about and helped me set up
+              a tax savings plan that's already saved me thousands."
             </blockquote>
 
             <div className="flex items-center">

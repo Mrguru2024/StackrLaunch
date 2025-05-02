@@ -1,8 +1,8 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { CheckCircle, BadgePercent, Clock, Shield, ArrowRight } from 'lucide-react';
+import { ArrowRight, Bot, CircleDollarSign } from 'lucide-react';
 
 interface HeroSectionProps {
   waitlistUrl?: string;
@@ -85,14 +85,14 @@ export default function HeroSection({ waitlistUrl }: HeroSectionProps) {
               {/* Key benefits highlighted for SEO and conversion */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
                 <div className="flex items-start space-x-3">
-                  <BadgePercent className="h-6 w-6 text-[#00C6A7] flex-shrink-0 mt-0.5" />
+                  <CircleDollarSign className="h-6 w-6 text-[#00C6A7] flex-shrink-0 mt-0.5" />
                   <div>
                     <span className="font-bold text-[#233D4D] block">Save $650/year</span>
                     <span className="text-[#58C1E2] text-sm">Automatic hidden fee detection</span>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
-                  <Clock className="h-6 w-6 text-[#00C6A7] flex-shrink-0 mt-0.5" />
+                  <Bot className="h-6 w-6 text-[#00C6A7] flex-shrink-0 mt-0.5" />
                   <div>
                     <span className="font-bold text-[#233D4D] block">Save 5+ hours monthly</span>
                     <span className="text-[#58C1E2] text-sm">No manual tracking needed</span>
@@ -114,11 +114,11 @@ export default function HeroSection({ waitlistUrl }: HeroSectionProps) {
 
               <div className="text-[#58C1E2] text-sm md:text-base">
                 <div className="flex items-center">
-                  <CheckCircle className="w-5 h-5 text-[#00C6A7] mr-2" aria-hidden="true" />
+                  <CircleDollarSign className="w-5 h-5 text-[#00C6A7] mr-2" aria-hidden="true" />
                   <span>Free early access</span>
                 </div>
                 <div className="flex items-center mt-1">
-                  <CheckCircle className="w-5 h-5 text-[#00C6A7] mr-2" aria-hidden="true" />
+                  <CircleDollarSign className="w-5 h-5 text-[#00C6A7] mr-2" aria-hidden="true" />
                   <span>No credit card required</span>
                 </div>
               </div>

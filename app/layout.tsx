@@ -40,9 +40,13 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    handle: '@stackzen',
+    card: 'summary_large_image',
+    title: 'StackZen - AI Financial Automation for Tradespeople & Side Hustlers',
+    description:
+      'StackZen helps tradespeople, side hustlers, and 9-5 rebuilders automate income, eliminate hidden fees, and grow wealth without spreadsheets or bookkeeping.',
+    creator: '@stackzen',
     site: '@stackzen',
-    cardType: 'summary_large_image',
+    images: ['https://stackzen.tech/StackZenOriginalLogo.svg'],
   },
   robots: {
     index: true,

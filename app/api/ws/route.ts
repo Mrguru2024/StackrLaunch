@@ -1,4 +1,4 @@
-import { WebSocketServer } from 'ws';
+import { WebSocketServer, WebSocket } from 'ws';
 import { NextResponse } from 'next/server';
 
 let wss: WebSocketServer | null = null;
@@ -7,7 +7,7 @@ export async function GET(req: Request) {
   if (!wss) {
     wss = new WebSocketServer({ noServer: true });
 
-    wss.on('connection', (ws) => {
+    wss.on('connection', (ws: WebSocket) => {
       console.log('Client connected');
 
       ws.on('message', (message: Buffer) => {
@@ -34,7 +34,7 @@ export async function GET(req: Request) {
   }
 
   const { socket: ws, response } = await new Promise<{
-    socket: any;
+    socket: WebSocket;
     response: Response;
   }>((resolve) => {
     const res = new NextResponse(null, {
@@ -46,12 +46,12 @@ export async function GET(req: Request) {
     });
 
     resolve({
-      socket: (res as any).socket,
+      socket: (res as { socket: WebSocket }).socket,
       response: res,
     });
   });
 
-  wss.handleUpgrade(req, ws, Buffer.from([]), (ws) => {
+  wss.handleUpgrade(req, ws, Buffer.from([]), (ws: WebSocket) => {
     wss?.emit('connection', ws);
   });
 

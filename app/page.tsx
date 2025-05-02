@@ -93,7 +93,7 @@ export default function Home() {
           <TestimonialsSection />
           <FinancialCalculator />
           <FAQsSection />
-          <CTASection />
+          <CTASection waitlistUrl="https://tally.so/r/3NO0eG" />
         </main>
       </div>
     </>

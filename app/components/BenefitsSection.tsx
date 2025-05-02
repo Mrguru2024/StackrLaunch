@@ -1,16 +1,6 @@
 import { Button } from '@/components/ui/button';
-import {
-  Bot,
-  BadgeDollarSign,
-  TrendingUp,
-  Shield,
-  Calculator,
-  CheckCircle,
-  CircleDollarSign,
-  PiggyBank,
-} from 'lucide-react';
-import { motion, useAnimation, Variants, AnimatePresence } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { CircleDollarSign, TrendingUp, CheckCircle, PiggyBank } from 'lucide-react';
+import { motion, Variants } from 'framer-motion';
 import { useScrollReveal, createStaggeredDelays } from '@/hooks/use-scroll-reveal';
 
 interface BenefitsSectionProps {
@@ -214,53 +204,33 @@ export default function BenefitsSection({ waitlistUrl }: BenefitsSectionProps) {
         {/* Benefits Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <BenefitCard
-            icon={<Bot className="h-6 w-6" />}
-            title="Automate Your Income"
-            description="Set up smart rules to automatically allocate your income for bills, savings, and investments—no spreadsheets required."
-            benefit="Saves 5+ hours per month"
-            iconBgColor="bg-purple-100"
-            iconColor="text-primary"
+            icon={<CircleDollarSign />}
+            title="Smart Savings"
+            description="Automatically optimize your savings with AI-powered recommendations."
+            benefit="Save more without thinking about it"
+            iconBgColor="bg-green-500"
+            iconColor="text-green-500"
             delay={staggerDelays[0]}
           />
 
           <BenefitCard
-            icon={<BadgeDollarSign className="h-6 w-6" />}
-            title="Cancel Hidden Charges"
-            description="Our AI detects and helps you eliminate unused subscriptions, excessive fees, and overpriced services draining your accounts."
-            benefit="Average savings of $650/year"
-            iconBgColor="bg-green-100"
-            iconColor="text-green-600"
+            icon={<TrendingUp />}
+            title="Investment Growth"
+            description="Grow your wealth with personalized investment strategies."
+            benefit="Make your money work harder"
+            iconBgColor="bg-blue-500"
+            iconColor="text-blue-500"
             delay={staggerDelays[1]}
           />
 
           <BenefitCard
-            icon={<TrendingUp className="h-6 w-6" />}
-            title="AI-Powered Growth"
-            description="Use our smart algorithms to identify growth opportunities that align with your goals and risk tolerance."
-            benefit="Personalized to your income patterns"
-            iconBgColor="bg-blue-100"
-            iconColor="text-blue-600"
+            icon={<PiggyBank />}
+            title="Goal Tracking"
+            description="Set and track your financial goals with real-time progress updates."
+            benefit="Stay on track to reach your goals"
+            iconBgColor="bg-purple-500"
+            iconColor="text-purple-500"
             delay={staggerDelays[2]}
-          />
-
-          <BenefitCard
-            icon={<Shield className="h-6 w-6" />}
-            title="Income Protection"
-            description="Smart emergency fund management and insurance recommendations tailored to your work situation and risk exposure."
-            benefit="Built for variable income streams"
-            iconBgColor="bg-yellow-100"
-            iconColor="text-yellow-600"
-            delay={staggerDelays[3]}
-          />
-
-          <BenefitCard
-            icon={<Calculator className="h-6 w-6" />}
-            title="Tax Optimization"
-            description="Maximize your take-home pay with intelligent tax planning specifically designed for self-employed workers and side hustlers."
-            benefit="Automatic deduction tracking"
-            iconBgColor="bg-red-100"
-            iconColor="text-red-600"
-            delay={staggerDelays[4]}
           />
         </div>
 

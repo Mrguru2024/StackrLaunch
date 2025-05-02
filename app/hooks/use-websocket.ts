@@ -2,14 +2,20 @@
 
 import { useState, useEffect, useCallback } from 'react';
 
+interface WebSocketMessage {
+  type: string;
+  data?: string;
+  message?: string;
+}
+
 export function useWebSocket() {
   const [socket, setSocket] = useState<WebSocket | null>(null);
   const [isConnected, setIsConnected] = useState(false);
-  const [lastMessage, setLastMessage] = useState<any>(null);
+  const [lastMessage, setLastMessage] = useState<WebSocketMessage | null>(null);
   const [reconnectAttempts, setReconnectAttempts] = useState(0);
 
   const sendMessage = useCallback(
-    (data: any) => {
+    (data: string | WebSocketMessage) => {
       if (socket && socket.readyState === WebSocket.OPEN) {
         socket.send(typeof data === 'string' ? data : JSON.stringify(data));
         return true;
@@ -34,10 +40,10 @@ export function useWebSocket() {
 
     ws.onmessage = (event) => {
       try {
-        const parsedData = JSON.parse(event.data);
+        const parsedData = JSON.parse(event.data) as WebSocketMessage;
         setLastMessage(parsedData);
-      } catch (err) {
-        setLastMessage(event.data);
+      } catch {
+        setLastMessage({ type: 'message', data: event.data });
       }
     };
 
@@ -55,7 +61,7 @@ export function useWebSocket() {
       }
     };
 
-    ws.onerror = (error) => {
+    ws.onerror = (error: Event) => {
       console.error('WebSocket error:', error);
     };
 
