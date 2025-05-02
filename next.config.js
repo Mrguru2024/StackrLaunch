@@ -7,11 +7,10 @@ const nextConfig = {
         hostname: '**',
       },
     ],
+    domains: ['images.unsplash.com'],
   },
   experimental: {
-    serverActions: {
-      allowedOrigins: ['localhost:3000', 'stackzen.app', 'stackzen.vercel.app'],
-    },
+    serverActions: true,
   },
   // Environment variables that should be exposed to the browser
   env: {
