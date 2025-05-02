@@ -81,20 +81,21 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  const waitlistUrl = 'https://tally.so/r/3NO0eG';
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-[#F5F7FA] to-[#00C6A7]/5">
-      <Header />
-      <main className="flex min-h-screen flex-col items-center justify-between">
-        <HeroSection />
-        <HowItWorksSection />
-        <FeaturesSection />
-        <TestimonialsSection />
-        <FinancialCalculator />
-        <FAQsSection />
-        <CTASection />
-      </main>
-    </div>
+    <>
+      <div className="fixed inset-0 bg-gradient-to-br from-white via-[#F5F7FA] to-[#00C6A7]/5 -z-10" />
+      <div className="relative">
+        <Header />
+        <main>
+          <HeroSection />
+          <HowItWorksSection />
+          <FeaturesSection />
+          <TestimonialsSection />
+          <FinancialCalculator />
+          <FAQsSection />
+          <CTASection />
+        </main>
+      </div>
+    </>
   );
 }

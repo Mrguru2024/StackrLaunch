@@ -24,19 +24,27 @@ const config: Config = {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         primary: {
-          DEFAULT: 'hsl(var(--primary))',
-          foreground: 'hsl(var(--primary-foreground))',
+          DEFAULT: '#233D4D', // Deep Sapphire Blue
+          foreground: '#FFFFFF',
         },
         secondary: {
-          DEFAULT: 'hsl(var(--secondary))',
-          foreground: 'hsl(var(--secondary-foreground))',
+          DEFAULT: '#00C6A7', // Mint Green
+          foreground: '#FFFFFF',
+        },
+        accent: {
+          DEFAULT: '#58C1E2', // Electric Sky Blue
+          foreground: '#FFFFFF',
+        },
+        highlight: {
+          DEFAULT: '#F4A300', // Sunstone Gold
+          foreground: '#FFFFFF',
+        },
+        muted: {
+          DEFAULT: '#E5E9F0', // Soft Zen Gray
+          foreground: '#233D4D',
         },
         success: {
           DEFAULT: '#00B23B',
-          foreground: '#FFFFFF',
-        },
-        info: {
-          DEFAULT: '#5D8BF4',
           foreground: '#FFFFFF',
         },
         warning: {
@@ -52,18 +60,10 @@ const config: Config = {
           dark: '#2B2C34',
         },
         text: {
-          primary: '#1C1C22',
+          primary: '#233D4D',
           secondary: '#5A5A67',
           inverse: '#FFFFFF',
           muted: '#8D62D4',
-        },
-        muted: {
-          DEFAULT: 'hsl(var(--muted))',
-          foreground: 'hsl(var(--muted-foreground))',
-        },
-        accent: {
-          DEFAULT: 'hsl(var(--accent))',
-          foreground: 'hsl(var(--accent-foreground))',
         },
         popover: {
           DEFAULT: 'hsl(var(--popover))',

@@ -12,7 +12,7 @@ export default function HeroSection({ waitlistUrl }: HeroSectionProps) {
   return (
     <section
       id="hero-section"
-      className="pt-28 pb-16 md:pt-32 md:pb-24 px-4 bg-gradient-to-br from-white via-[#F5F7FA] to-[#00C6A7]/5 overflow-hidden"
+      className="pt-28 pb-16 md:pt-32 md:pb-24 px-4 overflow-hidden"
       aria-labelledby="hero-heading"
     >
       <div className="max-w-7xl mx-auto">
@@ -167,7 +167,22 @@ export default function HeroSection({ waitlistUrl }: HeroSectionProps) {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <div className="relative w-full max-w-4xl mx-auto">{/* Remove video element */}</div>
+            <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl">
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover"
+                poster="/video-poster.jpg"
+              >
+                <source src="/stackZen-promo.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+
+              {/* Overlay gradient */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-black/10 to-transparent pointer-events-none"></div>
+            </div>
 
             {/* Security badge for trust */}
             <div className="absolute -bottom-4 right-4 z-20 bg-white rounded-lg shadow-lg px-4 py-2 flex items-center space-x-2">

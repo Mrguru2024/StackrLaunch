@@ -6,21 +6,8 @@ const nextConfig = {
       allowedOrigins: ['localhost:3000', 'stackzen.app'],
     },
   },
-  webpack: (config) => {
-    config.externals.push({
-      'utf-8-validate': 'commonjs utf-8-validate',
-      bufferutil: 'commonjs bufferutil',
-    });
-    return config;
-  },
-  // Ensure API routes are properly handled
-  async rewrites() {
-    return [
-      {
-        source: '/api/:path*',
-        destination: '/api/:path*',
-      },
-    ];
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
   },
   // Environment variables that should be exposed to the browser
   env: {

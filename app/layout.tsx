@@ -62,7 +62,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className="h-full">
       <head>
         <Script src="https://tally.so/widgets/embed.js" strategy="afterInteractive" />
         <Script
@@ -160,7 +160,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
       </head>
-      <body className={inter.className}>
+      <body className={`${inter.className} flex h-full flex-col bg-background antialiased`}>
         <QueryClientProvider>
           <ThemeProvider
             attribute="class"
@@ -171,7 +171,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div className="fixed top-4 right-4 z-50">
               <ThemeToggle />
             </div>
-            {children}
+            <main className="flex-1 w-full">{children}</main>
             <Toaster />
           </ThemeProvider>
         </QueryClientProvider>

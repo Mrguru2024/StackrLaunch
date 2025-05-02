@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbo",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -11,7 +11,10 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "security:test": "snyk test",
+    "security:monitor": "snyk monitor",
+    "security:fix": "snyk wizard"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.0",
@@ -94,6 +97,9 @@
     "jest-environment-jsdom": "^29.7.0",
     "storybook": "^8.6.12",
     "ts-jest": "^29.3.2",
-    "typescript": "5.3.3"
+    "typescript": "5.3.3",
+    "snyk": "^1.1.0",
+    "@swc/core": "^1.4.8",
+    "@swc/helpers": "^0.5.7"
   }
 }
