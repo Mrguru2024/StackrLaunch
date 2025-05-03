@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import Header from './components/Header';
 import HeroSection from './components/HeroSection';
 import FeaturesSection from './components/FeaturesSection';
 import TestimonialsSection from './components/TestimonialsSection';
@@ -7,6 +6,8 @@ import CTASection from './components/CTASection';
 import FAQsSection from './components/FAQsSection';
 import FinancialCalculator from './components/FinancialCalculator';
 import HowItWorksSection from './components/HowItWorksSection';
+import { sanity } from '@/lib/sanity';
+import BlogSection from './components/BlogSection';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://stackzen.app'),
@@ -80,12 +81,34 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Home() {
+async function getLatestPosts() {
+  try {
+    const posts = await sanity.fetch(
+      `*[_type == "post" && status == "published"] | order(publishedAt desc)[0...3] {
+        title,
+        slug,
+        excerpt,
+        publishedAt,
+        author->{
+          name,
+          image
+        }
+      }`
+    );
+    return posts;
+  } catch (error) {
+    console.error('Error fetching latest posts:', error);
+    return [];
+  }
+}
+
+export default async function Home() {
+  const latestPosts = await getLatestPosts();
+
   return (
     <>
       <div className="fixed inset-0 bg-gradient-to-br from-white via-[#F5F7FA] to-[#00C6A7]/5 -z-10" />
       <div className="relative">
-        <Header />
         <main>
           <HeroSection />
           <HowItWorksSection />
@@ -93,6 +116,7 @@ export default function Home() {
           <TestimonialsSection />
           <FinancialCalculator />
           <FAQsSection />
+          <BlogSection posts={latestPosts} />
           <CTASection waitlistUrl="https://tally.so/r/3NO0eG" />
         </main>
       </div>
