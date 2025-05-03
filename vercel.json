@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "buildCommand": "next build",
-  "devCommand": "next dev",
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
   "installCommand": "npm install",
   "framework": "nextjs",
   "regions": ["iad1"],
@@ -69,5 +69,6 @@
       "memory": 1024,
       "maxDuration": 10
     }
-  }
+  },
+  "outputDirectory": ".next"
 }
