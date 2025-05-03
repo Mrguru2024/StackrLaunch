@@ -9,7 +9,9 @@
     "env": {
       "NEXT_TELEMETRY_DISABLED": "1",
       "NEXT_IGNORE_TYPE_ERROR": "1",
-      "NEXT_IGNORE_ESLINT_ERROR": "1"
+      "NEXT_IGNORE_ESLINT_ERROR": "1",
+      "NODE_ENV": "production",
+      "NEXT_TYPESCRIPT_COMPILE": "1"
     }
   },
   "headers": [
