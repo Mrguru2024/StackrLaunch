@@ -4,7 +4,7 @@ import { motion, Variants } from 'framer-motion';
 import { useScrollReveal, createStaggeredDelays } from '../../hooks/use-scroll-reveal';
 
 interface BenefitsSectionProps {
-  waitlistUrl: string;
+  waitlistUrl?: string;
 }
 
 interface BenefitCardProps {
@@ -104,7 +104,7 @@ function BenefitCard({
   );
 }
 
-export default function BenefitsSection({ waitlistUrl }: BenefitsSectionProps) {
+export default function BenefitsSection({ waitlistUrl: _waitlistUrl }: BenefitsSectionProps) {
   const benefits = [
     {
       icon: <CircleDollarSign />,
@@ -133,10 +133,10 @@ export default function BenefitsSection({ waitlistUrl }: BenefitsSectionProps) {
   ];
 
   // Hook for the section title
-  const { ref: titleRef, controls: titleControls, isInView: isTitleVisible } = useScrollReveal(0.2);
+  const { ref: titleRef, controls: titleControls } = useScrollReveal(0.2);
 
   // Hook for the CTA button
-  const { ref: ctaRef, controls: ctaControls, isInView: isCtaVisible } = useScrollReveal(0.1);
+  const { ref: ctaRef, controls: ctaControls } = useScrollReveal(0.1);
 
   // Title variants
   const titleVariants = {

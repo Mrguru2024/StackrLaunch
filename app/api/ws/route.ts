@@ -1,5 +1,6 @@
 import { WebSocketServer, WebSocket } from 'ws';
 import { NextResponse } from 'next/server';
+import { IncomingMessage, ServerResponse } from 'http';
 
 let wss: WebSocketServer | null = null;
 
@@ -40,7 +41,7 @@ export async function GET(req: Request) {
 
   try {
     const res = new NextResponse();
-    const socket = await new Promise<WebSocket>((resolve, reject) => {
+    const socket = await new Promise<WebSocket>((resolve) => {
       const upgradeRes = {
         statusCode: 101,
         headers: {
@@ -50,9 +51,14 @@ export async function GET(req: Request) {
         },
       };
 
-      wss?.handleUpgrade(req as any, upgradeRes as any, Buffer.from([]), (ws: WebSocket) => {
-        resolve(ws);
-      });
+      wss?.handleUpgrade(
+        req as unknown as IncomingMessage,
+        upgradeRes as unknown as ServerResponse,
+        Buffer.from([]),
+        (ws: WebSocket) => {
+          resolve(ws);
+        }
+      );
     });
 
     wss?.emit('connection', socket);

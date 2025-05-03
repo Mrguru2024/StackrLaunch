@@ -2,10 +2,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 interface FooterProps {
-  waitlistUrl: string;
+  waitlistUrl?: string;
 }
 
-export default function Footer({ waitlistUrl }: FooterProps) {
+export default function Footer({ waitlistUrl: _waitlistUrl }: FooterProps) {
   return (
     <footer className="bg-gray-50 py-12">
       <div className="max-w-7xl mx-auto px-4">

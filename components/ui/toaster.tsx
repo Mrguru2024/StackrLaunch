@@ -1,6 +1,5 @@
 'use client';
 
-import { useToast } from '../../hooks/use-toast';
 import {
   Toast,
   ToastClose,
@@ -8,7 +7,8 @@ import {
   ToastProvider,
   ToastTitle,
   ToastViewport,
-} from './toast';
+} from '@/components/ui/toast';
+import { useToast } from '@/components/ui/use-toast';
 
 // Import the ToastVariantType from toast.tsx to keep types consistent
 type ToastVariantType =
