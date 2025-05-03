@@ -1,5 +1,6 @@
 'use client';
 
+import { useToast } from '../../hooks/use-toast';
 import {
   Toast,
   ToastClose,
@@ -7,21 +8,7 @@ import {
   ToastProvider,
   ToastTitle,
   ToastViewport,
-} from '@/components/ui/toast';
-import { useToast } from '@/components/ui/use-toast';
-
-// Import the ToastVariantType from toast.tsx to keep types consistent
-type ToastVariantType =
-  | 'default'
-  | 'destructive'
-  | 'success'
-  | 'warning'
-  | 'info'
-  | 'money'
-  | 'tip'
-  | 'celebration'
-  | 'ai'
-  | undefined;
+} from './toast';
 
 export function Toaster() {
   const { toasts } = useToast();
