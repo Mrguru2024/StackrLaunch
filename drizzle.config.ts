@@ -1,5 +1,3 @@
-import type { Config } from 'drizzle-kit';
-
 if (!process.env.DATABASE_URL) {
   throw new Error('DATABASE_URL, ensure the database is provisioned');
 }
@@ -7,9 +5,9 @@ if (!process.env.DATABASE_URL) {
 const url = new URL(process.env.DATABASE_URL);
 
 export default {
-  out: './migrations',
-  schema: './shared/schema.ts',
   dialect: 'postgresql',
+  schema: './shared/schema.ts',
+  out: './migrations',
   dbCredentials: {
     host: url.hostname,
     port: parseInt(url.port || '5432'),
@@ -18,6 +16,4 @@ export default {
     database: url.pathname.slice(1),
     ssl: url.searchParams.get('sslmode') === 'require',
   },
-  verbose: true,
-  strict: true,
-} satisfies Config;
+};
