@@ -13,6 +13,21 @@ import {
 } from '@/components/ui/card';
 import { sanity } from '@/lib/sanity';
 
+interface Author {
+  name: string;
+  image?: string;
+}
+
+interface Post {
+  title: string;
+  slug: {
+    current: string;
+  };
+  excerpt: string;
+  publishedAt: string;
+  author?: Author;
+}
+
 export async function generateMetadata(): Promise<Metadata> {
   const metadata = await getMetadata('blog');
 
@@ -33,9 +48,9 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-async function getPosts() {
+async function getPosts(): Promise<Post[]> {
   try {
-    const posts = await sanity.fetch(
+    const posts = await sanity.fetch<Post[]>(
       `*[_type == "post" && status == "published"] | order(publishedAt desc) {
         title,
         slug,
@@ -86,7 +101,7 @@ export default async function BlogPage() {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {posts.map((post) => (
+              {posts.map((post: Post) => (
                 <Card
                   key={post.slug.current}
                   className="group hover:shadow-lg transition-shadow duration-300"
