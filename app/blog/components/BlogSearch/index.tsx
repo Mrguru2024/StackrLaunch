@@ -31,7 +31,7 @@ export function BlogSearch({ posts }: BlogSearchProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedAuthor, setSelectedAuthor] = useState<string>('all');
   const [open, setOpen] = useState(false);
-  const searchTimeoutRef = useRef<NodeJS.Timeout>();
+  const searchTimeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
   // Extract unique categories and authors from posts
   const categories = useMemo(() => {
