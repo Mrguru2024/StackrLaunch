@@ -21,17 +21,6 @@ interface Author {
   image?: string;
 }
 
-interface Post {
-  title: string;
-  slug: {
-    current: string;
-  };
-  excerpt: string;
-  publishedAt: string;
-  author?: Author;
-  mainImage?: string;
-}
-
 export async function generateMetadata(): Promise<Metadata> {
   const metadata = await getMetadata('blog');
 
@@ -56,6 +45,7 @@ async function getPosts(): Promise<Post[]> {
   try {
     const posts = await sanity.fetch<Post[]>(
       `*[_type == "post" && status == "published"] | order(publishedAt desc) {
+        _id,
         title,
         slug,
         excerpt,
@@ -115,7 +105,7 @@ export default async function BlogPage() {
             </div>
           ) : (
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {posts.map((post: Post) => (
+              {posts.map((post) => (
                 <article
                   key={post._id}
                   className="flex flex-col overflow-hidden rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl bg-white dark:bg-gray-800"
