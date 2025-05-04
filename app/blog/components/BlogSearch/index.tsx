@@ -33,17 +33,6 @@ export function BlogSearch({ posts }: BlogSearchProps) {
   const [open, setOpen] = useState(false);
   const searchTimeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
-  // Extract unique categories and authors from posts
-  const categories = useMemo(() => {
-    const uniqueCategories = new Set(posts.flatMap((post) => post.categories || []));
-    return Array.from(uniqueCategories);
-  }, [posts]);
-
-  const authors = useMemo(() => {
-    const uniqueAuthors = new Set(posts.map((post) => post.author?.name).filter(Boolean));
-    return Array.from(uniqueAuthors);
-  }, [posts]);
-
   // Reset all filters
   const resetFilters = useCallback(() => {
     setSearchQuery('');
@@ -61,6 +50,24 @@ export function BlogSearch({ posts }: BlogSearchProps) {
       setSearchQuery(value);
     }, 150);
   }, []);
+
+  // Extract unique categories and authors from posts
+  const categories = useMemo(() => {
+    const uniqueCategories = new Set<string>();
+    posts.forEach((post) => {
+      post.categories?.forEach((category) => {
+        if (category && typeof category === 'object' && 'title' in category) {
+          uniqueCategories.add(category.title);
+        }
+      });
+    });
+    return Array.from(uniqueCategories);
+  }, [posts]);
+
+  const authors = useMemo(() => {
+    const uniqueAuthors = new Set(posts.map((post) => post.author?.name).filter(Boolean));
+    return Array.from(uniqueAuthors);
+  }, [posts]);
 
   // Create search suggestions based on post titles and excerpts
   const searchSuggestions = useMemo(() => {
@@ -133,7 +140,14 @@ export function BlogSearch({ posts }: BlogSearchProps) {
         post.excerpt.toLowerCase().includes(query);
 
       const matchesCategory =
-        selectedCategory === 'all' || post.categories?.includes(selectedCategory);
+        selectedCategory === 'all' ||
+        post.categories?.some(
+          (category) =>
+            category &&
+            typeof category === 'object' &&
+            'title' in category &&
+            category.title === selectedCategory
+        );
 
       const matchesAuthor = selectedAuthor === 'all' || post.author?.name === selectedAuthor;
 
