@@ -131,7 +131,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
               <p className="text-sm font-medium text-gray-900 dark:text-white">
                 {post.author?.name}
               </p>
-              <div className="flex space-x-1 text-sm text-gray-600 dark:text-gray-200">
+              <div className="flex space-x-1 text-sm text-gray-600 dark:text-gray-300">
                 <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
               </div>
             </div>
@@ -150,7 +150,20 @@ export default async function BlogPost({ params }: { params: { slug: string } })
           </div>
         )}
 
-        <div className="prose prose-lg dark:prose-invert max-w-none prose-headings:text-gray-900 dark:prose-headings:text-white prose-p:text-gray-600 dark:prose-p:text-gray-200 prose-a:text-indigo-600 dark:prose-a:text-indigo-400 prose-strong:text-gray-900 dark:prose-strong:text-white prose-code:text-gray-900 dark:prose-code:text-white prose-pre:bg-gray-100 dark:prose-pre:bg-gray-800">
+        <div
+          className="prose prose-lg dark:prose-invert max-w-none 
+          [&_p]:!text-gray-600 dark:[&_p]:!text-white
+          [&_h1]:!text-gray-900 dark:[&_h1]:!text-white
+          [&_h2]:!text-gray-900 dark:[&_h2]:!text-white
+          [&_h3]:!text-gray-900 dark:[&_h3]:!text-white
+          [&_h4]:!text-gray-900 dark:[&_h4]:!text-white
+          [&_li]:!text-gray-600 dark:[&_li]:!text-white
+          [&_blockquote]:!text-gray-600 dark:[&_blockquote]:!text-white
+          [&_code]:!text-gray-900 dark:[&_code]:!text-white
+          [&_pre]:!bg-gray-100 dark:[&_pre]:!bg-gray-800
+          [&_a]:!text-indigo-600 dark:[&_a]:!text-indigo-400
+          [&_strong]:!text-gray-900 dark:[&_strong]:!text-white"
+        >
           <PortableText value={post.content} components={components} />
         </div>
       </div>

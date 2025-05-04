@@ -56,7 +56,7 @@ export default function BlogSection({ posts }: BlogSectionProps) {
                 className="group hover:shadow-lg transition-shadow duration-300"
               >
                 <CardHeader>
-                  <CardTitle className="line-clamp-2 group-hover:text-primary transition-colors">
+                  <CardTitle className="line-clamp-2 group-hover:text-primary-foreground transition-colors">
                     {post.title}
                   </CardTitle>
                   <CardDescription>
@@ -68,7 +68,9 @@ export default function BlogSection({ posts }: BlogSectionProps) {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground line-clamp-3">{post.excerpt}</p>
+                  <p className="text-muted-foreground dark:text-white line-clamp-3">
+                    {post.excerpt}
+                  </p>
                 </CardContent>
                 <CardFooter className="flex justify-between items-center">
                   <div className="flex items-center space-x-2">
@@ -79,10 +81,16 @@ export default function BlogSection({ posts }: BlogSectionProps) {
                         className="w-8 h-8 rounded-full"
                       />
                     )}
-                    <span className="text-sm text-muted-foreground">{post.author?.name}</span>
+                    <span className="text-sm text-muted-foreground dark:text-white">
+                      {post.author?.name}
+                    </span>
                   </div>
                   <Link href={`/blog/${post.slug.current}`}>
-                    <Button variant="ghost" className="group-hover:text-primary">
+                    <Button
+                      variant="link"
+                      size="sm"
+                      className="group text-primary-foreground hover:text-primary-foreground/90"
+                    >
                       Read More
                       <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                     </Button>
