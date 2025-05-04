@@ -1,65 +1,81 @@
 import { PortableText as BasePortableText } from '@portabletext/react';
+import type { PortableTextBlock } from '@portabletext/types';
+import type { PortableTextReactComponents } from '@portabletext/react';
 import Image from 'next/image';
 import { urlForImage } from '@/lib/sanity/image';
 import { cn } from '@/lib/utils';
 
-const components = {
+interface PortableTextProps {
+  value: PortableTextBlock[];
+  className?: string;
+}
+
+const components: Partial<PortableTextReactComponents> = {
   block: {
-    h1: ({ children }: { children: React.ReactNode }) => (
-      <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl mt-8 mb-4">
+    h1: ({ children }) => (
+      <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl">
         {children}
       </h1>
     ),
-    h2: ({ children }: { children: React.ReactNode }) => (
-      <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white mt-8 mb-4">
+    h2: ({ children }) => (
+      <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
         {children}
       </h2>
     ),
-    h3: ({ children }: { children: React.ReactNode }) => (
-      <h3 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white mt-6 mb-3">
+    h3: ({ children }) => (
+      <h3 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-3xl">
         {children}
       </h3>
     ),
-    h4: ({ children }: { children: React.ReactNode }) => (
-      <h4 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white mt-4 mb-2">
+    h4: ({ children }) => (
+      <h4 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-2xl">
         {children}
       </h4>
     ),
-    normal: ({ children }: { children: React.ReactNode }) => (
-      <p className="text-base text-gray-600 dark:text-gray-200 leading-7 mb-4">{children}</p>
+    normal: ({ children }) => (
+      <p className="text-base text-gray-600 dark:text-gray-200">{children}</p>
     ),
-    blockquote: ({ children }: { children: React.ReactNode }) => (
-      <blockquote className="border-l-4 border-indigo-500 pl-4 italic my-4 text-gray-700 dark:text-gray-300">
+    blockquote: ({ children }) => (
+      <blockquote className="border-l-4 border-indigo-500 pl-4 italic text-gray-600 dark:text-gray-200">
         {children}
       </blockquote>
     ),
   },
   marks: {
-    strong: ({ children }: { children: React.ReactNode }) => (
+    strong: ({ children }) => (
       <strong className="font-bold text-gray-900 dark:text-white">{children}</strong>
     ),
-    em: ({ children }: { children: React.ReactNode }) => (
-      <em className="italic text-gray-800 dark:text-gray-100">{children}</em>
-    ),
-    code: ({ children }: { children: React.ReactNode }) => (
-      <code className="bg-gray-100 dark:bg-gray-800 rounded px-1 py-0.5 text-sm font-mono">
+    em: ({ children }) => <em className="italic text-gray-900 dark:text-white">{children}</em>,
+    code: ({ children }) => (
+      <code className="rounded bg-gray-100 px-1 py-0.5 font-mono text-sm dark:bg-gray-800">
         {children}
       </code>
     ),
-    link: ({ children, value }: { children: React.ReactNode; value: { href: string } }) => {
-      const target = value?.href?.startsWith('http') ? '_blank' : undefined;
-      const rel = target === '_blank' ? 'noopener noreferrer' : undefined;
+    link: ({ children, value }) => {
+      const { href } = value as { href: string };
       return (
         <a
-          href={value?.href}
-          target={target}
-          rel={rel}
-          className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 underline"
+          href={href}
+          className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           {children}
         </a>
       );
     },
+  },
+  list: {
+    bullet: ({ children }) => (
+      <ul className="list-disc space-y-2 pl-4 text-gray-600 dark:text-gray-200">{children}</ul>
+    ),
+    number: ({ children }) => (
+      <ol className="list-decimal space-y-2 pl-4 text-gray-600 dark:text-gray-200">{children}</ol>
+    ),
+  },
+  listItem: {
+    bullet: ({ children }) => <li>{children}</li>,
+    number: ({ children }) => <li>{children}</li>,
   },
   types: {
     image: ({ value }: { value: any }) => {
@@ -84,11 +100,6 @@ const components = {
     },
   },
 };
-
-interface PortableTextProps {
-  value: any;
-  className?: string;
-}
 
 export function PortableText({ value, className }: PortableTextProps) {
   return (
