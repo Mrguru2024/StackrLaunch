@@ -6,34 +6,32 @@
 
   <!-- Homepage -->
   <url>
-    <loc>https://stackzen.app</loc>
-    <lastmod>2024-03-20</lastmod>
-    <changefreq>daily</changefreq>
+    <loc>https://stackzen.app/</loc>
     <priority>1.0</priority>
   </url>
 
   <!-- Features Page -->
   <url>
     <loc>https://stackzen.app/features</loc>
-    <lastmod>2024-03-20</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Pricing Page -->
   <url>
     <loc>https://stackzen.app/pricing</loc>
-    <lastmod>2024-03-20</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Blog Page -->
   <url>
     <loc>https://stackzen.app/blog</loc>
-    <lastmod>2024-03-20</lastmod>
-    <changefreq>daily</changefreq>
     <priority>0.7</priority>
+  </url>
+
+  <!-- About Page -->
+  <url>
+    <loc>https://stackzen.app/about</loc>
+    <priority>0.6</priority>
   </url>
 
   <!-- Terms of Service -->

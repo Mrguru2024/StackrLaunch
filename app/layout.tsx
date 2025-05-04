@@ -48,17 +48,17 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://stackzen.tech',
+    url: 'https://stackzen.app',
     siteName: 'StackZen',
     title: 'StackZen - AI Financial Automation for Tradespeople & Side Hustlers',
     description:
       'StackZen helps tradespeople, side hustlers, and 9-5 rebuilders automate income, eliminate hidden fees, and grow wealth without spreadsheets or bookkeeping.',
     images: [
       {
-        url: 'https://stackzen.tech/StackZenOriginalLogo.svg',
+        url: '/StackZenOriginalLogo.svg',
         width: 1200,
         height: 630,
-        alt: 'StackZen',
+        alt: 'StackZen Logo',
       },
     ],
   },
@@ -69,7 +69,10 @@ export const metadata: Metadata = {
       'StackZen helps tradespeople, side hustlers, and 9-5 rebuilders automate income, eliminate hidden fees, and grow wealth without spreadsheets or bookkeeping.',
     creator: '@stackzen',
     site: '@stackzen',
-    images: ['https://stackzen.tech/StackZenOriginalLogo.svg'],
+    images: ['/StackZenOriginalLogo.svg'],
+  },
+  alternates: {
+    canonical: 'https://stackzen.app',
   },
   robots: {
     index: true,
