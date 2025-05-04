@@ -19,9 +19,19 @@ export default defineConfig({
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET!,
   basePath: '/studio',
   plugins: [
-    deskTool(),
-    // Only include vision tool in development
-    ...(process.env.NODE_ENV === 'development' ? [visionTool()] : []),
+    deskTool({
+      structure: (S) =>
+        S.list()
+          .title('Content')
+          .items([
+            S.listItem().title('Posts').child(S.documentTypeList('post').title('Posts')),
+            S.listItem().title('Authors').child(S.documentTypeList('author').title('Authors')),
+            S.listItem()
+              .title('Categories')
+              .child(S.documentTypeList('category').title('Categories')),
+          ]),
+    }),
+    visionTool,
   ],
   schema: {
     types: schemaTypes,

@@ -12,6 +12,8 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { sanity } from '@/lib/sanity';
+import { urlForImage } from '@/lib/sanity/image';
+import { formatDate } from '@/lib/utils';
 
 interface Author {
   name: string;
@@ -26,6 +28,7 @@ interface Post {
   excerpt: string;
   publishedAt: string;
   author?: Author;
+  mainImage?: string;
 }
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -56,6 +59,7 @@ async function getPosts(): Promise<Post[]> {
         slug,
         excerpt,
         publishedAt,
+        mainImage,
         author->{
           name,
           image
@@ -78,68 +82,84 @@ export default async function BlogPage() {
   return (
     <>
       {jsonLd && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd }} />}
-      <div className="min-h-screen bg-gradient-to-b from-background to-muted/20">
-        <div className="container px-4 py-16 mx-auto">
-          <div className="flex flex-col items-center text-center mb-16">
-            <h1 className="text-5xl font-bold tracking-tight mb-4">Our Blog</h1>
-            <p className="text-xl text-muted-foreground max-w-2xl">
-              Discover insights, tutorials, and updates from our team
+      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="text-center mb-16">
+            <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl md:text-6xl">
+              <span className="block">StackZen Blog</span>
+              <span className="block text-indigo-600 dark:text-indigo-400 mt-2">
+                Insights & Updates
+              </span>
+            </h1>
+            <p className="mt-4 max-w-2xl mx-auto text-xl text-gray-600 dark:text-gray-200">
+              Discover the latest insights, tips, and updates from our team
             </p>
           </div>
 
           {posts.length === 0 ? (
-            <div className="text-center">
-              <p className="text-xl text-muted-foreground mb-8">
-                No posts available at the moment. Check back soon for new content!
+            <div className="text-center py-12">
+              <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
+                No Posts Available
+              </h2>
+              <p className="text-gray-600 dark:text-gray-200 mb-8">
+                We're working on some great content. Check back soon!
               </p>
-              <Link href="/">
-                <Button size="lg" className="group">
-                  Return Home
-                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                </Button>
+              <Link
+                href="/"
+                className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600"
+              >
+                Return Home
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {posts.map((post: Post) => (
-                <Card
+                <article
                   key={post.slug.current}
-                  className="group hover:shadow-lg transition-shadow duration-300"
+                  className="flex flex-col overflow-hidden rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl bg-white dark:bg-gray-800"
                 >
-                  <CardHeader>
-                    <CardTitle className="line-clamp-2 group-hover:text-primary transition-colors">
-                      {post.title}
-                    </CardTitle>
-                    <CardDescription>
-                      {new Date(post.publishedAt).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                      })}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground line-clamp-3">{post.excerpt}</p>
-                  </CardContent>
-                  <CardFooter className="flex justify-between items-center">
-                    <div className="flex items-center space-x-2">
-                      {post.author?.image && (
-                        <img
-                          src={post.author.image}
-                          alt={post.author.name}
-                          className="w-8 h-8 rounded-full"
-                        />
-                      )}
-                      <span className="text-sm text-muted-foreground">{post.author?.name}</span>
+                  {post.mainImage && (
+                    <div className="flex-shrink-0">
+                      <img
+                        className="h-48 w-full object-cover"
+                        src={urlForImage(post.mainImage).width(800).height(400).url()}
+                        alt={post.title}
+                      />
                     </div>
-                    <Link href={`/blog/${post.slug.current}`}>
-                      <Button variant="ghost" className="group-hover:text-primary">
-                        Read More
-                        <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                      </Button>
-                    </Link>
-                  </CardFooter>
-                </Card>
+                  )}
+                  <div className="flex flex-1 flex-col justify-between p-6">
+                    <div className="flex-1">
+                      <Link href={`/blog/${post.slug.current}`} className="block">
+                        <h3 className="text-xl font-semibold text-gray-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400">
+                          {post.title}
+                        </h3>
+                      </Link>
+                      <p className="mt-3 text-base text-gray-600 dark:text-gray-200 line-clamp-3">
+                        {post.excerpt}
+                      </p>
+                    </div>
+                    <div className="mt-6 flex items-center">
+                      {post.author?.image && (
+                        <div className="flex-shrink-0">
+                          <img
+                            className="h-10 w-10 rounded-full"
+                            src={urlForImage(post.author.image).width(40).height(40).url()}
+                            alt={post.author.name}
+                          />
+                        </div>
+                      )}
+                      <div className="ml-3">
+                        <p className="text-sm font-medium text-gray-900 dark:text-white">
+                          {post.author?.name}
+                        </p>
+                        <div className="flex space-x-1 text-sm text-gray-600 dark:text-gray-200">
+                          <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </article>
               ))}
             </div>
           )}

@@ -2,7 +2,7 @@ import { defineField, defineType } from 'sanity';
 
 export default defineType({
   name: 'post',
-  title: 'Post',
+  title: 'Blog Post',
   type: 'document',
   fields: [
     defineField({
@@ -22,6 +22,32 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'mainImage',
+      title: 'Main Image',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+      fields: [
+        {
+          name: 'alt',
+          type: 'string',
+          title: 'Alternative Text',
+        },
+        {
+          name: 'caption',
+          type: 'string',
+          title: 'Caption',
+        },
+      ],
+    }),
+    defineField({
+      name: 'publishedAt',
+      title: 'Published At',
+      type: 'datetime',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: 'author',
       title: 'Author',
       type: 'reference',
@@ -29,36 +55,11 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'mainImage',
-      title: 'Main image',
-      type: 'image',
-      options: {
-        hotspot: true,
-      },
-    }),
-    defineField({
       name: 'categories',
       title: 'Categories',
       type: 'array',
       of: [{ type: 'reference', to: { type: 'category' } }],
-    }),
-    defineField({
-      name: 'publishedAt',
-      title: 'Published at',
-      type: 'datetime',
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'status',
-      title: 'Status',
-      type: 'string',
-      options: {
-        list: [
-          { title: 'Draft', value: 'draft' },
-          { title: 'Published', value: 'published' },
-        ],
-      },
-      validation: (Rule) => Rule.required(),
+      validation: (Rule) => Rule.required().min(1),
     }),
     defineField({
       name: 'excerpt',
@@ -68,56 +69,59 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'body',
-      title: 'Body',
-      type: 'array',
-      of: [
+      name: 'content',
+      title: 'Content',
+      type: 'blockContent',
+    }),
+    defineField({
+      name: 'status',
+      title: 'Status',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Draft', value: 'draft' },
+          { title: 'Published', value: 'published' },
+          { title: 'Archived', value: 'archived' },
+        ],
+      },
+      initialValue: 'draft',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'readingTime',
+      title: 'Reading Time',
+      type: 'number',
+      description: 'Estimated reading time in minutes',
+      validation: (Rule) => Rule.required().min(1),
+    }),
+    defineField({
+      name: 'seo',
+      title: 'SEO',
+      type: 'object',
+      fields: [
         {
-          type: 'block',
-          styles: [
-            { title: 'Normal', value: 'normal' },
-            { title: 'H1', value: 'h1' },
-            { title: 'H2', value: 'h2' },
-            { title: 'H3', value: 'h3' },
-            { title: 'H4', value: 'h4' },
-            { title: 'Quote', value: 'blockquote' },
-          ],
-          marks: {
-            decorators: [
-              { title: 'Strong', value: 'strong' },
-              { title: 'Emphasis', value: 'em' },
-              { title: 'Code', value: 'code' },
-            ],
-            annotations: [
-              {
-                name: 'link',
-                type: 'object',
-                title: 'Link',
-                fields: [
-                  {
-                    name: 'href',
-                    type: 'url',
-                    title: 'URL',
-                  },
-                ],
-              },
-            ],
+          name: 'metaTitle',
+          type: 'string',
+          title: 'Meta Title',
+          validation: (Rule) => Rule.max(60),
+        },
+        {
+          name: 'metaDescription',
+          type: 'text',
+          title: 'Meta Description',
+          rows: 3,
+          validation: (Rule) => Rule.max(160),
+        },
+        {
+          name: 'keywords',
+          type: 'array',
+          title: 'Keywords',
+          of: [{ type: 'string' }],
+          options: {
+            layout: 'tags',
           },
         },
-        {
-          type: 'image',
-          options: { hotspot: true },
-          fields: [
-            {
-              name: 'alt',
-              type: 'string',
-              title: 'Alternative text',
-              description: 'Important for SEO and accessibility.',
-            },
-          ],
-        },
       ],
-      validation: (Rule) => Rule.required(),
     }),
   ],
   preview: {
@@ -125,10 +129,14 @@ export default defineType({
       title: 'title',
       author: 'author.name',
       media: 'mainImage',
+      status: 'status',
     },
-    prepare(selection) {
-      const { author } = selection;
-      return { ...selection, subtitle: author && `by ${author}` };
+    prepare({ title, author, media, status }) {
+      return {
+        title,
+        subtitle: `${author} • ${status}`,
+        media,
+      };
     },
   },
 });
