@@ -7,6 +7,7 @@ import Script from 'next/script';
 import type { Metadata } from 'next';
 import { ThemeToggle } from '../components/theme-toggle';
 import AnimatedLogo from './components/AnimatedLogo';
+import { Analytics } from '@vercel/analytics/react';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -201,6 +202,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <AnimatedLogo />
             <main className="flex-1 w-full">{children}</main>
             <Toaster />
+            <Analytics />
           </QueryProvider>
         </ThemeProvider>
       </body>
