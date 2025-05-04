@@ -1,4 +1,36 @@
 import { defineField, defineType } from 'sanity';
+import type { Image } from 'sanity';
+
+export interface Post {
+  _id: string;
+  _type: 'post';
+  title: string;
+  slug: {
+    _type: 'slug';
+    current: string;
+  };
+  mainImage: Image;
+  publishedAt: string;
+  author: {
+    _type: 'reference';
+    _ref: string;
+    name: string;
+  };
+  categories: Array<{
+    _type: 'reference';
+    _ref: string;
+    title: string;
+  }>;
+  excerpt: string;
+  content: any; // TODO: Define proper block content type
+  status: 'draft' | 'published' | 'archived';
+  readingTime: number;
+  seo?: {
+    metaTitle?: string;
+    metaDescription?: string;
+    keywords?: string[];
+  };
+}
 
 export default defineType({
   name: 'post',

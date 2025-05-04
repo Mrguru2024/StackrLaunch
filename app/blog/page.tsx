@@ -12,8 +12,9 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { sanity } from '@/lib/sanity';
-import { urlForImage } from '@/lib/sanity/image';
+import { urlForImage } from '@/sanity/lib/image';
 import { formatDate } from '@/lib/utils';
+import type { Post } from '@/sanity/schemaTypes/post';
 
 interface Author {
   name: string;
@@ -116,18 +117,18 @@ export default async function BlogPage() {
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {posts.map((post: Post) => (
                 <article
-                  key={post.slug.current}
+                  key={post._id}
                   className="flex flex-col overflow-hidden rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl bg-white dark:bg-gray-800"
                 >
-                  {post.mainImage && (
-                    <div className="flex-shrink-0">
+                  <div className="flex-shrink-0">
+                    {post.mainImage && (
                       <img
                         className="h-48 w-full object-cover"
                         src={urlForImage(post.mainImage).width(800).height(400).url()}
                         alt={post.title}
                       />
-                    </div>
-                  )}
+                    )}
+                  </div>
                   <div className="flex flex-1 flex-col justify-between p-6">
                     <div className="flex-1">
                       <Link href={`/blog/${post.slug.current}`} className="block">
