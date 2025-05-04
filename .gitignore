@@ -23,9 +23,11 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
-.env*.local
+.env
+.env.local
 .env.development
 .env.production
+.env*.local
 
 # vercel
 .vercel
@@ -53,6 +55,7 @@ pids
 *.seed
 *.pid.lock
 
+# Build
 dist
 server/public
 vite.config.ts.*
