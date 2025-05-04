@@ -29,7 +29,7 @@ interface BlogSectionProps {
 
 export default function BlogSection({ posts }: BlogSectionProps) {
   return (
-    <section className="py-24 bg-gradient-to-b from-background to-muted/20">
+    <section className="py-24">
       <div className="container px-4 mx-auto">
         <div className="flex flex-col items-center text-center mb-16">
           <Link href="/blog" className="group">
@@ -37,7 +37,7 @@ export default function BlogSection({ posts }: BlogSectionProps) {
               Our Blog
             </h2>
           </Link>
-          <p className="text-xl text-muted-foreground max-w-2xl mb-8">
+          <p className="text-gray-600 dark:text-white max-w-2xl mb-8">
             Stay updated with our latest insights, tips, and industry news
           </p>
           <Link href="/blog">

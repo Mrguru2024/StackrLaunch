@@ -77,18 +77,18 @@ export default function FAQsSection() {
   };
 
   return (
-    <section id="faqs" className="py-16 md:py-24 px-4 bg-background">
+    <section id="faqs" className="py-16 md:py-24 px-4 bg-white dark:bg-white">
       <Script
         id="faq-structured-data"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
       />
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-4xl mx-auto bg-white dark:bg-white">
         <div className="text-center mb-12" itemScope itemType="https://schema.org/FAQPage">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-[#00C6A7] mb-4">
             Frequently Asked Questions
           </h2>
-          <p className="text-xl text-muted-foreground">
+          <p className="text-xl text-gray-900 dark:text-[#00C6A7]">
             Everything you need to know about Stackr financial automation
           </p>
 
@@ -96,7 +96,7 @@ export default function FAQsSection() {
             {faqs.map((faq, index) => (
               <div
                 key={index}
-                className="border border-border rounded-lg overflow-hidden bg-card"
+                className="border border-border rounded-lg overflow-hidden"
                 itemScope
                 itemType="https://schema.org/Question"
                 itemProp="mainEntity"
@@ -107,7 +107,10 @@ export default function FAQsSection() {
                   aria-expanded={openIndex === index}
                   aria-controls={`faq-answer-${index}`}
                 >
-                  <h3 className="text-lg font-semibold text-foreground" itemProp="name">
+                  <h3
+                    className="text-lg font-semibold text-foreground dark:text-primary"
+                    itemProp="name"
+                  >
                     {faq.question}
                   </h3>
                   <ChevronDown
@@ -127,7 +130,7 @@ export default function FAQsSection() {
                   itemProp="acceptedAnswer"
                 >
                   <div className="p-5 border-t border-border bg-accent/5">
-                    <p className="text-muted-foreground" itemProp="text">
+                    <p className="text-gray-700 dark:text-gray-200" itemProp="text">
                       {faq.answer}
                     </p>
 
@@ -142,14 +145,16 @@ export default function FAQsSection() {
 
         {/* CTA Section */}
         <motion.div
-          className="mt-12 text-center p-6 bg-background rounded-xl shadow-sm border border-border"
+          className="mt-12 text-center p-6 rounded-xl shadow-sm border border-border bg-white dark:bg-white"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <h3 className="text-xl font-bold text-foreground mb-2">Have more questions?</h3>
-          <p className="text-muted-foreground mb-4">
+          <h3 className="text-xl font-bold text-gray-900 dark:text-primary mb-2">
+            Have more questions?
+          </h3>
+          <p className="text-gray-900 dark:text-primary mb-4">
             Join our waitlist to get updates and ask specific questions about how Stackr can help
             with your financial needs.
           </p>

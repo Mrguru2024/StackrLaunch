@@ -13,8 +13,15 @@ export default function Header({ waitlistUrl: _waitlistUrl }: HeaderProps) {
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          <Link href="/" className="text-2xl font-bold text-primary">
-            StackZen
+          <Link href="/" className="flex items-center" aria-label="StackZen Home">
+            <Image
+              src="/StackZenOriginalLogo.svg"
+              alt="StackZen Logo"
+              width={140}
+              height={40}
+              priority
+              className="h-10 w-auto"
+            />
           </Link>
 
           <nav className="hidden md:flex items-center space-x-8">

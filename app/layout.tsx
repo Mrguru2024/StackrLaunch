@@ -6,6 +6,7 @@ import './globals.css';
 import Script from 'next/script';
 import type { Metadata } from 'next';
 import { ThemeToggle } from '../components/theme-toggle';
+import AnimatedLogo from './components/AnimatedLogo';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -183,7 +184,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
       </head>
-      <body className={`${inter.className} flex h-full flex-col bg-background antialiased`}>
+      <body className={`${inter.className} flex h-full flex-col antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -194,6 +195,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div className="fixed top-4 right-4 z-50">
               <ThemeToggle />
             </div>
+            <AnimatedLogo />
             <main className="flex-1 w-full">{children}</main>
             <Toaster />
           </QueryProvider>

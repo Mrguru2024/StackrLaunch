@@ -107,7 +107,6 @@ export default async function Home() {
 
   return (
     <>
-      <div className="fixed inset-0 bg-gradient-to-br from-white via-[#F5F7FA] to-[#00C6A7]/5 -z-10" />
       <div className="relative">
         <main>
           <HeroSection />
