@@ -87,8 +87,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning className="h-full">
       <head>
-        <link rel="preload" href="/StackZenOriginalLogo.svg" as="image" type="image/svg+xml" />
-        <Script src="https://tally.so/widgets/embed.js" strategy="afterInteractive" />
+        <Script src="https://tally.so/widgets/embed.js" strategy="lazyOnload" async />
         <Script
           id="schema-organization"
           type="application/ld+json"

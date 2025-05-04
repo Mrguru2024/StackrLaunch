@@ -75,6 +75,17 @@ export default async function BlogPage() {
       {jsonLd && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd }} />}
       <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          {/* Return Home Button */}
+          <div className="mb-8">
+            <Link
+              href="/"
+              className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 dark:hover:bg-gray-700 transition-colors"
+            >
+              <ArrowRight className="mr-2 h-4 w-4 rotate-180" />
+              Return to Home
+            </Link>
+          </div>
+
           <div className="text-center mb-16">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl md:text-6xl">
               <span className="block">StackZen Blog</span>
@@ -82,7 +93,7 @@ export default async function BlogPage() {
                 Insights & Updates
               </span>
             </h1>
-            <p className="mt-4 max-w-2xl mx-auto text-xl text-gray-600 dark:text-gray-200">
+            <p className="mt-4 max-w-2xl mx-auto text-xl text-gray-700 dark:text-gray-100">
               Discover the latest insights, tips, and updates from our team
             </p>
           </div>
@@ -92,7 +103,7 @@ export default async function BlogPage() {
               <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
                 No Posts Available
               </h2>
-              <p className="text-gray-600 dark:text-gray-200 mb-8">
+              <p className="text-gray-700 dark:text-gray-100 mb-8">
                 We're working on some great content. Check back soon!
               </p>
               <Link
@@ -108,44 +119,58 @@ export default async function BlogPage() {
               {posts.map((post) => (
                 <article
                   key={post._id}
-                  className="flex flex-col overflow-hidden rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl bg-white dark:bg-gray-800"
+                  className="group relative flex flex-col overflow-hidden rounded-xl bg-white shadow-lg transition-all duration-300 hover:shadow-2xl dark:bg-gray-800"
                 >
-                  <div className="flex-shrink-0">
-                    {post.mainImage && (
+                  <div className="relative aspect-[16/9] overflow-hidden">
+                    {post.mainImage ? (
                       <img
-                        className="h-48 w-full object-cover"
+                        className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                         src={urlForImage(post.mainImage).width(800).height(400).url()}
                         alt={post.title}
                       />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-600">
+                        <span className="text-4xl font-bold text-white">📝</span>
+                      </div>
                     )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                   </div>
                   <div className="flex flex-1 flex-col justify-between p-6">
                     <div className="flex-1">
+                      <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 mb-3">
+                        <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
+                        <span>•</span>
+                        <span>{post.readingTime} min read</span>
+                      </div>
                       <Link href={`/blog/${post.slug.current}`} className="block">
-                        <h3 className="text-xl font-semibold text-gray-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400">
+                        <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
                           {post.title}
                         </h3>
                       </Link>
-                      <p className="mt-3 text-base text-gray-600 dark:text-gray-200 line-clamp-3">
+                      <p className="mt-3 text-base text-gray-700 dark:text-gray-100 line-clamp-3">
                         {post.excerpt}
                       </p>
                     </div>
                     <div className="mt-6 flex items-center">
-                      {post.author?.image && (
+                      {post.author?.image ? (
                         <div className="flex-shrink-0">
                           <img
-                            className="h-10 w-10 rounded-full"
+                            className="h-10 w-10 rounded-full ring-2 ring-white dark:ring-gray-800"
                             src={urlForImage(post.author.image).width(40).height(40).url()}
                             alt={post.author.name}
                           />
+                        </div>
+                      ) : (
+                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-indigo-100 text-indigo-600 dark:bg-indigo-900 dark:text-indigo-300">
+                          {post.author?.name?.[0] || '?'}
                         </div>
                       )}
                       <div className="ml-3">
                         <p className="text-sm font-medium text-gray-900 dark:text-white">
                           {post.author?.name}
                         </p>
-                        <div className="flex space-x-1 text-sm text-gray-600 dark:text-gray-200">
-                          <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
+                        <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+                          <span>Author</span>
                         </div>
                       </div>
                     </div>
@@ -154,6 +179,24 @@ export default async function BlogPage() {
               ))}
             </div>
           )}
+
+          {/* Waitlist CTA Section */}
+          <div className="mt-16 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 p-8 text-center">
+            <h2 className="text-2xl font-bold text-white sm:text-3xl">Have more questions?</h2>
+            <p className="mt-4 text-lg text-indigo-100">
+              Join our waitlist to get updates and ask specific questions about how Stackr can help
+              with your financial needs.
+            </p>
+            <div className="mt-8">
+              <Link
+                href="/waitlist"
+                className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-indigo-50 transition-colors"
+              >
+                Join Waitlist
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </>
