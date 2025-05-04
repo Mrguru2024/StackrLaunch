@@ -4,7 +4,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**',
+        hostname: 'cdn.sanity.io',
       },
     ],
     domains: ['images.unsplash.com'],
@@ -21,6 +21,16 @@ const nextConfig = {
   poweredByHeader: false,
   // Optimize static file serving
   output: 'standalone',
+  webpack: (config, { isServer }) => {
+    // Only run this on the server side
+    if (isServer) {
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        '@sanity/vision': false,
+      };
+    }
+    return config;
+  },
 };
 
 module.exports = nextConfig;
