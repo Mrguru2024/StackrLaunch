@@ -51,9 +51,9 @@ async function getPosts(): Promise<Post[]> {
         excerpt,
         publishedAt,
         mainImage,
-        author->{
+        "author": author->{
           name,
-          image
+          "image": image
         }
       }`
     );

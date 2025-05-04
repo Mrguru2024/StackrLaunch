@@ -15,6 +15,7 @@ export interface Post {
     _type: 'reference';
     _ref: string;
     name: string;
+    image?: Image;
   };
   categories: Array<{
     _type: 'reference';
